@@ -1,0 +1,83 @@
+﻿@model IEnumerable<E_Hutech.Models.AboutViewModels>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout - About.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/AboutAPI/GetAllAbout',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                //alert(JSON.stringify(data));
+                $.each(data, function (i, item) {
+                    var rows = "<div class='rs-history sec-color sec-spacer'>";
+                    rows += "<div class='container'>";
+                    rows += "<div class='row'>";
+                    rows += "<div class='col-md-12'>";
+                    rows += "<div class='abt-title'>";
+                    rows += "<h2>Tổng quan về chúng tôi</h2>";
+                    rows += "</div>";
+                    rows += "<div class='about-desc'>";
+                    rows += "<p>";
+                    rows += " " + item.TongQuan + "";
+                    rows += "</p>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "<div class='rs-mission sec-spacer'>";
+                    rows += "<div class='container'>";
+                    rows += "<div class='row'>";
+                    rows += "<div class='col-md-12'>";
+                    rows += "<div class='abt-title'>";
+                    rows += "<h2>Sứ mệnh</h2>";
+                    rows += "</div>";
+                    rows += "<div class='about-desc'>";
+                    rows += "<p>";
+                    rows += " " + item.SuMenh + "";
+                    rows += "</p>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "<div class='rs-vision sec-color sec-spacer'>";
+                    rows += "<div class='container'>";
+                    rows += "<div class='col-md-12'>";
+                    rows += "<div class='abt-title'>";
+                    rows += "<h2>Tầm nhìn</h2>";
+                    rows += "</div>";
+                    rows += "<div class='vision-desc'>";
+                    rows += "<p>";
+                    rows += " " + item.TamNhin + "";
+                    rows += "</p>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    $('#hihi').append(rows);
+                }); //End of foreach Loop
+                console.log(data);
+            }, //End of AJAX Success function
+
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert(data.responseText);
+            } //End of AJAX error function
+
+        });
+    });
+</script>
+
+
+
+
+

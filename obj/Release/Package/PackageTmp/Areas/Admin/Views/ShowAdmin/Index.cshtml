@@ -1,0 +1,271 @@
+﻿@model IEnumerable<E_Hutech.Models.EventViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout - Admin.cshtml";
+}
+<style>
+    table {
+        /* Set "my-sec-counter" to 0 */
+        counter-reset: my-sec-counter -1;
+    }
+
+    tr::before {
+        /* Increment "my-sec-counter" by 1 */
+        counter-increment: my-sec-counter;
+        content: counter(my-sec-counter);
+        font-size: 20px;
+    }
+
+    #search {
+        width: 200px;
+        margin: 20px 0 0 10px;
+        height: 30px;
+        border: 1px solid #ccc;
+        padding: 0 0 0 5px;
+    }
+</style>
+
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<input type="text" class="form-control" id="keyword" onkeyup="searchEvent();" placeholder="Search Elements" />
+
+<div class="panel panel-primary" style="background-color:white; color:brown">
+    <div class="panel-heading" style="font-size: 26px; text-align: center; padding: 0px 0px 30px">
+        DỮ LIỆU CHI TIẾT
+    </div>
+    <a class="btn btn-primary" href='http://localhost:60976/Admin/ShowAdmin/Create'>Create</a>
+
+    <div class="panel-body">
+        <table class="table table-bordered" id="Table"></table>   <!--end of table -->
+    </div>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style="    background-color: darkslategray;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">UPDATE</h4>
+            </div>
+            <div class="modal-body">
+                <h6>Name</h6>
+                <input class="form-control" id="NameEventID" />
+            </div>
+            <div class="modal-body">
+                <h6>Desciption</h6>
+                <input class="form-control" id="DesciptionEventID" />
+            </div>
+            <div class="modal-body">
+                <h6>Image1</h6>
+                <input class="form-control" id="Image1EventID" />
+            </div>
+            <div class="modal-body">
+                <h6>Keyword</h6>
+                <input class="form-control" id="KeywordEventID" />
+            </div>
+            <div class="modal-body">
+                <h6>SeoTitle</h6>
+                <input class="form-control" id="SeoTitleEventID" />
+            </div>
+            <div class="modal-body">
+                <h6>Id_Cate</h6>
+                <input class="form-control" id="Id_CateEventID" />
+            </div>
+            <div class="modal-body">
+                <h6>SL_Thamgia</h6>
+                <input class="form-control" id="SL_ThamgiaEventID" />
+            </div>
+            <div class="modal-body">
+                <h6>ID</h6>
+                <input class="form-control" id="EventID" />
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="Updatde()" id="btnSave">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var divTitle = "";
+        divTitle = "<tr>" +
+            "<th>Tên</th>" +
+            "<th> Chi tiết</th > " +
+            "<th>Nội dung</th>" +
+            "<th> Ảnh bìa</th > " +
+            "<th> Từ khóa</th > " +
+            "<th> SeoTitle</th > " +
+            "<th> Mục</th > " +
+            "<th> Số lượng tham gia</th > " +
+            "<th> Thời gian</th > " +
+            "<th> Xóa</th > " +
+            "<th> Sửa</th > " +
+            "</tr > ";
+        $('#Table').append(divTitle);
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/Admin/GetAllEvent',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $("#DIV").html('');
+                var DIV = '';
+                $.each(data, function (i, item) {
+                    var rows = "<tr>" +
+                        "<td id='Name'>" + item.Name + "</td>" +
+                        "<td id='Desciption'>" + item.Desciption + "</td>" +
+                        "<td id='Content'>" + item.Content + "</td>" +
+                        "<td id='Image1'> <img src=" + item.Image1 + " /></td>" +
+                        "<td id='Keyword'>" + item.Keyword + "</td>" +
+                        "<td id='SeoTitle'>" + item.SeoTitle + "</td>" +
+                        "<td id='Id_Cate'>" + item.Id_Cate + "</td>" +
+                        "<td id='SL_Thamgia'>" + item.SL_Thamgia + "</td>" +
+                        "<td id='Date'>" + item.Date + "</td>" +
+                        "<td>" + "<button class='btn btn-danger' onclick='deleteEvent(" + item.Id + ")'>" + "Delete" + "</button>" + "</td>" +
+                        "<td>" + "<button type='button' class='btn btn-info' onclick='GetDetail(" + item.Id + ")'>Update</button>" + "</td>" +
+                        "</tr>"
+                    $('#Table').append(rows);
+                });
+            },
+            failure: function (data) {
+            },
+            error: function (data) {
+            }
+        });
+    });
+    function deleteEvent(id) {
+        $.ajax({
+            type: "DELETE",
+            url: 'http://localhost:60976/api/Admin/DeleteEvent/' + id,
+            success: function () {
+                alert('Đã Xóa. Vui lòng reset trang');
+                getAllEvents();
+                reset();
+            },
+            error: function (error) {
+                alert(error);
+            }
+
+
+        })
+        function reset() {
+            $('#Name').val('');
+            $('#Desciption').val('');
+            $('#Content').val('');
+            $('#Image1').val('');
+            $('#Keyword').val('');
+            $('#SeoTitle').val('');
+            $('#Id_Cate').val('');
+            $('#SL_Thamgia').val('');
+            $('#Date').val('');
+        }
+    }
+
+    function Updatde() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/api/Admin/UpdateEvent",
+                data: {
+                    Name: $("#NameEventID").val(),
+                    Desciption: $("#DesciptionEventID").val(),
+                    Image1: $("#Image1EventID").val(),
+                    Keyword: $("#KeywordEventID").val(),
+                    SeoTitle: $("#SeoTitleEventID").val(),
+                    Id_Cate: $("#Id_CateEventID").val(),
+                    SL_Thamgia: $("#SL_ThamgiaEventID").val(),
+                    Date: $("#DateEventID").val(),
+                    Id: $("#EventID").val(),
+                },
+                success: function () {
+                    alert('Đã Lưu');
+                    $("#myModal").modal("hide");
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+    }
+    function GetDetail(id) {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:60976/api/Admin/GetDetail/' + id,
+            success: function (data) {
+                $('#NameEventID').val(data.Name);
+                $('#DesciptionEventID').val(data.Desciption);
+                $('#Image1EventID').val(data.Image1);
+                $('#KeywordEventID').val(data.Keyword);
+                $('#SeoTitleEventID').val(data.SeoTitle);
+                $('#Id_CateEventID').val(data.Id_Cate);
+                $('#SL_ThamgiaEventID').val(data.SL_Thamgia);
+                $('#DateEventID').val(data.Date);
+                $('#EventID').val(data.Id);
+                $("#myModal").modal("show");
+            },
+            error: function (error) {
+                alert(error);
+            }
+        })
+    }
+    function searchEvent() {
+        var keyword = $("#keyword").val();
+        $("#Table").html('');
+        var divTitle = "";
+        divTitle = "<tr>" +
+            "<th>Tên</th>" +
+            "<th> Chi tiết</th > " +
+            "<th> Nội dung</th > " +
+            "<th> Ảnh 1</th > " +
+            "<th> Từ khóa</th > " +
+            "<th> SeoTitle</th > " +
+            "<th> Mục</th > " +
+            "<th> Số lượng tham gia</th > " +
+            "<th> Thời gian</th > " +
+            "<th> Xóa</th > " +
+            "<th> Sửa</th > " +
+            "</tr > ";
+        $('#Table').append(divTitle);
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/Admin/GetAllEvent?keyword=' + keyword,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                //alert(JSON.stringify(data));
+                $("#DIV").html('');
+                var DIV = '';
+                $.each(data, function (i, item) {
+                    var rows = "<tr>" +
+                        "<td id='Name'>" + item.Name + "</td>" +
+                        "<td id='Desciption'>" + item.Desciption + "</td>" +
+                        "<td id='Content'>" + item.Content + "</td>" +
+                        "<td id='Image1'> <img src=" + item.Image1 + " /></td>" +
+                        "<td id='Keyword'>" + item.Keyword + "</td>" +
+                        "<td id='SeoTitle'>" + item.SeoTitle + "</td>" +
+                        "<td id='Id_Cate'>" + item.Id_Cate + "</td>" +
+                        "<td id='SL_Thamgia'>" + item.SL_Thamgia + "</td>" +
+                        "<td id='Date'>" + item.Date + "</td>" +
+                        "<td>" + "<button class='btn btn-danger' onclick='deleteEvent(" + item.Id + ")'>" + "Delete" + "</button>" + "</td>" +
+                        "<td>" + "<button type='button' class='btn btn-info' onclick='GetDetail(" + item.Id + ")'>Update</button>" + "</td>" +
+                        "</tr>"
+                    $('#Table').append(rows);
+                });
+                console.log(data);
+            },
+
+            failure: function (data) {
+
+            },
+            error: function (data) { }
+
+        });
+    }
+</script>
+
+
+

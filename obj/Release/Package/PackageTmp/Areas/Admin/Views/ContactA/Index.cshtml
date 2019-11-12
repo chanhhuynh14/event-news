@@ -1,0 +1,85 @@
+﻿@model IEnumerable<E_Hutech.Models.ContactViewModels>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout - Admin.cshtml";
+}
+
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<div class="panel panel-primary">
+    <div class="panel-heading" style="font-size: 26px; text-align: center; padding: 0px 0px 30px">
+        DỮ LIỆU CHI TIẾT
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered" id="Table">
+            <tr>
+                <th>Id</th>
+                <th>Fname</th>
+                <th>Lname</th>
+                <th>Email</th>
+                <th>Phonenumber</th>
+                <th>Message</th>
+                <th>Option</th>
+
+            </tr>   
+        </table> 
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/ContactAPI/GetAllContact',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                //alert(JSON.stringify(data));
+                $("#DIV").html('');
+                var DIV = '';
+                $.each(data, function (i, item) {
+                    var rows = "<tr>" +
+                        "<td id='Id'>" + item.Id + "</td>" +
+                        "<td id='Fname'>" + item.Fname + "</td>" +
+                        "<td id='Lname'>" + item.Lname + "</td>" +
+                        "<td id='Email'>" + item.Email + "</td>" +
+                        "<td id='Phonenumber'>" + item.Phonenumber + "</td>" +
+                        "<td id='Message'>" + item.Message + "</td>" + 
+                        "<td class='btn btn-danger'" + "<button onclick='deleteContact(" + item.Id + ")'>" + " Delete " + "</button>" + "</td>" +
+                        "</tr>"
+                    $('#Table').append(rows);
+                });
+                console.log(data);
+            },
+
+            failure: function (data) {
+                alert(data.responseText);
+            },
+            error: function (data) {
+                alert(data.responseText);
+            }
+
+        });
+    });
+    function deleteContact(id) {
+        $.ajax({
+            type: "DELETE",
+            url: 'http://localhost:60976/api/ContactAPI/DeleteContact/' + id,
+            success: function () {
+                alert('Đã Xóa. Vui lòng reset trang');
+                reset();
+            },
+            error: function (error) {
+                alert(error);
+            }
+
+
+        })
+      
+    }
+</script>
+
+
+

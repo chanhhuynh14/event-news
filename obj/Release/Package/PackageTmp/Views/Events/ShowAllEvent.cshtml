@@ -1,0 +1,106 @@
+﻿@model IEnumerable<E_Hutech.Models.EventViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutShowAll.cshtml";
+
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    
+    alert(id);
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/Admin/GetAllEvent',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    var rows = "<div class='col-lg-4 col-md-6 grid-item filter1'>";
+                    rows += "<div class='course-item'>";
+                    rows += "<div class='course-img'>";
+                    rows += "<img src=" + item.Image1 + " />";
+                    rows += "<div class='course-toolbar'>";
+                    rows += "<h4 class='course-category'><a href='#'>" + item.Name + "</a></h4>";
+                    rows += "<div class='course-date'>";
+                    rows += "<i class='fa fa-calendar'></i> " + item.Date + "";
+                    rows += "</div>";
+                    rows += "<div class='course-duration' id='eventday" + item.Id + "'>";
+                    rows += "</div >";
+                    rows += "</div >";
+                    rows += "</div >";
+                    rows += "<div class='course-body'>";
+                    rows += " <span class='course-value'>" + item.Price + "</span>";
+                    rows += "<div class='course-desc'>";
+                    rows += "<h4 class='course-title'><a href='projects-details.html'>" + item.Name + "</a></h4>";
+                    rows += "<p>";
+                    rows += " " + item.Desciption + "";
+                    rows += "</p>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "<div class='course-footer'>";
+                    rows += "<div class='course-seats'>";
+                    rows += "<i class='fa fa-users'></i> " + item.Price + "";
+                    rows += "</div>";
+                    rows += "<div class='course-button'>";
+                    rows += "<a href='projects-details.html'>APPLY NOW</a>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "</div >";
+                    rows += "</div >";
+
+                    $('.row.grid').append(rows);
+                    SetTimer(item.Date, "eventday" + item.Id);
+                }); //End of foreach Loop
+                console.log(data);
+            }, //End of AJAX Success function
+
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert(data.responseText);
+            } //End of AJAX error function
+
+        });
+    });
+</script>
+<script>
+
+    function SetTimer(time, id)
+    {
+        
+        // Thiết lập thời gian đích mà ta sẽ đếm
+        var countDownDate = new Date(time).getTime();
+
+        // cập nhập thời gian sau mỗi 1 giây
+        var x = setInterval(function () {
+
+            // Lấy thời gian hiện tại
+            var now = new Date().getTime();
+
+            // Lấy số thời gian chênh lệch
+            var distance = countDownDate - now;
+
+            // Tính toán số ngày, giờ, phút, giây từ thời gian chênh lệch
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // HIển thị chuỗi thời gian trong thẻ p
+            document.getElementById(id).innerHTML = days + "D " + hours + "H "
+                + minutes + "M " + seconds + "S";
+
+            // Nếu thời gian kết thúc, hiển thị chuỗi thông báo
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById(id).innerHTML = "Hết hạn";
+            }
+            }, 1000);
+        }
+</script>
+
+
+

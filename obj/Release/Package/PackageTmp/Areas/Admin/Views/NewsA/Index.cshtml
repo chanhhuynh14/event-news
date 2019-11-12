@@ -1,0 +1,205 @@
+﻿@model IEnumerable<E_Hutech.Models.NewsViewModels>
+
+@{
+    ViewBag.Title = "GetAllNewsAdmin";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout - Admin.cshtml";
+}
+
+
+
+<style>
+    table {
+        /* Set "my-sec-counter" to 0 */
+        counter-reset: my-sec-counter -1;
+    }
+
+
+    tr::before {
+        /* Increment "my-sec-counter" by 1 */
+        counter-increment: my-sec-counter;
+        content: counter(my-sec-counter);
+        font-size: 20px;
+    }
+</style>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<div class="panel panel-primary">
+    <div class="panel-heading" style="font-size: 26px; text-align: center; padding: 0px 0px 30px">
+        DỮ LIỆU CHI TIẾT
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered" id="Table">
+            <tr>
+                <th>NameTitle</th>
+                <th>Description</th>
+                <th>Content</th>
+                <th>Image</th>
+                <th>CreatedDate</th>
+                <th>ID_CateNews</th>
+                <th>Xóa</th>
+                <th>Sửa</th>
+            </tr>   <!--end of table-row -->
+        </table>   <!--end of table -->
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="    background-color: darkslategray;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">UPDATE</h4>
+            </div>
+            <div class="modal-body">
+                <h6>Name</h6>
+                <input class="form-control" id="NameNewsID" />
+            </div>
+            <div class="modal-body">
+                <h6>Description</h6>
+                <input class="form-control" id="DescriptionNewsID" />
+            </div>
+            <div class="modal-body">
+                <h6>Content</h6>
+                <input class="form-control" id="ContentNewsID" />
+            </div>
+            <div class="modal-body">
+                <h6>Image</h6>
+                <input class="form-control" id="ImageNewsID" />
+            </div>
+            <div class="modal-body">
+                <h6>CreatedDate</h6>
+                <input class="form-control" id="CreatedDateNewsID" />
+            </div>
+            <div class="modal-body">
+                <h6>ID_CateNews</h6>
+                <input class="form-control" id="CateNewsID" />
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="Updatde()" id="btnSave">Save</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/NewsAPI/GetAllNews',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                //alert(JSON.stringify(data));
+                $("#DIV").html('');
+                var DIV = '';
+                $.each(data, function (i, item) {
+                    var rows = "<tr>" +
+                        "<td id='Name'>" + item.NameTitle + "</td>" +
+                        "<td id='Desciption'>" + item.Description + "</td>" +
+                        "<td id='Content'>" + item.Content + "</td>" +
+                        "<td id='Image'> <img src=" + item.Image + " /></td>" +
+                        "<td id='CreatedDate'>" + item.CreatedDate + "</td>" +
+                        "<td id='ID_CateNews'>" + item.ID_CateNews + "</td>" +
+                        "<td>" + "<button class='btn btn-danger' onclick='deleteEvent(" + item.Id + ")'>" + "Delete" + "</button>" + "</td>" +
+                        "<td>" + "<button type='button' class='btn btn-info' onclick='GetDetail(" + item.Id + ")'>Update</button>" + "</td>" +
+                        "</tr>"
+                    $('#Table').append(rows);
+                });
+                console.log(data);
+            },
+
+            failure: function (data) {
+                alert(data.responseText);
+            },
+            error: function (data) {
+                alert(data.responseText);
+            }
+
+        });
+    });
+    function deleteEvent(id) {
+        $.ajax({
+            type: "DELETE",
+            url: 'http://localhost:60976/api/NewsAPI/DeleteNews/' + id,
+            success: function () {
+                alert('Đã Xóa. Vui lòng reset trang');
+                getAllNews();
+                reset();
+            },
+            error: function (error) {
+                alert(error);
+            }
+
+
+        })
+     
+    }
+
+    function Updatde() {
+        $.ajax(
+            {
+                type: "POST", //HTTP POST Method
+                url: "/api/NewsAPI/UpdateNews", // Controller/View
+                data: { //Passing data
+                    Name: $("#NameNewsID").val(), //Reading text box values using Jquery
+                    Desciption: $("#DesciptionNewsID").val(),
+                    Price: $("#ContentNewsID").val(),
+                    Image1: $("#ImageNewsID").val(),
+                    Image2: $("#CreatedDateNewsID").val(),
+                    Image3: $("#CateNewsID").val(),
+                    Id: $("#NewsID").val(),
+                },
+                success: function () {
+                    alert('Đã Lưu');
+                    $("#myModal").modal("hide");
+                },
+                error: function (error) {
+                    alert(error);
+                }
+
+            })
+    }
+    /*function GetDetail(id) {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:60976/api/Admin/GetDetail/' + id,
+            success: function (data) {
+                $('#NameEventID').val(data.Name);
+                $('#DesciptionEventID').val(data.Desciption);
+                $('#PriceEventID').val(data.Price);
+                $('#Image1EventID').val(data.Image1);
+                $('#Image2EventID').val(data.Image2);
+                $('#Image3EventID').val(data.Image3);
+                $('#KeywordEventID').val(data.Keyword);
+                $('#SeoTitleEventID').val(data.SeoTitle);
+                $('#Id_CateEventID').val(data.Id_Cate);
+                $('#SL_ThamgiaEventID').val(data.SL_Thamgia);
+                $('#DateEventID').val(data.Date);
+                $('#EventID').val(data.Id);
+                $("#myModal").modal("show");
+
+            },
+            error: function (error) {
+                alert(error);
+            }
+
+        })
+
+
+    }
+    */
+</script>
+
+
+
+
+

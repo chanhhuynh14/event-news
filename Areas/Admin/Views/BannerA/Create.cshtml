@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout - Admin_Test.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<div class="single-product-tab-area mg-tb-15">
+    <div class="single-pro-review-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="review-tab-pro-inner">
+                        <h4>Thêm Mới Banner</h4>
+                        <div id="myTabContent" class="tab-content custom-product-edit">
+                            <div class="product-tab-list tab-pane fade active in" id="description">
+
+                                <div class="review-content-section">
+                                    <div class="input-group mg-b-pro-edt">
+                                        <span class="input-group-addon"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <img alt="Avatar" class="img-rounded" width="128" height="128" id="imgAvatar" />
+                                            </div>
+                                            @*Avatar Container*@
+                                            <div class="avatarDiv">
+                                                <div class="">
+                                                    <p>
+                                                        <input type="button" class="btn btn-primary" onclick="showImagePreview();" value="Choose Avatar" />
+                                                    </p>
+                                                </div>
+                                                <input id="iUserAvatar" type="file" style="height:0; width:0; visibility:hidden" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="text-center mg-b-pro-edt custom-pro-edt-ds">
+                                            <button id="btnSave" type="button" class="btn btn-primary waves-effect waves-light m-r-10">
+                                                Lưu
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $("#btnSave").click(function () {
+                            var fileUpload = $("#imgAvatar").get(0);
+                            var fileAvartar = fileUpload.src;
+                            $.ajax(
+                                {
+                                    type: "POST",
+                                    contentType: "application/json; charset=utf-8",
+                                    url: "/api/BannerAPI/PostNewBanner",
+                                    dataType: 'jsonp',
+
+                                    data: {
+                                        Img: fileAvartar
+                                    },
+                                    success: function () {
+                                        alert('Đã Lưu');                              
+                                        setUserAvatar();
+                                        setAvatarCompleted();
+                                    },
+                                    error: function (error) {
+                                        alert('Lổi rồi fix thôi!!');
+                                    }
+                                })
+                            
+                            function setUserAvatar() {
+                                var userObject = {};
+                                userObject.Img = $("#txtUserId").val();
+                                userObject.UserAvatarBase64String = $("#imgAvatar").attr("src").split(",")[1];
+                                AjaxRequest("Avatar", "POST", userObject, setAvatarCompleted);
+                            }
+                            function setAvatarCompleted(data) {
+                                if (data === true) {
+                                    showAlertInfo("alert-success", "User profile avatar is saved successful!");
+                                }
+                            }
+                        })
+                       
+                    });
+                    function getAllBanners() {
+                        $.ajax({
+                            type: "GET",
+                            url: 'http://localhost:60976/api/BannerAPI/GetAllBanner',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
+                                //alert(JSON.stringify(data));
+                                $("#DIV").html('');
+                                var DIV = '';
+                                $.each(data, function (i, item) {
+                                    var rows = "<tr>" +
+                                        "<td id='Id'>" + item.Id + "</td>" +
+                                        "<td id='Img'> <img src=" + item.Img + " /></td>" + 
+                                        "</tr>";
+                                    $('#Table').append(rows);
+                                });
+                                console.log(data);
+                            },
+                            failure: function (data) {
+                                alert(data.responseText);
+                            },
+                            error: function (data) {
+                                alert(data.responseText);
+                            }
+                        });
+                    }
+                    function AjaxRequest(methodName, methodType, data, callback) {
+                        $.ajax({
+                            type: methodType,
+                            url: "api/" + methodName,
+                            data: JSON.stringify(data),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (result, status, xhr) {
+                                if (callback) {
+                                    callback(result);
+                                }
+                            }
+                        });
+                    }
+                    function getUserAvatar() {
+                        AjaxRequest("Avatar?img   =" + $("#txtUserId").val(), "GET", {}, getCompletedUserAvatar);
+                    }
+                    function getCompletedUserAvatar(data) {
+                        if (data.UserAvatarBase64String !== null) {
+                            $("#imgAvatar").attr("src", "data:image/jpg;base64," + data.UserAvatarBase64String);
+                        }
+                    }
+                </script>
+                <script>
+                    $(document).ready(function () {
+                        $(function () {
+                            $('.avatarDiv').hover(function () {
+                                $(this).find('.caption').slideDown(250);
+                            },
+                                function () {
+                                    $(this).find('.caption').slideUp(250);
+                                });
+                        });
+                    });
+                    function showImagePreview() {
+                        var fileInput = $("#iUserAvatar");
+                        if (fileInput !== null) {
+                            fileInput.trigger("click");
+                            fileInput.change(function () {
+                                if (this.files && this.files[0]) {
+                                    var reader = new FileReader();
+                                    reader.onload = function (e) {
+                                        $('#imgAvatar').attr('src', e.target.result);
+                                    }
+                                    reader.readAsDataURL(this.files[0])
+                                }
+                            });
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+

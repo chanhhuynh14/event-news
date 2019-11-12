@@ -1,0 +1,287 @@
+﻿
+@model IEnumerable<E_Hutech.Models.EventViewModel>
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout - Admin.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<style>
+    .avatarDiv {
+        position: relative;
+        width: 128px;
+        height: 128px;
+    }
+
+    .caption {
+        display: none;
+        position: absolute;
+        background: rgba(0, 0, 0, 0.4);
+        width: 128px;
+        height: 128px;
+        line-height: 128px;
+    }
+        .caption p {
+            padding: 4px;
+        }
+</style>
+
+<div class="form-group">
+    <label for="Name">Name</label>
+    <input type="text" id="Name"
+           class="form-control" />
+</div>
+<div class="form-group">
+    <label for="Desciption">Desciption</label>
+    <input type="text" id="Desciption"
+           class="form-control" />
+</div>
+<div class="form-group">
+    <label >Content</label>
+
+    <textarea class="ckeditor" rows="10" name="Content" id="Content"></textarea>
+</div>
+<div class="form-group">
+    <label for="Image1">Image1</label>
+    <div class="form-group">
+        <img alt="Avatar"  class="img-rounded" width="128" height="128" id="imgAvatar" />
+    </div>
+    @*Avatar Container*@
+    <div class="avatarDiv">
+        <div class="">
+            <p>
+                <input type="button" class="btn btn-primary" onclick="showImagePreview();" value="Choose Avatar" />
+            </p>
+        </div>
+        <input id="iUserAvatar" type="file" style="height:0; width:0; visibility:hidden" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="Keyword">Keyword</label>
+    <input type="text" id="Keyword"
+           class="form-control" />
+</div>
+<div class="form-group">
+    <label for="SeoTitle">SeoTitle</label>
+    <input type="text" id="SeoTitle"
+           class="form-control" />
+</div>
+<div class="form-group">
+    <label for="Id_Cate">Id_Cate</label>
+    <input type="text" id="Id_Cate"
+           class="form-control" />
+</div>
+<div class="form-group">
+    <label for="SL_Thamgia">SL_Thamgia</label>
+    <input type="text" id="SL_Thamgia"
+           class="form-control" />
+</div>
+<div class="form-group">
+    <label for="Date">
+        Date
+    </label>
+    <input type="date" id="Date"
+           class="form-control" />
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <button type="button" id="btnSave"
+                class="btn btn-success addNew">
+            Add New
+        </button>
+    </div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Data
+    </div>   
+    <div class="panel-body">
+        <table class="table table-bordered" id="Table">
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Desciption</th>
+                <th>Content</th>
+                <th>Image1</th>
+                <th>Keyword</th>
+                <th>SeoTitle</th>
+                <th>Id_Cate</th>
+                <th>SL_Thamgia</th>
+                <th>Date</th>
+
+            </tr>   
+        </table> 
+    </div> >
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        getAllEvents();
+        $("#btnSave").click(function () {
+            var fileUpload = $("#imgAvatar").get(0);
+            var fileAvartar = fileUpload.src; 
+            $.ajax(
+                {
+                    type: "POST", 
+                    url: "/api/Admin/PostNewEvent", 
+                    data: { 
+                        Name: $("#Name").val(), 
+                        Desciption: $("#Desciption").val(),
+                        Content: CKEDITOR.instances.Content.getData(),
+                        Image1: fileAvartar,
+                        Image2: $("#Image2").val(),
+                        Image3: $("#Image3").val(),
+                        Keyword: $("#Keyword").val(),
+                        SeoTitle: $("#SeoTitle").val(),
+                        Id_Cate: $("#Id_Cate").val(),
+                        SL_Thamgia: $("#SL_Thamgia").val(),
+                        Date: $("#Date").val()
+                    },
+                    success: function () {
+                        alert('Đã Lưu');
+                        getAllEvents()
+                        reset();
+                        setUserAvatar();
+                        setAvatarCompleted();
+                    },
+                    error: function (error) {
+                        alert(error);
+                    }
+                })
+            function reset() {
+                $('#Name').val('');
+                $('#Desciption').val('');
+                $('#Content').val('');
+                $('#Image1').val('');
+                $('#Keyword').val('');
+                $('#SeoTitle').val('');
+                $('#Id_Cate').val('');
+                $('#SL_Thamgia').val('');
+                $('#Date').val('');
+            }
+            function setUserAvatar() {
+                var userObject = {};
+                userObject.Image1 = $("#txtUserId").val();
+                userObject.UserAvatarBase64String = $("#imgAvatar").attr("src").split(",")[1];
+                AjaxRequest("Avatar", "POST", userObject, setAvatarCompleted);
+            }
+            function setAvatarCompleted(data) {
+                if (data === true) {
+                    showAlertInfo("alert-success", "User profile avatar is saved successful!");
+                }
+            }
+        })
+
+    });
+    function getAllEvents() {
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/Admin/GetAllEvent',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                //alert(JSON.stringify(data));
+                $("#DIV").html('');
+                var DIV = '';
+                $.each(data, function (i, item) {
+                    var rows = "<tr>" +
+                        "<td id='Id'>" + item.Id + "</td>" +
+                        "<td id='Name'>" + item.Name + "</td>" +
+                        "<td id='Desciption'>" + item.Desciption + "</td>" +
+                        "<td id='Content'>" + item.Content + "</td>" +
+                        "<td id='Image1'> <img src=" + item.Image1 + " /></td>" +
+                        "<td id='Keyword'>" + item.Keyword + "</td>" +
+                        "<td id='SeoTitle'>" + item.SeoTitle + "</td>" +
+                        "<td id='Id_Cate'>" + item.Id_Cate + "</td>" +
+                        "<td id='SL_Thamgia'>" + item.SL_Thamgia + "</td>" + "</td>" +
+                        "<td id='Date'>" + item.Date
+                        + "</td>" +
+                        "</tr>";
+                    $('#Table').append(rows);
+                }); 
+                console.log(data);
+            }, 
+            failure: function (data) {
+                alert(data.responseText);
+            }, 
+            error: function (data) {
+                alert(data.responseText);
+            } 
+        });
+    }
+    ///////////////////////
+    function AjaxRequest(methodName, methodType, data, callback) {
+        $.ajax({
+            type: methodType,
+            url: "api/" + methodName,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result, status, xhr) {
+                if (callback) {
+                    callback(result);
+                }
+            }
+        });
+    }
+    function getUserAvatar() {
+        AjaxRequest("Avatar?image1   =" + $("#txtUserId").val(), "GET", {}, getCompletedUserAvatar);
+    }
+    function getCompletedUserAvatar(data) {
+        if (data.UserAvatarBase64String !== null) {
+            $("#imgAvatar").attr("src", "data:image/jpg;base64," + data.UserAvatarBase64String);
+        } else {
+            showAlertInfo("alert-danger", "No user have this UserId. Please check again!");
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $(function () {
+            $('.avatarDiv').hover(function () {
+                $(this).find('.caption').slideDown(250);
+            },
+                function () {
+                    $(this).find('.caption').slideUp(250);
+                });
+        });
+    });
+    function showImagePreview() {
+        var fileInput = $("#iUserAvatar");
+        if (fileInput !== null) {
+            fileInput.trigger("click");
+            fileInput.change(function () {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#imgAvatar').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0])
+                }
+            });
+        }
+    }
+    function showImagePreview() {
+        var fileInput = $("#iUserAvatar");
+        if (fileInput !== null) {
+            fileInput.trigger("click");
+            fileInput.change(function () {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#imgAvatar').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0])
+                }
+            });
+        }
+    }     
+</script>
+
+
+
+

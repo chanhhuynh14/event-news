@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "GetAllNewsAdmin";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout - Admin_Test.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<body>
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="font-size: 26px; text-align: center; padding: 0px 0px 30px">
+            DỮ LIỆU CHI TIẾT
+        </div>
+        <button id="CreatePopup" class="btn btn-warning" style="color:black"> Thêm tin tức </button>
+        <div class="panel-body">
+            <table class="table table-bordered" id="Table">
+                <tr>
+                    <th>Tiêu đề</th>
+                    <th>Chi tiết</th>
+                    <th>Hình Ảnh</th>
+                    <th>Ngày tạo</th>
+                    @*<th>ID_CateNews</th>*@
+                    <th>Xóa</th>
+                    <th>Sửa</th>
+                </tr>
+            </table>  
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content" style="    background-color: darkslategray;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">UPDATE</h4>
+                </div>
+                <div class="modal-body">
+                    <h6>TÊN</h6>
+                    <input class="form-control" id="NameNewsID" />
+                </div>
+                <div class="modal-body">
+                    <h6>CHI TIẾT</h6>
+                    <input class="form-control" id="DescriptionNewsID" />
+                </div>
+                <div class="modal-body">
+                    <h6>NỘI DUNG</h6>
+                    <input class="form-control" id="ContentNewsID" />
+                </div>
+                <div class="modal-body">
+                    <h6>HÌNH ẢNH</h6>
+                    <input class="form-control" id="ImageNewsID" />
+                </div>
+                <div class="modal-body">
+                    <h6>NGÀY TẠO</h6>
+                    <input class="form-control" id="CreatedDateNewsID" />
+                </div>
+                <div class="modal-body">
+                    <h6>SỐ DANH MỤC</h6>
+                    <input class="form-control" id="CateNewsID" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="Updatde()" id="btnSave">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:60976/api/NewsAPI/GetAllNews',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    //alert(JSON.stringify(data));
+                    $("#DIV").html('');
+                    var DIV = '';
+                    $.each(data, function (i, item) {
+                        var rows = "<tr>" +
+                            "<td id='Name'>" + item.NameTitle + "</td>" +
+                            "<td id='Desciption'>" + item.Description + "</td>" +
+                            "<td id='Image'> <img src=" + item.Image + " /></td>" +
+                            "<td id='CreatedDate'>" + item.CreatedDate + "</td>" +
+                            //"<td id='ID_CateNews'>" + item.ID_CateNews + "</td>" +
+                            "<td>" + "<button class='btn btn-danger' onclick='deleteEvent(" + item.Id + ")'>" + "Delete" + "</button>" + "</td>" +
+                            "<td>" + "<button type='button' class='btn btn-info' onclick='GetDetail(" + item.Id + ")'>Update</button>" + "</td>" +
+                            "</tr>"
+                        $('#Table').append(rows);
+                    });
+                    console.log(data);
+                },
+
+                failure: function (data) {
+                    alert(data.responseText);
+                },
+                error: function (data) {
+                    alert(data.responseText);
+                }
+            });
+        });
+        function deleteEvent(id) {
+            $.ajax({
+                type: "DELETE",
+                url: 'http://localhost:60976/api/NewsAPI/DeleteNews/' + id,
+                success: function () {
+                    alert('Đã Xóa. Vui lòng reset trang');
+                    getAllNews();
+                    reset();
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+        }
+        function Updatde() {
+            $.ajax(
+                {
+                    type: "POST", //HTTP POST Method
+                    url: "/api/NewsAPI/UpdateNews", // Controller/View
+                    data: { //Passing data
+                        Name: $("#NameNewsID").val(), //Reading text box values using Jquery
+                        Desciption: $("#DesciptionNewsID").val(),
+                        Price: $("#ContentNewsID").val(),
+                        Image1: $("#ImageNewsID").val(),
+                        Image2: $("#CreatedDateNewsID").val(),
+                        Image3: $("#CateNewsID").val(),
+                        Id: $("#NewsID").val(),
+                    },
+                    success: function () {
+                        alert('Đã Lưu');
+                        $("#myModal").modal("hide");
+                    },
+                    error: function (error) {
+                        alert(error);
+                    }
+                })
+        }
+        function GetDetail(id) {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:60976/api/NewsAPI/GetDetail/' + id,
+                success: function (data) {
+                    $('#NameNewsID').val(data.NameTitle);
+                    $('#DesciptionNewsID').val(data.Description);
+                    $('#ContentNewsID').val(data.Content);
+                    $('#imgAvatar').val(data.Image);
+                    $('#CateNewsID').val(data.ID_CateNews);
+                    $('#CreatedDateNewsID').val(data.CreatedDate);
+                    $("#myModal").modal("show");
+
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+        }
+    </script>
+</body>
+
+
+
+
+
+
+
+

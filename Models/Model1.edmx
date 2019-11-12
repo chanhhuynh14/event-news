@@ -1,0 +1,944 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EVENTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="About">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TongQuan" Type="nvarchar(max)" />
+          <Property Name="SuMenh" Type="nvarchar(max)" />
+          <Property Name="TamNhin" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="70" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Fullname" Type="nvarchar" MaxLength="70" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
+          <Property Name="Image" Type="varchar" MaxLength="250" />
+          <Property Name="CreatedDate" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Banner">
+          <Key>
+            <PropertyRef Name="Id_banner" />
+          </Key>
+          <Property Name="Id_banner" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Img" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Cate_News">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="70" />
+          <Property Name="Id_Khoa" Type="int" />
+        </EntityType>
+        <EntityType Name="Category_Event">
+          <Key>
+            <PropertyRef Name="Id_CE" />
+          </Key>
+          <Property Name="Id_CE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_CE" Type="nvarchar" MaxLength="70" />
+          <Property Name="Id_Khoa" Type="int" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Lname" Type="nvarchar" MaxLength="150" />
+          <Property Name="Phonenumber" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Message" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Desciption" Type="nvarchar(max)" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="Image1" Type="varchar(max)" />
+          <Property Name="icon" Type="varchar(max)" />
+          <Property Name="Keyword" Type="nvarchar" MaxLength="250" />
+          <Property Name="SeoTitle" Type="nvarchar" MaxLength="150" />
+          <Property Name="Id_Cate" Type="int" />
+          <Property Name="SL_Thamgia" Type="float" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="DKSK" Type="nvarchar(max)" />
+          <Property Name="DiaDiem" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Khoa">
+          <Key>
+            <PropertyRef Name="Id_Khoa" />
+          </Key>
+          <Property Name="Id_Khoa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Khoa" Type="nvarchar" MaxLength="70" />
+        </EntityType>
+        <EntityType Name="Lop">
+          <Key>
+            <PropertyRef Name="Id_Lop" />
+          </Key>
+          <Property Name="Id_Lop" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Lop" Type="nvarchar" MaxLength="70" />
+          <Property Name="Id_Khoa" Type="int" />
+        </EntityType>
+        <EntityType Name="MXH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="70" />
+          <Property Name="Icon" Type="nvarchar(max)" />
+          <Property Name="Link" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameTitle" Type="nvarchar" MaxLength="250" />
+          <Property Name="Description" Type="nvarchar" MaxLength="350" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="ID_CateNews" Type="int" />
+        </EntityType>
+        <EntityType Name="RoleDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id_Role" Type="int" Nullable="false" />
+          <Property Name="Id_Admin" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id_Role" />
+          </Key>
+          <Property Name="Id_Role" Type="int" Nullable="false" />
+          <Property Name="Name_Role" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SinhVien">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="70" />
+          <Property Name="Password" Type="varchar" MaxLength="70" />
+          <Property Name="Email" Type="varchar" MaxLength="70" />
+          <Property Name="Fullname" Type="nvarchar" MaxLength="70" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
+          <Property Name="Image" Type="varchar" MaxLength="250" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="Address" Type="nvarchar" MaxLength="150" />
+          <Property Name="Id_Lop" Type="int" />
+        </EntityType>
+        <EntityType Name="SV_SK">
+          <Key>
+            <PropertyRef Name="ID_Detail_Event_Student" />
+          </Key>
+          <Property Name="ID_SV" Type="int" />
+          <Property Name="ID_Events" Type="int" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="Checkin" Type="datetime" />
+          <Property Name="ID_Detail_Event_Student" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="ThongTinWebsite">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Cate_News_Khoa">
+          <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+          <End Role="Cate_News" Type="Self.Cate_News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Khoa">
+              <PropertyRef Name="Id_Khoa" />
+            </Principal>
+            <Dependent Role="Cate_News">
+              <PropertyRef Name="Id_Khoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_Event_Khoa">
+          <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+          <End Role="Category_Event" Type="Self.Category_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Khoa">
+              <PropertyRef Name="Id_Khoa" />
+            </Principal>
+            <Dependent Role="Category_Event">
+              <PropertyRef Name="Id_Khoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Event_Category_Event">
+          <End Role="Category_Event" Type="Self.Category_Event" Multiplicity="0..1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category_Event">
+              <PropertyRef Name="Id_CE" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="Id_Cate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lop_Khoa">
+          <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+          <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Khoa">
+              <PropertyRef Name="Id_Khoa" />
+            </Principal>
+            <Dependent Role="Lop">
+              <PropertyRef Name="Id_Khoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_Cate_News">
+          <End Role="Cate_News" Type="Self.Cate_News" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cate_News">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="ID_CateNews" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleDetail_Admin">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="1" />
+          <End Role="RoleDetail" Type="Self.RoleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoleDetail">
+              <PropertyRef Name="Id_Admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleDetail_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="RoleDetail" Type="Self.RoleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id_Role" />
+            </Principal>
+            <Dependent Role="RoleDetail">
+              <PropertyRef Name="Id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SinhVien_Lop">
+          <End Role="Lop" Type="Self.Lop" Multiplicity="0..1" />
+          <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lop">
+              <PropertyRef Name="Id_Lop" />
+            </Principal>
+            <Dependent Role="SinhVien">
+              <PropertyRef Name="Id_Lop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SV_SK_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="0..1" />
+          <End Role="SV_SK" Type="Self.SV_SK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SV_SK">
+              <PropertyRef Name="ID_Events" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SV_SK_SinhVien">
+          <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="0..1" />
+          <End Role="SV_SK" Type="Self.SV_SK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SinhVien">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SV_SK">
+              <PropertyRef Name="ID_SV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EVENTModelStoreContainer">
+          <EntitySet Name="About" EntityType="Self.About" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cate_News" EntityType="Self.Cate_News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category_Event" EntityType="Self.Category_Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Khoa" EntityType="Self.Khoa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lop" EntityType="Self.Lop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MXH" EntityType="Self.MXH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleDetail" EntityType="Self.RoleDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SinhVien" EntityType="Self.SinhVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SV_SK" EntityType="Self.SV_SK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ThongTinWebsite" EntityType="Self.ThongTinWebsite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Banner" EntityType="Self.Banner" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Banner].[Id_banner] AS [Id_banner], 
+    [Banner].[Img] AS [Img]
+    FROM [dbo].[Banner] AS [Banner]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Cate_News_Khoa" Association="Self.FK_Cate_News_Khoa">
+            <End Role="Khoa" EntitySet="Khoa" />
+            <End Role="Cate_News" EntitySet="Cate_News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_Event_Khoa" Association="Self.FK_Category_Event_Khoa">
+            <End Role="Khoa" EntitySet="Khoa" />
+            <End Role="Category_Event" EntitySet="Category_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Event_Category_Event" Association="Self.FK_Event_Category_Event">
+            <End Role="Category_Event" EntitySet="Category_Event" />
+            <End Role="Event" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lop_Khoa" Association="Self.FK_Lop_Khoa">
+            <End Role="Khoa" EntitySet="Khoa" />
+            <End Role="Lop" EntitySet="Lop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_Cate_News" Association="Self.FK_News_Cate_News">
+            <End Role="Cate_News" EntitySet="Cate_News" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleDetail_Admin" Association="Self.FK_RoleDetail_Admin">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="RoleDetail" EntitySet="RoleDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleDetail_Roles" Association="Self.FK_RoleDetail_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RoleDetail" EntitySet="RoleDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SinhVien_Lop" Association="Self.FK_SinhVien_Lop">
+            <End Role="Lop" EntitySet="Lop" />
+            <End Role="SinhVien" EntitySet="SinhVien" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SV_SK_Event" Association="Self.FK_SV_SK_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="SV_SK" EntitySet="SV_SK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SV_SK_SinhVien" Association="Self.FK_SV_SK_SinhVien">
+            <End Role="SinhVien" EntitySet="SinhVien" />
+            <End Role="SV_SK" EntitySet="SV_SK" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EVENTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fullname" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="RoleDetails" Relationship="Self.FK_RoleDetail_Admin" FromRole="Admin" ToRole="RoleDetail" />
+        </EntityType>
+        <EntityType Name="Cate_News">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Khoa" Type="Int32" />
+          <NavigationProperty Name="Khoa" Relationship="Self.FK_Cate_News_Khoa" FromRole="Cate_News" ToRole="Khoa" />
+          <NavigationProperty Name="News" Relationship="EVENTModel.FK_News_Cate_News" FromRole="Cate_News" ToRole="News" />
+        </EntityType>
+        <EntityType Name="Category_Event">
+          <Key>
+            <PropertyRef Name="Id_CE" />
+          </Key>
+          <Property Name="Id_CE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_CE" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Khoa" Type="Int32" />
+          <NavigationProperty Name="Khoa" Relationship="Self.FK_Category_Event_Khoa" FromRole="Category_Event" ToRole="Khoa" />
+          <NavigationProperty Name="Events" Relationship="EVENTModel.FK_Event_Category_Event" FromRole="Category_Event" ToRole="Event" />
+        </EntityType>
+        <EntityType Name="Khoa">
+          <Key>
+            <PropertyRef Name="Id_Khoa" />
+          </Key>
+          <Property Name="Id_Khoa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Khoa" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cate_News" Relationship="Self.FK_Cate_News_Khoa" FromRole="Khoa" ToRole="Cate_News" />
+          <NavigationProperty Name="Category_Event" Relationship="Self.FK_Category_Event_Khoa" FromRole="Khoa" ToRole="Category_Event" />
+          <NavigationProperty Name="Lops" Relationship="Self.FK_Lop_Khoa" FromRole="Khoa" ToRole="Lop" />
+        </EntityType>
+        <EntityType Name="Lop">
+          <Key>
+            <PropertyRef Name="Id_Lop" />
+          </Key>
+          <Property Name="Id_Lop" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Lop" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Khoa" Type="Int32" />
+          <NavigationProperty Name="Khoa" Relationship="Self.FK_Lop_Khoa" FromRole="Lop" ToRole="Khoa" />
+          <NavigationProperty Name="SinhViens" Relationship="Self.FK_SinhVien_Lop" FromRole="Lop" ToRole="SinhVien" />
+        </EntityType>
+        <EntityType Name="MXH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RoleDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id_Role" Type="Int32" Nullable="false" />
+          <Property Name="Id_Admin" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Admin" Relationship="Self.FK_RoleDetail_Admin" FromRole="RoleDetail" ToRole="Admin" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_RoleDetail_Roles" FromRole="RoleDetail" ToRole="Roles" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id_Role" />
+          </Key>
+          <Property Name="Id_Role" Type="Int32" Nullable="false" />
+          <Property Name="Name_Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RoleDetails" Relationship="Self.FK_RoleDetail_Roles" FromRole="Roles" ToRole="RoleDetail" />
+        </EntityType>
+        <EntityType Name="SinhVien">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Fullname" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Lop" Type="Int32" />
+          <NavigationProperty Name="Lop" Relationship="Self.FK_SinhVien_Lop" FromRole="SinhVien" ToRole="Lop" />
+          <NavigationProperty Name="SV_SK" Relationship="Self.FK_SV_SK_SinhVien" FromRole="SinhVien" ToRole="SV_SK" />
+        </EntityType>
+        <EntityType Name="SV_SK">
+          <Key>
+            <PropertyRef Name="ID_Detail_Event_Student" />
+          </Key>
+          <Property Name="ID_SV" Type="Int32" />
+          <Property Name="ID_Events" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Checkin" Type="DateTime" Precision="3" />
+          <Property Name="ID_Detail_Event_Student" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="SinhVien" Relationship="Self.FK_SV_SK_SinhVien" FromRole="SV_SK" ToRole="SinhVien" />
+          <NavigationProperty Name="Event" Relationship="EVENTModel.FK_SV_SK_Event" FromRole="SV_SK" ToRole="Event" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ThongTinWebsite">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_RoleDetail_Admin">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="1" />
+          <End Role="RoleDetail" Type="Self.RoleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoleDetail">
+              <PropertyRef Name="Id_Admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cate_News_Khoa">
+          <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+          <End Role="Cate_News" Type="Self.Cate_News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Khoa">
+              <PropertyRef Name="Id_Khoa" />
+            </Principal>
+            <Dependent Role="Cate_News">
+              <PropertyRef Name="Id_Khoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_Event_Khoa">
+          <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+          <End Role="Category_Event" Type="Self.Category_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Khoa">
+              <PropertyRef Name="Id_Khoa" />
+            </Principal>
+            <Dependent Role="Category_Event">
+              <PropertyRef Name="Id_Khoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lop_Khoa">
+          <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+          <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Khoa">
+              <PropertyRef Name="Id_Khoa" />
+            </Principal>
+            <Dependent Role="Lop">
+              <PropertyRef Name="Id_Khoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SinhVien_Lop">
+          <End Role="Lop" Type="Self.Lop" Multiplicity="0..1" />
+          <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lop">
+              <PropertyRef Name="Id_Lop" />
+            </Principal>
+            <Dependent Role="SinhVien">
+              <PropertyRef Name="Id_Lop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleDetail_Roles">
+          <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+          <End Role="RoleDetail" Type="Self.RoleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id_Role" />
+            </Principal>
+            <Dependent Role="RoleDetail">
+              <PropertyRef Name="Id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SV_SK_SinhVien">
+          <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="0..1" />
+          <End Role="SV_SK" Type="Self.SV_SK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SinhVien">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SV_SK">
+              <PropertyRef Name="ID_SV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EVENTEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Cate_News" EntityType="Self.Cate_News" />
+          <EntitySet Name="Category_Event" EntityType="Self.Category_Event" />
+          <EntitySet Name="Khoas" EntityType="Self.Khoa" />
+          <EntitySet Name="Lops" EntityType="Self.Lop" />
+          <EntitySet Name="MXHs" EntityType="Self.MXH" />
+          <EntitySet Name="RoleDetails" EntityType="Self.RoleDetail" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="SinhViens" EntityType="Self.SinhVien" />
+          <EntitySet Name="SV_SK" EntityType="Self.SV_SK" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="ThongTinWebsites" EntityType="Self.ThongTinWebsite" />
+          <AssociationSet Name="FK_RoleDetail_Admin" Association="Self.FK_RoleDetail_Admin">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="RoleDetail" EntitySet="RoleDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cate_News_Khoa" Association="Self.FK_Cate_News_Khoa">
+            <End Role="Khoa" EntitySet="Khoas" />
+            <End Role="Cate_News" EntitySet="Cate_News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_Event_Khoa" Association="Self.FK_Category_Event_Khoa">
+            <End Role="Khoa" EntitySet="Khoas" />
+            <End Role="Category_Event" EntitySet="Category_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lop_Khoa" Association="Self.FK_Lop_Khoa">
+            <End Role="Khoa" EntitySet="Khoas" />
+            <End Role="Lop" EntitySet="Lops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SinhVien_Lop" Association="Self.FK_SinhVien_Lop">
+            <End Role="Lop" EntitySet="Lops" />
+            <End Role="SinhVien" EntitySet="SinhViens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleDetail_Roles" Association="Self.FK_RoleDetail_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RoleDetail" EntitySet="RoleDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SV_SK_SinhVien" Association="Self.FK_SV_SK_SinhVien">
+            <End Role="SinhVien" EntitySet="SinhViens" />
+            <End Role="SV_SK" EntitySet="SV_SK" />
+          </AssociationSet>
+          <EntitySet Name="Abouts" EntityType="EVENTModel.About" />
+          <EntitySet Name="Contacts" EntityType="EVENTModel.Contact" />
+          <EntitySet Name="News" EntityType="EVENTModel.News" />
+          <AssociationSet Name="FK_News_Cate_News" Association="EVENTModel.FK_News_Cate_News">
+            <End Role="Cate_News" EntitySet="Cate_News" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <EntitySet Name="Events" EntityType="EVENTModel.Event" />
+          <AssociationSet Name="FK_Event_Category_Event" Association="EVENTModel.FK_Event_Category_Event">
+            <End Role="Category_Event" EntitySet="Category_Event" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SV_SK_Event" Association="EVENTModel.FK_SV_SK_Event">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="SV_SK" EntitySet="SV_SK" />
+          </AssociationSet>
+          <EntitySet Name="Banners" EntityType="EVENTModel.Banner" />
+        </EntityContainer>
+        <EntityType Name="About">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TongQuan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SuMenh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TamNhin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lname" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Phonenumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ID_CateNews" Type="Int32" />
+          <NavigationProperty Name="Cate_News" Relationship="EVENTModel.FK_News_Cate_News" FromRole="News" ToRole="Cate_News" />
+        </EntityType>
+        <Association Name="FK_News_Cate_News">
+          <End Type="EVENTModel.Cate_News" Role="Cate_News" Multiplicity="0..1" />
+          <End Type="EVENTModel.News" Role="News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cate_News">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="ID_CateNews" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Desciption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Keyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SeoTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Cate" Type="Int32" />
+          <Property Name="SL_Thamgia" Type="Double" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="DKSK" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DiaDiem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Category_Event" Relationship="EVENTModel.FK_Event_Category_Event" FromRole="Event" ToRole="Category_Event" />
+          <NavigationProperty Name="SV_SK" Relationship="EVENTModel.FK_SV_SK_Event" FromRole="Event" ToRole="SV_SK" />
+        </EntityType>
+        <Association Name="FK_Event_Category_Event">
+          <End Type="EVENTModel.Category_Event" Role="Category_Event" Multiplicity="0..1" />
+          <End Type="EVENTModel.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category_Event">
+              <PropertyRef Name="Id_CE" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="Id_Cate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SV_SK_Event">
+          <End Type="EVENTModel.Event" Role="Event" Multiplicity="0..1" />
+          <End Type="EVENTModel.SV_SK" Role="SV_SK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SV_SK">
+              <PropertyRef Name="ID_Events" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Banner">
+          <Key>
+            <PropertyRef Name="Id_banner" />
+          </Key>
+          <Property Name="Id_banner" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EVENTModelStoreContainer" CdmEntityContainer="EVENTEntities1">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="EVENTModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cate_News">
+            <EntityTypeMapping TypeName="EVENTModel.Cate_News">
+              <MappingFragment StoreEntitySet="Cate_News">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id_Khoa" ColumnName="Id_Khoa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category_Event">
+            <EntityTypeMapping TypeName="EVENTModel.Category_Event">
+              <MappingFragment StoreEntitySet="Category_Event">
+                <ScalarProperty Name="Id_CE" ColumnName="Id_CE" />
+                <ScalarProperty Name="Name_CE" ColumnName="Name_CE" />
+                <ScalarProperty Name="Id_Khoa" ColumnName="Id_Khoa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Khoas">
+            <EntityTypeMapping TypeName="EVENTModel.Khoa">
+              <MappingFragment StoreEntitySet="Khoa">
+                <ScalarProperty Name="Id_Khoa" ColumnName="Id_Khoa" />
+                <ScalarProperty Name="Name_Khoa" ColumnName="Name_Khoa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lops">
+            <EntityTypeMapping TypeName="EVENTModel.Lop">
+              <MappingFragment StoreEntitySet="Lop">
+                <ScalarProperty Name="Id_Lop" ColumnName="Id_Lop" />
+                <ScalarProperty Name="Name_Lop" ColumnName="Name_Lop" />
+                <ScalarProperty Name="Id_Khoa" ColumnName="Id_Khoa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MXHs">
+            <EntityTypeMapping TypeName="EVENTModel.MXH">
+              <MappingFragment StoreEntitySet="MXH">
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleDetails">
+            <EntityTypeMapping TypeName="EVENTModel.RoleDetail">
+              <MappingFragment StoreEntitySet="RoleDetail">
+                <ScalarProperty Name="Id_Role" ColumnName="Id_Role" />
+                <ScalarProperty Name="Id_Admin" ColumnName="Id_Admin" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="EVENTModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Id_Role" ColumnName="Id_Role" />
+                <ScalarProperty Name="Name_Role" ColumnName="Name_Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SinhViens">
+            <EntityTypeMapping TypeName="EVENTModel.SinhVien">
+              <MappingFragment StoreEntitySet="SinhVien">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Id_Lop" ColumnName="Id_Lop" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SV_SK">
+            <EntityTypeMapping TypeName="EVENTModel.SV_SK">
+              <MappingFragment StoreEntitySet="SV_SK">
+                <ScalarProperty Name="ID_SV" ColumnName="ID_SV" />
+                <ScalarProperty Name="ID_Events" ColumnName="ID_Events" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Checkin" ColumnName="Checkin" />
+                <ScalarProperty Name="ID_Detail_Event_Student" ColumnName="ID_Detail_Event_Student" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="EVENTModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ThongTinWebsites">
+            <EntityTypeMapping TypeName="EVENTModel.ThongTinWebsite">
+              <MappingFragment StoreEntitySet="ThongTinWebsite">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Abouts">
+            <EntityTypeMapping TypeName="EVENTModel.About">
+              <MappingFragment StoreEntitySet="About">
+                <ScalarProperty Name="TamNhin" ColumnName="TamNhin" />
+                <ScalarProperty Name="SuMenh" ColumnName="SuMenh" />
+                <ScalarProperty Name="TongQuan" ColumnName="TongQuan" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="EVENTModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phonenumber" ColumnName="Phonenumber" />
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="EVENTModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="ID_CateNews" ColumnName="ID_CateNews" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="NameTitle" ColumnName="NameTitle" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="EVENTModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="DiaDiem" ColumnName="DiaDiem" />
+                <ScalarProperty Name="DKSK" ColumnName="DKSK" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SL_Thamgia" ColumnName="SL_Thamgia" />
+                <ScalarProperty Name="Id_Cate" ColumnName="Id_Cate" />
+                <ScalarProperty Name="SeoTitle" ColumnName="SeoTitle" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="Image1" ColumnName="Image1" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Desciption" ColumnName="Desciption" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Banners">
+            <EntityTypeMapping TypeName="EVENTModel.Banner">
+              <MappingFragment StoreEntitySet="Banner">
+                <ScalarProperty Name="Img" ColumnName="Img" />
+                <ScalarProperty Name="Id_banner" ColumnName="Id_banner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

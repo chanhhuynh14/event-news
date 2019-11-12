@@ -1,0 +1,67 @@
+﻿@model IEnumerable<E_Hutech.Models.EventViewModel>
+@{
+
+    Layout = "~/Views/Shared/_Layout - About.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<link href="~/Scripts/Paging.css" rel="stylesheet" />
+<script src="~/Scripts/Paging.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/Admin/GetAllEvent',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    var rows = "<div class='col-lg-8 col-md-12'>";
+                    rows += "<div class='row course-item'>";
+                    rows += "<div class='col-md-6'>";
+                    rows += "<div class='course-img'>";
+                    rows += " <img src=" + item.Image1 + " />";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "<div class='col-md-6'>";
+                    rows += " <div class='course-header'>";
+                    rows += "<span class='course-category'><a href='#'>" + item.Id_Cate + "</a></span>";
+                    rows += "<h3 class='course-title'><a href='news-single.html'>" + item.Name + "</a></h3>";
+                    rows += "<div class='course-date'>";
+                    rows += "<i class='fa fa-clock-o'></i> " + item.Date + "";
+                    rows += "</div>"
+                    rows += "<div class='course-body'>";
+                    rows += "<div class='course-desc'>";
+                    rows += "<p>" + item.Desciption.length > 200 ? item.Desciption.substring(0, 200) : item.Desciption + " </p >";
+                    rows += "</div>";
+                    rows += "<div class='course-button'>";
+                    rows += "<a href='/Events/Detail/" + item.Id + "'>READ MORE</a>";
+                    rows += "</div >";
+                    rows += "</div >";
+                    rows += "</div > ";
+                    rows += " </div >";
+                    $('#hihi').append(rows);
+                });
+                console.log(data);
+            }, //End of AJAX Success function
+
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert(data.responseText);
+            } //End of AJAX error function
+
+        });
+    });
+</script>
+
+<script>
+
+    $(function () {
+
+        $('.row course-item').paging({ limit: 1 });
+
+    })
+
+</script>
+

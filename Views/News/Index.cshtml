@@ -1,0 +1,58 @@
+﻿@model IEnumerable<E_Hutech.Models.NewsViewModels>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout - About.cshtml";
+}
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:60976/api/NewsAPI/GetAllNews',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    $.each(data, function (i, item) {
+                        var rows = "<div class='col-lg-8 col-md-12'>";
+                        rows += "<div class='row course-item'>";
+                        rows += "<div class='col-md-6'>";
+                        rows += "<div class='course-img'>";
+                        rows += " <img src=" + item.Image+ " />";
+                        rows += "</div>";
+                        rows += "</div>";
+                        rows += "<div class='col-md-6'>";
+                        rows += " <div class='course-header'>";
+                        rows += "<span class='course-category'><a href='#'>"+ item.ID_CateNews +"</a></span>";
+                        rows += "<h3 class='course-title'><a href='news-single.html'>" + item.NameTitle + "</a></h3>";
+                        rows += "<div class='course-date'>";
+                        rows += "<i class='fa fa-clock-o'></i> " + item.CreatedDate + "";
+                        rows += "</div>"
+                        rows += "<div class='course-body'>";
+                        rows += "<div class='course-desc'>";
+                        rows += "<p>" + item.Description.length > 200 ? item.Description.substring(0, 200) : item.Description+ " </p >";
+                        rows += "</div>";
+                        rows += "<div class='course-button'>";
+                        rows += "<a href='/News/Detail/" + item.Id +"'>READ MORE</a>";
+                        rows += "</div >";
+                        rows += "</div >";
+                        rows += "</div > ";
+                        rows += " </div >";
+                      
+                        $('#hihi').append(rows);
+                    }); //End of foreach Loop
+                    console.log(data);
+                }, //End of AJAX Success function
+
+                failure: function (data) {
+                    alert(data.responseText);
+                }, //End of AJAX failure function
+                error: function (data) {
+                    alert(data.responseText);
+                } //End of AJAX error function
+
+            });
+        });
+    </script>
+

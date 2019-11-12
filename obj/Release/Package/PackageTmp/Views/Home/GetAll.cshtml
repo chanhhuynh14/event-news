@@ -1,0 +1,69 @@
+﻿@model IEnumerable<E_Hutech.Models.EventViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout - Event.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/Admin/GetAllEvent',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                //alert(JSON.stringify(data));
+                $.each(data, function (i, item) {
+                    var rows = "<div class='col-lg-4 col-md-6 grid-item filter1'>";
+                    rows += "<div class='course-item'>";
+                    rows += "<div class='course-img'>";
+                    rows += "<img src='/img/10_1.jpg' alt=''>";
+                    rows += "<div class='course-toolbar'>";
+                    rows += "<h4 class='course-category'><a href='#'>" + item.Name + "</a></h4>";
+                    rows += "<div class='course-date'>";
+                    rows += "<i class='fa fa-calendar'></i> " + item.Date + "";
+                    rows += "</div>";
+                    rows += "<div class='course-duration'>";
+                    rows += "<i class='fa fa-clock-o'></i> 4 year";
+                    rows += "</div >";
+                    rows += "</div >";
+                    rows += "</div >";
+                    rows += "<div class='course-body'>";
+                    rows += " <span class='course-value'>" + item.Price + "</span>";
+                    rows += "<div class='course-desc'>";
+                    rows += "<h4 class='course-title'><a href='projects-details.html'>" + item.Name + "</a></h4>";
+                    rows += "<p>";
+                    rows += " " + item.Content+ "";
+                    rows += "</p>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "<div class='course-footer'>";
+                    rows += "<div class='course-seats'>";
+                    rows += "<i class='fa fa-users'></i> " + item.Price + "";
+                    rows += "</div>";
+                    rows += "<div class='course-button'>";
+                    rows += "<a href='projects-details.html'>APPLY NOW</a>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "</div >";
+                    rows += "</div >";
+
+                    $('.row.grid').append(rows);
+                }); //End of foreach Loop
+                console.log(data);
+            }, //End of AJAX Success function
+
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert(data.responseText);
+            } //End of AJAX error function
+
+        });
+    });
+</script>
+
+
+

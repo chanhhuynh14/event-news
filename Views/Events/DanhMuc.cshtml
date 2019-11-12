@@ -1,0 +1,25 @@
+﻿
+<h3>Categories</h3>
+
+<div class="w3ls_dresses_grid_left_grid_sub" style="padding-bottom: 700px;">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="border-radius: 69px;">
+        <div class="panel panel-default">
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body panel_text">
+                    <ul>
+                        @foreach (var item in Model)
+                        {
+                            <li>
+                                <a href="@Url.Action("SPtheoDanhMuc", "Events", new { id = item.Id})">
+
+                                    @item.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

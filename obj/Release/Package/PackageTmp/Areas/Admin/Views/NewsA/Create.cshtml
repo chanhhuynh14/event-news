@@ -1,0 +1,238 @@
+﻿@model IEnumerable<E_Hutech.Models.NewsViewModels>
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout - Admin.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<style>
+    .avatarDiv {
+        position: relative;
+        width: 128px;
+        height: 128px;
+    }
+
+    .caption {
+        display: none;
+        position: absolute;
+        background: rgba(0, 0, 0, 0.4);
+        width: 128px;
+        height: 128px;
+        line-height: 128px;
+    }
+
+        .caption p {
+            padding: 4px;
+        }
+</style>
+
+<div class="form-group">
+    <label for="NameTitle">NameTitle</label>
+    <input type="text" id="NameTitle"
+           class="form-control" />
+</div>
+<div class="form-group">
+    <label for="Description">Description</label>
+    <input type="text" id="Description"
+           class="form-control" />
+</div>
+<div class="form-group">
+    <label for="Content">Content</label>
+    <textarea class="ckeditor" rows="10" name="Content" id="Content"></textarea>
+</div>
+<div class="form-group">
+    <label for="Image">Image</label>
+    <div class="form-group">
+        <img alt="Avatar"  class="img-rounded" width="128" height="128" id="imgAvatar" />
+    </div>
+    <div class="avatarDiv">
+        <div class="">
+            <p>
+                <input type="button" class="btn btn-primary" onclick="showImagePreview();" value="Choose Avatar" />
+            </p>
+        </div>
+        <input id="iUserAvatar" type="file" style="height:0; width:0; visibility:hidden" />
+    </div>
+</div>
+<div class="form-group">
+    <label for="CreatedDate">CreatedDate</label>
+    <input type="text" id="CreatedDate"
+           class="form-control" />
+</div>
+<div class="form-group">
+    <label for="ID_CateNews">ID_CateNews</label>
+    <input type="text" id="ID_CateNews"
+           class="form-control" />
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <button type="button" id="btnSave"
+                class="btn btn-success addNew">
+            Add New
+        </button>
+    </div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Data
+    </div>   <!--en dof panel-heading -->
+    <div class="panel-body">
+        <table class="table table-bordered" id="Table">
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Content</th>
+                <th>Image</th>
+                <th>Create Date </th>
+                <th>Id Cate News</th>
+            </tr>  
+        </table>  
+    </div> 
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        getAllNews();
+        $("#btnSave").click(function () {
+            var fileUpload = $("#imgAvatar").get(0);
+            var fileAvartar = fileUpload.src;
+            $.ajax(
+                {
+                    type: "POST", 
+                    url: "/api/NewsAPI/PostNewNews", 
+                    data: {
+                        NameTitle: $("#NameTitle").val(), 
+                        Description: $("#Description").val(),
+                        Content: CKEDITOR.instances.Content.getData(),
+                        Image: fileAvartar,
+                        CreatedDate: $("#CreatedDate").val(),
+                        ID_CateNews: $("#ID_CateNews").val()
+                    },
+                    success: function () {
+                        alert('Đã Lưu');
+                        getAllNews()
+                        reset();
+                        setUserAvatar();
+                        setAvatarCompleted();
+                    },
+                    error: function (error) {
+                        alert(error);
+                    }
+                })
+            function reset() {
+                $('#NameTitle').val('');
+                $('#Description').val('');
+                $('#Content').val('');
+                $('#Image').val('');
+                $('#CreatedDate').val('');
+                $('#ID_CateNews').val('');
+            }
+            function setUserAvatar() {
+                var userObject = {};
+                userObject.Image1 = $("#txtUserId").val();
+                userObject.UserAvatarBase64String = $("#imgAvatar").attr("src").split(",")[1];
+                AjaxRequest("Avatar", "POST", userObject, setAvatarCompleted);
+            }
+            function setAvatarCompleted(data) {
+                if (data === true) {
+                    showAlertInfo("alert-success", "User profile avatar is saved successful!");
+                }
+            }
+        })
+    });
+
+    function getAllNews() {
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/NewsAPI/GetAllNews',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $("#DIV").html('');
+                var DIV = '';
+                $.each(data, function (i, item) {
+                    var rows = "<tr>" +
+                        "<td id='Id'>" + item.Id + "</td>" +
+                        "<td id='NameTitle'>" + item.NameTitle + "</td>" +
+                        "<td id='Description'>" + item.Description + "</td>" +
+                        "<td id='Content'>" + item.Content + "</td>" +
+                        "<td id='Image'> <img src=" + item.Image + " /></td>" +
+                        "<td id='CreatedDate'>" + item.CreatedDate + "</td>" +
+                        "<td id='ID_CateNews'>" + item.ID_CateNews + "</td>" +
+                        "</tr>";
+                    $('#Table').append(rows);
+                }); 
+                console.log(data);
+            }, 
+            failure: function (data) {
+                alert(data.responseText);
+            }, 
+            error: function (data) {
+                alert(data.responseText);
+            } 
+        });
+    }
+    ///////////////////////
+    function AjaxRequest(methodName, methodType, data, callback) {
+        $.ajax({
+            type: methodType,
+            url: "api/" + methodName,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result, status, xhr) {
+                if (callback) {
+                    callback(result);
+                }
+            }
+        });
+    }
+    function getUserAvatar() {
+        AjaxRequest("Avatar?image1   =" + $("#txtUserId").val(), "GET", {}, getCompletedUserAvatar);
+    }
+    function getCompletedUserAvatar(data) {
+        if (data.UserAvatarBase64String !== null) {
+            $("#imgAvatar").attr("src", "data:image/jpg;base64," + data.UserAvatarBase64String);
+        } else {
+            showAlertInfo("alert-danger", "No user have this UserId. Please check again!");
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $(function () {
+            $('.avatarDiv').hover(function () {
+                $(this).find('.caption').slideDown(250);
+            },
+                function () {
+                    $(this).find('.caption').slideUp(250);
+                });
+        });
+    });
+    function showImagePreview() {
+        var fileInput = $("#iUserAvatar");
+        if (fileInput !== null) {
+            fileInput.trigger("click");
+            fileInput.change(function () {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#imgAvatar').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0])
+                }
+            });
+        }
+    };
+</script>
+
+
+
+
+
+

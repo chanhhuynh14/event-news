@@ -1,0 +1,303 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout - Event.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<style>
+    table {
+        counter-reset: my-sec-counter -1;
+    }
+
+    tr::before {
+        counter-increment: my-sec-counter;
+        content: counter(my-sec-counter);
+        font-size: 20px;
+    }
+
+    #search {
+        width: 200px;
+        margin: 20px 0 0 10px;
+        height: 30px;
+        border: 1px solid #ccc;
+        padding: 0 0 0 5px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/Admin/GetAllEvent',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    var rows = "<div class='col-lg-4 col-md-6 grid-item filter1'>";
+                    rows += "<div class='course-item'>";
+                    rows += "<div class='course-img'>";
+                    rows += " <img src=" + item.Image1 + " />";
+                    rows += "<div class='course-toolbar'>";
+                    rows += "<h4 class='course-category'><a href='#'>" + item.Name + "</a></h4>";
+                    rows += "<div class='course-date'>";
+                    rows += "<i class='fa fa-calendar'></i> " + item.Date + "";
+                    rows += "</div>";
+                    rows += "<div class='course-duration' id='eventday" + item.Id + "'>";
+                    rows += "</div >";
+                    rows += "</div >";
+                    rows += "</div >";
+                    rows += "<div class='course-body'>";
+                    rows += " <span class='course-value'>" + item.Id_Cate + "</span>";
+                    rows += "<div class='course-desc'>";
+                    rows += "<h4 class='course-title'><a href='projects-details.html'>" + item.Name + "</a></h4>";
+                    rows += "<p>";
+                    rows += " " + item.Desciption.length > 200 ? item.Desciption.substring(0, 200) : item.Desciption + "";
+                    rows += "</p>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "<div class='course-footer'>";
+                    rows += "<div class='course-seats'>";
+                    rows += "<i class='fa fa-users'></i> " + item.SL_Thamgia + "";
+                    rows += "</div>";
+                    rows += "<div class='course-button'>";
+                    rows += "<a href='/Events/Detail/" + item.Id + "'>APPLY NOW</a>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "</div >";
+                    rows += "</div >";
+                    $('.row.grid').append(rows);
+                    SetTimer(item.Date, "eventday" + item.Id, item.Id);
+                }); //End of foreach Loop
+            }, //End of AJAX Success function
+
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert(data.responseText);
+            } //End of AJAX error function
+
+        });
+ 
+
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/NewsAPI/GetAllNews',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var i = 0;
+                $.each(data, function (i, item) {
+                    if (i == 0) {
+                        var rows = "<div class='news-normal-block'>";
+                        rows += "<div class='news-img'>";
+                        rows += "<a href='#'>";
+                        rows += "<img src='" + item.Image + "'/>";
+                        rows += "</a>";
+                        rows += "</div>";
+                        rows += "<div class='news-date'>";
+                        rows += "<i class='fa fa-calendar-check-o'></i>";
+                        rows += "<span type='datetime'>" + item.CreatedDate + "</span>";
+                        rows += "</div>";
+                        rows += "<h4 class='news-title'><a href='terms-details.html'>" + item.NameTitle + "</a></h4>";
+                        rows += "<div class='news-desc'>";
+                        rows += "<p>" + item.Description.length > 200 ? item.Description.substring(0, 200) : item.Description + "</p>";
+                        rows += "</div>";
+                        rows += "<div class='news-btn'>";
+                        rows += "<a href='/News/Detail/" + item.Id + "'>READ MORE</a>";
+                        rows += "</div>";
+                        rows += "</div>";
+                        $('#rowhaha').append(rows);
+                        i++;
+                    }
+                    else{
+                        var rows = "";
+                        rows += "<div class='news-list-item'>";
+                        rows += "<div class='news-img'>";
+                        rows += "<a href = '/News/Detail/" + item.Id + "'>";
+                        rows += "<img src='" + item.Image + "'/>";
+                        rows += "</a>";
+                        rows += "</div>";
+                        rows += "<div class='news-content'>";
+                        rows += "<h5 class='news-title'><a href='terms-details.html'>" + item.NameTitle + "</a></h5>";
+                        rows += "<div class='news-date'>";
+                        rows += "<i class='fa fa-calendar-check-o'></i>";
+                        rows += "<span>" + item.CreatedDate + "</span>";
+                        rows += "</div>";
+                        rows += "<div class='news-desc'>";
+                        rows += "<p>";
+                        rows += "<p>" + item.Description.length > 200 ? item.Description.substring(0, 200) : item.Description + "</p>";
+                        rows += "</p>";
+                        rows += "</div>";
+                        rows += "</div>";
+                        rows += "</div>";
+                        $('#listNewItem').append(rows);
+                    }
+
+                }); //End of foreach Loop
+                console.log(data);
+            }, //End of AJAX Success function
+
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert(data.responseText);
+            } //End of AJAX error function
+
+        });
+    });
+</script>
+
+<script>
+    //$(document).ready(function () {
+    //    $.ajax({
+    //        type: "GET",
+    //        url: 'http://localhost:60976/api/NewsAPI/GetAllNews',
+    //        contentType: "application/json; charset=utf-8",
+    //        dataType: "json",
+    //        success: function (data) {
+    //            $.each(data, function (i, item) {
+    //                var rows = "<div class='col-lg-8 col-md-12'>";
+    //                rows += "<div class='row course-item'>";
+    //                rows += "<div class='col-md-6'>";
+    //                rows += "<div class='course-img'>";
+    //                rows += " <img src=" + item.Image + " />";
+    //                rows += "</div>";
+    //                rows += "</div>";
+    //                rows += "<div class='col-md-6'>";
+    //                rows += " <div class='course-header'>";
+    //                rows += "<span class='course-category'><a href='#'>" + item.ID_CateNews + "</a></span>";
+    //                rows += "<h3 class='course-title'><a href='news-single.html'>" + item.NameTitle + "</a></h3>";
+    //                rows += "<div class='course-date'>";
+    //                rows += "<i class='fa fa-clock-o'></i> " + item.CreatedDate + "";
+    //                rows += "</div>"
+    //                rows += "<div class='course-body'>";
+    //                rows += "<div class='course-desc'>";
+    //                rows += "<p>" + item.Description.length > 200 ? item.Description.substring(0, 200) : item.Description + " </p >";
+    //                rows += "</div>";
+    //                rows += "<div class='course-button'>";
+    //                rows += "<a href='/News/Detail/" + item.Id + "'>READ MORE</a>";
+    //                rows += "</div >";
+    //                rows += "</div >";
+    //                rows += "</div > ";
+    //                rows += " </div >";
+    //                $('#hihi').append(rows);
+    //            }); //End of foreach Loop
+    //            console.log(data);
+    //        }, //End of AJAX Success function
+
+    //        failure: function (data) {
+    //            alert(data.responseText);
+    //        }, //End of AJAX failure function
+    //        error: function (data) {
+    //            alert(data.responseText);
+    //        } //End of AJAX error function
+
+    //    });
+    //});
+</script>
+<script>
+    function TimKiem() {
+        var keyword = $("#keywords_search").val();
+        var CateEventID = $("#CateEventID").val();
+        $(".row.grid").html('');
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/Admin/GetAllEvent?keyword=' + keyword + '&CateID=' + CateEventID,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    var rows = "<div class='col-lg-4 col-md-6 grid-item filter1'>";
+                    rows += "<div class='course-item'>";
+                    rows += "<div class='course-img'>";
+                    rows += " <img src=" + item.Image1 + " />";
+                    rows += "<div class='course-toolbar'>";
+                    rows += "<h4 class='course-category'><a href='#'>" + item.Name + "</a></h4>";
+                    rows += "<div class='course-date'>";
+                    rows += "<i class='fa fa-calendar'></i> " + item.Date + "";
+                    rows += "</div>";
+                    rows += "<div class='course-duration' id='eventday" + item.Id + "'>";
+                    rows += "</div >";
+                    rows += "</div >";
+                    rows += "</div >";
+                    rows += "<div class='course-body'>";
+                    rows += " <span class='course-value'>" + item.Id_Cate + "</span>";
+                    rows += "<div class='course-desc'>";
+                    rows += "<h4 class='course-title'><a href='projects-details.html'>" + item.Name + "</a></h4>";
+                    rows += "<p>";
+                    rows += " " + item.Desciption.length > 200 ? item.Desciption.substring(0, 200) : item.Desciption + "";
+                    rows += "</p>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "<div class='course-footer'>";
+                    rows += "<div class='course-seats'>";
+                    rows += "<i class='fa fa-users'></i> " + item.SL_Thamgia + "";
+                    rows += "</div>";
+                    rows += "<div class='course-button'>";
+                    rows += "<a href='/Events/Detail/" + item.Id + "'>APPLY NOW</a>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "</div >";
+                    rows += "</div >";
+                    $('.row.grid').append(rows);
+                    SetTimer(item.Date, "eventday" + item.Id, item.id);
+
+                }); //End of foreach Loop
+            }, //End of AJAX Success function
+
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert(data.responseText);
+            } //End of AJAX error function
+
+        });
+    }
+</script>
+
+<script>
+    function SetTimer(time, id, id_) {
+        if (id_ == 0) {
+
+        }
+        else {
+            try {
+                var countDownDate = new Date(time).getTime();
+                var x = setInterval(function () {
+                    var now = new Date().getTime();
+                    var distance = countDownDate - now;
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    var textID = document.getElementById(id);
+                    if (textID != null) {
+                        document.getElementById(id).innerHTML = days + "D " + hours + "H "
+                            + minutes + "M " + seconds + "S";
+                    }
+                    else {
+                        return;
+                    }
+
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById(id).innerHTML = "Hết hạn";
+                    }
+                }, 1000);
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+
+    }
+</script>
+
+
+
+
+

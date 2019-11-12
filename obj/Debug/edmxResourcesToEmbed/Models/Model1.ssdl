@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EVENTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="About">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TongQuan" Type="nvarchar(max)" />
+    <Property Name="SuMenh" Type="nvarchar(max)" />
+    <Property Name="TamNhin" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="70" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Fullname" Type="nvarchar" MaxLength="70" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
+    <Property Name="Image" Type="varchar" MaxLength="250" />
+    <Property Name="CreatedDate" Type="date" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Banner">
+    <Key>
+      <PropertyRef Name="Id_banner" />
+    </Key>
+    <Property Name="Id_banner" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Img" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Cate_News">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="70" />
+    <Property Name="Id_Khoa" Type="int" />
+  </EntityType>
+  <EntityType Name="Category_Event">
+    <Key>
+      <PropertyRef Name="Id_CE" />
+    </Key>
+    <Property Name="Id_CE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name_CE" Type="nvarchar" MaxLength="70" />
+    <Property Name="Id_Khoa" Type="int" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fname" Type="nvarchar" MaxLength="50" />
+    <Property Name="Lname" Type="nvarchar" MaxLength="150" />
+    <Property Name="Phonenumber" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Message" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" />
+    <Property Name="Desciption" Type="nvarchar(max)" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="Image1" Type="varchar(max)" />
+    <Property Name="icon" Type="varchar(max)" />
+    <Property Name="Keyword" Type="nvarchar" MaxLength="250" />
+    <Property Name="SeoTitle" Type="nvarchar" MaxLength="150" />
+    <Property Name="Id_Cate" Type="int" />
+    <Property Name="SL_Thamgia" Type="float" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="DKSK" Type="nvarchar(max)" />
+    <Property Name="DiaDiem" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Khoa">
+    <Key>
+      <PropertyRef Name="Id_Khoa" />
+    </Key>
+    <Property Name="Id_Khoa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name_Khoa" Type="nvarchar" MaxLength="70" />
+  </EntityType>
+  <EntityType Name="Lop">
+    <Key>
+      <PropertyRef Name="Id_Lop" />
+    </Key>
+    <Property Name="Id_Lop" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name_Lop" Type="nvarchar" MaxLength="70" />
+    <Property Name="Id_Khoa" Type="int" />
+  </EntityType>
+  <EntityType Name="MXH">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="70" />
+    <Property Name="Icon" Type="nvarchar(max)" />
+    <Property Name="Link" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameTitle" Type="nvarchar" MaxLength="250" />
+    <Property Name="Description" Type="nvarchar" MaxLength="350" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="Image" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="ID_CateNews" Type="int" />
+  </EntityType>
+  <EntityType Name="RoleDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id_Role" Type="int" Nullable="false" />
+    <Property Name="Id_Admin" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id_Role" />
+    </Key>
+    <Property Name="Id_Role" Type="int" Nullable="false" />
+    <Property Name="Name_Role" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SinhVien">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="70" />
+    <Property Name="Password" Type="varchar" MaxLength="70" />
+    <Property Name="Email" Type="varchar" MaxLength="70" />
+    <Property Name="Fullname" Type="nvarchar" MaxLength="70" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
+    <Property Name="Image" Type="varchar" MaxLength="250" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="Address" Type="nvarchar" MaxLength="150" />
+    <Property Name="Id_Lop" Type="int" />
+  </EntityType>
+  <EntityType Name="SV_SK">
+    <Key>
+      <PropertyRef Name="ID_Detail_Event_Student" />
+    </Key>
+    <Property Name="ID_SV" Type="int" />
+    <Property Name="ID_Events" Type="int" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="Checkin" Type="datetime" />
+    <Property Name="ID_Detail_Event_Student" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="ThongTinWebsite">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_Cate_News_Khoa">
+    <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+    <End Role="Cate_News" Type="Self.Cate_News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Khoa">
+        <PropertyRef Name="Id_Khoa" />
+      </Principal>
+      <Dependent Role="Cate_News">
+        <PropertyRef Name="Id_Khoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Category_Event_Khoa">
+    <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+    <End Role="Category_Event" Type="Self.Category_Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Khoa">
+        <PropertyRef Name="Id_Khoa" />
+      </Principal>
+      <Dependent Role="Category_Event">
+        <PropertyRef Name="Id_Khoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_Category_Event">
+    <End Role="Category_Event" Type="Self.Category_Event" Multiplicity="0..1" />
+    <End Role="Event" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category_Event">
+        <PropertyRef Name="Id_CE" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="Id_Cate" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lop_Khoa">
+    <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+    <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Khoa">
+        <PropertyRef Name="Id_Khoa" />
+      </Principal>
+      <Dependent Role="Lop">
+        <PropertyRef Name="Id_Khoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_News_Cate_News">
+    <End Role="Cate_News" Type="Self.Cate_News" Multiplicity="0..1" />
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cate_News">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="ID_CateNews" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoleDetail_Admin">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="1" />
+    <End Role="RoleDetail" Type="Self.RoleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleDetail">
+        <PropertyRef Name="Id_Admin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoleDetail_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="RoleDetail" Type="Self.RoleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id_Role" />
+      </Principal>
+      <Dependent Role="RoleDetail">
+        <PropertyRef Name="Id_Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SinhVien_Lop">
+    <End Role="Lop" Type="Self.Lop" Multiplicity="0..1" />
+    <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lop">
+        <PropertyRef Name="Id_Lop" />
+      </Principal>
+      <Dependent Role="SinhVien">
+        <PropertyRef Name="Id_Lop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SV_SK_Event">
+    <End Role="Event" Type="Self.Event" Multiplicity="0..1" />
+    <End Role="SV_SK" Type="Self.SV_SK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SV_SK">
+        <PropertyRef Name="ID_Events" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SV_SK_SinhVien">
+    <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="0..1" />
+    <End Role="SV_SK" Type="Self.SV_SK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SinhVien">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SV_SK">
+        <PropertyRef Name="ID_SV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EVENTModelStoreContainer">
+    <EntitySet Name="About" EntityType="Self.About" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cate_News" EntityType="Self.Cate_News" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category_Event" EntityType="Self.Category_Event" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Khoa" EntityType="Self.Khoa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Lop" EntityType="Self.Lop" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MXH" EntityType="Self.MXH" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RoleDetail" EntityType="Self.RoleDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SinhVien" EntityType="Self.SinhVien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SV_SK" EntityType="Self.SV_SK" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThongTinWebsite" EntityType="Self.ThongTinWebsite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Banner" EntityType="Self.Banner" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Banner].[Id_banner] AS [Id_banner], 
+    [Banner].[Img] AS [Img]
+    FROM [dbo].[Banner] AS [Banner]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Cate_News_Khoa" Association="Self.FK_Cate_News_Khoa">
+      <End Role="Khoa" EntitySet="Khoa" />
+      <End Role="Cate_News" EntitySet="Cate_News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Category_Event_Khoa" Association="Self.FK_Category_Event_Khoa">
+      <End Role="Khoa" EntitySet="Khoa" />
+      <End Role="Category_Event" EntitySet="Category_Event" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_Category_Event" Association="Self.FK_Event_Category_Event">
+      <End Role="Category_Event" EntitySet="Category_Event" />
+      <End Role="Event" EntitySet="Event" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lop_Khoa" Association="Self.FK_Lop_Khoa">
+      <End Role="Khoa" EntitySet="Khoa" />
+      <End Role="Lop" EntitySet="Lop" />
+    </AssociationSet>
+    <AssociationSet Name="FK_News_Cate_News" Association="Self.FK_News_Cate_News">
+      <End Role="Cate_News" EntitySet="Cate_News" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoleDetail_Admin" Association="Self.FK_RoleDetail_Admin">
+      <End Role="Admin" EntitySet="Admin" />
+      <End Role="RoleDetail" EntitySet="RoleDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoleDetail_Roles" Association="Self.FK_RoleDetail_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="RoleDetail" EntitySet="RoleDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SinhVien_Lop" Association="Self.FK_SinhVien_Lop">
+      <End Role="Lop" EntitySet="Lop" />
+      <End Role="SinhVien" EntitySet="SinhVien" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SV_SK_Event" Association="Self.FK_SV_SK_Event">
+      <End Role="Event" EntitySet="Event" />
+      <End Role="SV_SK" EntitySet="SV_SK" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SV_SK_SinhVien" Association="Self.FK_SV_SK_SinhVien">
+      <End Role="SinhVien" EntitySet="SinhVien" />
+      <End Role="SV_SK" EntitySet="SV_SK" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

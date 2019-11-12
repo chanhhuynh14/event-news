@@ -1,0 +1,83 @@
+﻿@model IEnumerable<E_Hutech.Models.AboutViewModels>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout - Admin.cshtml";
+}
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<div class="panel panel-primary">
+    <div class="panel-heading" style="font-size: 26px; text-align: center; padding: 0px 0px 30px">
+        DỮ LIỆU CHI TIẾT
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered" id="Table">
+            <tr>
+
+                <th>Tổng quan</th>
+                <th>Sứ mệnh</th>
+                <th>Tầm nhìn</th>
+                <th>XÓa</th>
+                <th>Sửa</th>
+            </tr>   <!--end of table-row -->
+        </table>   <!--end of table -->
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/AboutAPI/GetAllAbout',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                //alert(JSON.stringify(data));
+                $("#DIV").html('');
+                var DIV = '';
+                $.each(data, function (i, item) {
+                    var rows = "<tr>" +
+                        "<td id='TongQuan'>" + item.TongQuan + "</td>" +
+                        "<td id='SuMenh'>" + item.SuMenh + "</td>" +
+                        "<td id='TamNhin'>" + item.TamNhin + "</td>" +
+                        "<td>" + "<button onclick='deleteAbout(" + item.Id + ")'>" + "Delete" + "</button>" + "</td>" +
+                        "<td>" + "<button onclick='updateEvent(" + item.Id + ")'>" + "Update" + "</button>" + "</td>" +
+                        "</tr>"
+                    $('#Table').append(rows);
+                });
+                console.log(data);
+            },
+
+            failure: function (data) {
+                alert(data.responseText);
+            },
+            error: function (data) {
+                alert(data.responseText);
+            }
+
+        });
+    });
+    function deleteAbout(id) {
+        $.ajax({
+            type: "DELETE",
+            url: 'http://localhost:60976/api/AboutAPI/DeleteAbout/' + id,
+            success: function () {
+                alert('Đã Xóa. Vui lòng reset trang');
+                reset();
+            },
+            error: function (error) {
+                alert(error);
+            }
+
+
+        })
+        function reset() {
+            $('#TongQuan').val('');
+            $('#SuMenh').val('');
+            $('#TamNhin').val('');
+
+        }
+    }
+</script>
+

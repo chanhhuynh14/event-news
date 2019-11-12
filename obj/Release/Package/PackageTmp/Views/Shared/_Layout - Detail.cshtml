@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- meta tag -->
+    <meta charset="utf-8">
+    <title>Trường Đại Học Công Nghệ TP.HCM</title>
+    <meta name="description" content="">
+    <!-- responsive tag -->
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon -->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="shortcut icon" href="https://www.hutech.edu.vn/favicon.ico" type="img/x-icon" />
+    <!-- bootstrap v4 css -->
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" type="text/css" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <!-- animate css -->
+    <link rel="stylesheet" type="text/css" href="~/css/animate.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" type="text/css" href="~/css/owl.carousel.css">
+    <!-- slick css -->
+    <link rel="stylesheet" type="text/css" href="~/css/slick.css">
+    <!-- rsmenu CSS -->
+    <link rel="stylesheet" type="text/css" href="~/css/rsmenu-main.css">
+    <!-- rsmenu transitions CSS -->
+    <link rel="stylesheet" type="text/css" href="~/css/rsmenu-transitions.css">
+    <!-- magnific popup css -->
+    <link rel="stylesheet" type="text/css" href="~/css/magnific-popup.css">
+    <!-- flaticon css  -->
+    <link rel="stylesheet" type="text/css" href="~/css/flaticon.css">
+    <!-- flaticon2 css  -->
+    <link rel="stylesheet" type="text/css" href="~/css/flaticon_1.css">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="~/css/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" type="text/css" href="~/css/responsive.css">
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <style>
+        #rowgridBody {
+            height: auto !important;
+        }
+    </style>
+</head>
+
+<body class="inner-page">
+    <!--Preloader area start here-->
+    <div class="book_preload">
+        <div class="book">
+            <div class="book__page"></div>
+            <div class="book__page"></div>
+            <div class="book__page"></div>
+        </div>
+    </div>
+    <!--Preloader area end here-->
+    <!--Full width header Start-->
+    <div class="full-width-header">
+
+        <!--Header Start-->
+        <div class="menu-area menu-sticky">
+            <div class="container">
+                <div class="row rs-vertical-middle">
+                    <div class="col-lg-3 col-md-12">
+                        <div class="logo-area">
+                            <a href="~/Events/Index"><img src="~/img/logo CMYK-01.png" alt="logo" style="width: 50%"></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+                        <div class="main-menu">
+                            <a class="rs-menu-toggle"><i class="fa fa-bars"></i>Menu</a>
+                            <nav class="rs-menu">
+                                <ul class="nav-menu">
+                                    <li class="current-menu-item current_page_item"><a href="~/Events/Index" class="home">Home</a></li>
+                                    <!-- End Home -->
+                                    <!--About Menu Start-->
+                                    <li><a href="~/About/Index">About Us</a></li>
+                                    <!--About Menu End-->
+                                    <!--Events Menu Start-->
+                                    <li><a href="~/News/Index">News</a></li>
+                                    <!--Events Menu End-->
+                                    @*<!--Projects Menu Start-->
+                                <li><a href="projects.html">Projects</a></li>
+                                <!--Projects Menu End-->*@
+                                    <!--Contact Menu Start-->
+                                    <li><a href="~/Contact/Create">Contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="searce-box">
+                            <a class="rs-search" data-target=".search-modal" data-toggle="modal" href="#"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Header End-->
+    </div>
+    <!--Full width header End-->
+    <!-- Breadcrumbs Start -->
+    <div class="rs-breadcrumbs bg7 breadcrumbs-overlay" style="height: 49px;">
+        <div class="breadcrumbs-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h1 class="page-title">EVENTS DETAILS</h1>
+                        <ul>
+                            <li>
+                                <a class="active" href="/Events/Index">Home</a>
+                            </li>
+                            <li>Events Details</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End -->
+    <!-- Blog Single Start Here -->
+    <div class="single-blog-details sec-spacer">
+        @RenderBody()
+
+    </div>
+    <!-- Blog Single End  -->
+    
+  
+    <!-- modernizr js -->
+    <script src="~/js/modernizr-2.8.3.min.js"></script>
+    <!-- jquery latest version -->
+    <script src="~/js/jquery.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="~/js/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="~/js/owl.carousel.min.js"></script>
+    <!-- slick.min js -->
+    <script src="~/js/slick.min.js"></script>
+    <!-- isotope.pkgd.min js -->
+    <script src="~/js/isotope.pkgd.min.js"></script>
+    <!-- imagesloaded.pkgd.min js -->
+    <script src="~/js/imagesloaded.pkgd.min.js"></script>
+    <!-- wow js -->
+    <script src="~/js/wow.min.js"></script>
+    <!-- counter top js -->
+    <script src="~/js/waypoints.min.js"></script>
+    <script src="~/js/jquery.counterup.min.js"></script>
+    <!-- magnific popup -->
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <!-- rsmenu js -->
+    <script src="~/js/rsmenu-main.js"></script>
+    <!-- plugins js -->
+    <script src="~/js/plugins.js"></script>
+    <!-- main js -->
+    <script src="~/js/main.js"></script>
+</body>
+
+</html>

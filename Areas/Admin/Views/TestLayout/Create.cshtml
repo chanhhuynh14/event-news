@@ -1,0 +1,252 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout - Admin_Test.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<div class="single-product-tab-area mg-tb-15">
+    <div class="single-pro-review-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="review-tab-pro-inner">
+                        <h4>Thêm Mới Sự Kiện</h4>
+                        <div id="myTabContent" class="tab-content custom-product-edit">
+                            <div class="product-tab-list tab-pane fade active in" id="description">
+
+                                <div class="review-content-section">
+                                    <div class="input-group mg-b-pro-edt">
+                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                        <input id="Name" type="text" class="form-control" placeholder="Tên Sự Kiện">
+                                    </div>
+                                    <div class="input-group mg-b-pro-edt">
+                                        <span class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                                        <input id="Desciption" type="text" class="form-control" placeholder="Chi Tiết">
+                                    </div>
+                                    <div class="input-group mg-b-pro-edt">
+                                        <span class="input-group-addon"><i class="fa fa-quote-right" aria-hidden="true"></i></span>
+                                        <textarea class="ckeditor" rows="10" name="Content" id="Content"></textarea>
+                                    </div>
+
+                                    <div class="input-group mg-b-pro-edt">
+                                        <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
+                                        <input id="SeoTitle" type="text" class="form-control" placeholder="Tiêu Đề">
+                                    </div>
+                                    <div class="input-group mg-b-pro-edt">
+                                        <span class="input-group-addon"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <img alt="Avatar" class="img-rounded" width="128" height="128" id="imgAvatar" />
+                                            </div>
+                                            @*Avatar Container*@
+                                            <div class="avatarDiv">
+                                                <div class="">
+                                                    <p>
+                                                        <input type="button" class="btn btn-primary" onclick="showImagePreview();" value="Choose Avatar" />
+                                                    </p>
+                                                </div>
+                                                <input id="iUserAvatar" type="file" style="height:0; width:0; visibility:hidden" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-group mg-b-pro-edt">
+                                    <span class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                    <input id="DiaChi" type="text" class="form-control" placeholder="Địa Chỉ">
+                                </div>
+                                <div class="input-group mg-b-pro-edt">
+                                    <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                    <input id="Date" type="date" class="form-control" placeholder="Thời Gian">
+                                </div>
+                                <div class="input-group mg-b-pro-edt">
+                                    <span class="input-group-addon"><i class="fa fa-tag" aria-hidden="true"></i></span>
+                                    <input id="DKSK" type="text" class="form-control" placeholder="Link đăng ký">
+                                </div>
+                                <select name="select" id="cate_option" class="form-control pro-edt-select form-control-primary">
+                                    <option value="0">chọn loai sk</option>
+                                    
+                                </select>
+
+                                <form id="myForm">
+                                    <label for="Id_Cate"><b>Id_Cate</b></label>
+                                    <select class="form-control" id="Id_Cate" name="Id_Cate"></select>
+                                </form>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="text-center mg-b-pro-edt custom-pro-edt-ds">
+                                            <button id="btnSave" type="button" class="btn btn-primary waves-effect waves-light m-r-10">
+                                                Lưu
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        getAllEvents();
+                        $("#btnSave").click(function () {
+                            var fileUpload = $("#imgAvatar").get(0);
+                            var fileAvartar = fileUpload.src;
+                            $.ajax(
+                                {
+                                    type: "POST",
+                                    url: "/api/Admin/PostNewEvent",
+                                    data: {
+                                        Name: $("#Name").val(),
+                                        Desciption: $("#Desciption").val(),
+                                        Content: CKEDITOR.instances.Content.getData(),
+                                        Image1: fileAvartar,
+                                        DiaChi: $("#DiaChi").val(),
+                                        DKSK: $("#DKSK").val(),
+                                        Keyword: $("#Keyword").val(),
+                                        SeoTitle: $("#SeoTitle").val(),
+                                        Id_Cate: $("#Id_Cate").val(),
+                                        SL_Thamgia: $("#SL_Thamgia").val(),
+                                        Date: $("#Date").val()
+                                    },
+                                    success: function () {
+                                        alert('Đã Lưu');
+                                        getAllEvents()
+                                        reset();
+                                        setUserAvatar();
+                                        setAvatarCompleted();
+                                    },
+                                    error: function (error) {
+                                        alert(error);
+                                    }
+                                })
+                            function reset() {
+                                $('#Name').val('');
+                                $('#Desciption').val('');
+                                $('#Content').val('');
+                                $('#Image1').val('');
+                                $('#DiaChi').val('');
+                                $('#DKSK').val('');
+                                $('#Keyword').val('');
+                                $('#SeoTitle').val('');
+                                $('#Id_Cate').val('');
+                                $('#SL_Thamgia').val('');
+                                $('#Date').val('');
+                            }
+                            function setUserAvatar() {
+                                var userObject = {};
+                                userObject.Image1 = $("#txtUserId").val();
+                                userObject.UserAvatarBase64String = $("#imgAvatar").attr("src").split(",")[1];
+                                AjaxRequest("Avatar", "POST", userObject, setAvatarCompleted);
+                            }
+                            function setAvatarCompleted(data) {
+                                if (data === true) {
+                                    showAlertInfo("alert-success", "User profile avatar is saved successful!");
+                                }
+                            }
+                        })
+                        $.ajax(
+                            {
+                                type: "GET",
+                                url: 'http://localhost:60976//TestLayout/GetDepartment',
+                                data: "{}",
+                                success: function (data) {
+                                    var s = '<option value="-1">Please Select a Department</option>';
+                                    for (var i = 0; i < data.length; i++) {
+                                        s += '<option value="' + data[i].DepartmentID + '">' + data[i].DepartmentName + '</option>';
+                                    }
+                                    $("#Id_Cate").html(s);
+                                }
+                            })
+                    });
+                    function getAllEvents() {
+                        $.ajax({
+                            type: "GET",
+                            url: 'http://localhost:60976/api/Admin/GetAllEvent',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
+                                //alert(JSON.stringify(data));
+                                $("#DIV").html('');
+                                var DIV = '';
+                                $.each(data, function (i, item) {
+                                    var rows = "<tr>" +
+                                        "<td id='Id'>" + item.Id + "</td>" +
+                                        "<td id='Name'>" + item.Name + "</td>" +
+                                        "<td id='Desciption'>" + item.Desciption + "</td>" +
+                                        "<td id='Content'>" + item.Content + "</td>" +
+                                        "<td id='Image1'> <img src=" + item.Image1 + " /></td>" +
+                                        "<td id='Keyword'>" + item.Keyword + "</td>" +
+                                        "<td id='SeoTitle'>" + item.SeoTitle + "</td>" +
+                                        "<td id='Id_Cate'>" + item.Id_Cate + "</td>" +
+                                        "<td id='SL_Thamgia'>" + item.SL_Thamgia + "</td>" + "</td>" +
+                                        "<td id='Date'>" + item.Date
+                                        + "</td>" +
+                                        "</tr>";
+                                    $('#Table').append(rows);
+                                });
+                                console.log(data);
+                            },
+                            failure: function (data) {
+                                alert(data.responseText);
+                            },
+                            error: function (data) {
+                                alert(data.responseText);
+                            }
+                        });
+                    }
+                    function AjaxRequest(methodName, methodType, data, callback) {
+                        $.ajax({
+                            type: methodType,
+                            url: "api/" + methodName,
+                            data: JSON.stringify(data),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (result, status, xhr) {
+                                if (callback) {
+                                    callback(result);
+                                }
+                            }
+                        });
+                    }
+                    function getUserAvatar() {
+                        AjaxRequest("Avatar?image1   =" + $("#txtUserId").val(), "GET", {}, getCompletedUserAvatar);
+                    }
+                    function getCompletedUserAvatar(data) {
+                        if (data.UserAvatarBase64String !== null) {
+                            $("#imgAvatar").attr("src", "data:image/jpg;base64," + data.UserAvatarBase64String);
+                        }
+                    }
+                </script>
+                <script>
+                    $(document).ready(function () {
+                        $(function () {
+                            $('.avatarDiv').hover(function () {
+                                $(this).find('.caption').slideDown(250);
+                            },
+                                function () {
+                                    $(this).find('.caption').slideUp(250);
+                                });
+                        });
+                    });
+                    function showImagePreview() {
+                        var fileInput = $("#iUserAvatar");
+                        if (fileInput !== null) {
+                            fileInput.trigger("click");
+                            fileInput.change(function () {
+                                if (this.files && this.files[0]) {
+                                    var reader = new FileReader();
+                                    reader.onload = function (e) {
+                                        $('#imgAvatar').attr('src', e.target.result);
+                                    }
+                                    reader.readAsDataURL(this.files[0])
+                                }
+                            });
+                        }
+                    }
+                    
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+

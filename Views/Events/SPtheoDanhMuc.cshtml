@@ -1,0 +1,73 @@
+﻿<script src="~/js/jquery.jold.paginator.min.js"></script>
+<script src="jquery.jold.paginator.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var tt = 0;
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/Admin/GetAllEvent',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                tt = data.length;
+                $.each(data, function (i, item) {
+                    var rows = "<div class='col-lg-4 col-md-6 grid-item filter1'>";
+                    rows += "<div class='course-item'>";
+                    rows += "<div class='course-img'>";
+                    rows += " <img src=" + item.Image1 + " />";
+                    rows += "<div class='course-toolbar'>";
+                    rows += "<h4 class='course-category'><a href='#'>" + item.Name + "</a></h4>";
+                    rows += "<div class='course-date'>";
+                    rows += "<i class='fa fa-calendar'></i> " + item.Date + "";
+                    rows += "</div>";
+                    rows += "<div class='course-duration' id='eventday" + item.Id + "'>";
+                    rows += "</div >";
+                    rows += "</div >";
+                    rows += "</div >";
+                    rows += "<div class='course-body'>";
+                    rows += " <span class='course-value'>" + item.Id_Cate + "</span>";
+                    rows += "<div class='course-desc'>";
+                    rows += "<h4 class='course-title'><a href='projects-details.html'>" + item.Name + "</a></h4>";
+                    rows += "<p>";
+                    rows += " " + item.Desciption.length > 200 ? item.Desciption.substring(0, 200) : item.Desciption + "";
+                    rows += "</p>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "<div class='course-footer'>";
+                    rows += "<div class='course-seats'>";
+                    rows += "<i class='fa fa-users'></i> " + item.SL_Thamgia + "";
+                    rows += "</div>";
+                    rows += "<div class='course-button'>";
+                    rows += "<a href='/Events/Detail/" + item.Id + "'>Chi Tiết</a>";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "</div >";
+                    rows += "</div >";
+                    $('.row.grid').append(rows);
+                    SetTimer(item.Date, "eventday" + item.Id, item.Id);
+                }); //End of foreach Loop
+                var rows = '';
+                var ps = 1;
+                var ran = tt / ps;
+                var mo = tt % ps;
+                if (mo != 0) {
+                    ran = ran + 1;
+                }
+                for (var i = 1; i < ran + 1; i++) {
+
+                    rows += "<li class='page-item'><a class='page-link active' onclick='TimKiem(" + i + "," + i + ")'>" + i + "</a></li>";
+                }
+                $('#Id_pagination').append(rows);
+            }, //End of AJAX Success function
+
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert(data.responseText);
+            } //End of AJAX error function
+
+        });
+    });
+</script>

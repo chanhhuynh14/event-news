@@ -1,0 +1,105 @@
+﻿@model IEnumerable<E_Hutech.Models.AboutViewModels>
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout - Admin_Test.cshtml";
+}
+
+<h2>Nhập Thông Tin</h2>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<div class="panel panel-primary">
+   
+    <div class="panel-body">
+        <table class="table table-bordered" id="Table">
+          
+        </table> 
+    </div> <!--end of Panel-body -->
+</div>
+<div class="form-group">
+    <label for="TongQuan">Tổng Quan</label>
+    <textarea class="ckeditor" rows="10" name="TongQuan" id="TongQuan"></textarea>
+</div>
+<div class="form-group">
+    <label for="SuMenh">Sứ Mệnh</label>
+    <textarea class="ckeditor" rows="10" name="SuMenh" id="SuMenh"></textarea>
+</div>
+<div class="form-group">
+    <label for="TamNhin">Tầm Nhìn</label>
+    <textarea class="ckeditor" rows="10" name="TamNhin" id="TamNhin"></textarea>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <button type="button" id="btnSave" class="btn btn-success addNew">
+            Tạo Mới
+        </button>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        getAllAbouts();
+        $("#btnSave").click(function () {
+            $.ajax(
+                {
+                    type: "POST", //HTTP POST Method
+                    url: '/api/AboutAPI/PostNewAbout',
+                    data: { //Passing data
+                        TongQuan: CKEDITOR.instances.TongQuan.getData(),
+                        SuMenh: CKEDITOR.instances.SuMenh.getData(),
+                        TamNhin: CKEDITOR.instances.TamNhin.getData()
+                    },
+                    success: function () {
+                        alert('Đã Lưu');
+                        getAllAbouts()
+                        reset();
+                    },
+                    error: function (error) {
+                        alert(error);
+                    }
+                })
+            function reset() {
+                $('#TongQuan').val('');
+                $('#SuMenh').val('');
+                $('#TamNhin').val('');
+            }
+        })
+
+    });
+
+    function getAllAbouts() {
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/AboutAPI/GetAllAbout',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $("#DIV").html('');
+                var DIV = '';
+                $.each(data, function (i, item) {
+                    var rows = "<tr>" +
+                        "<td id='TongQuan'>" + item.TongQuan + "</td>" +
+                        "<td id='SuMenh'>" + item.SuMenh + "</td>" +
+                        "<td id='TamNhin'>" + item.TamNhin + "</td>" +
+                        "<td>" + "<button class='btn btn-default btn-xs' onclick='deleteAbout(" + item.Id + ")'>" + "<span class='fa fa-times' aria-hidden='true'>" + "</span>" + "</button>" +
+                        "</tr>";
+                    $('#Table').append(rows);
+                }); 
+                console.log(data);
+            }, 
+            failure: function (data) {
+                alert(data.responseText);
+            }, 
+            error: function (data) {
+                alert(data.responseText);
+            } 
+        });
+    }
+</script>
+
+
+
+
+
+

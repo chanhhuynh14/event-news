@@ -1,0 +1,128 @@
+﻿
+@*@{
+    ViewBag.Title = "SendEmail";
+    Layout = "~/Views/Shared/_Layout - About.cshtml";
+}
+
+<!-- //breadcrumbs -->
+<!-- Email -->
+<div class="mail">
+    <div class="container">
+        <h3>Mail Us</h3>
+        <div class="agile_mail_grids">
+            <div class="col-md-5 contact-left">
+                <h4>Address</h4>
+                <p>
+                    <span>D2 Binh Thanh HCM,VN</span>
+                </p>
+                <ul>
+                    <li>Telephone : +84 911 0123 75</li>
+                    <li><a href="mailto:chanhhuynh14@gmail.com">Email: chanhhuynh14@gmail.com</a></li>
+                </ul>
+            </div>
+            <div class="col-md-7 contact-left">
+                <h4>Contact Form</h4>
+                <form action="#" method="post">
+                    <input type="text" name="_name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
+                    <input type="email" name="_email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+                    <input type="text" name="_phone" value="Telephone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Telephone';}" required="">
+                    <textarea name="_description" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="" style="max-width: 633px;">Message...</textarea>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>*@
+
+@{
+    Layout = "~/Views/Shared/_Layout - Contact.cshtml";
+
+}
+
+<!DOCTYPE html>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <div class="contact-comment-section">
+        <h3>ĐỂ LẠI BÌNH LUẬN</h3>
+        <div id="form-messages"></div>
+        <form id="contact-form" method="post">
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Tên*</label>
+                            <input name="fname" id="Fname" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Họ*</label>
+                            <input name="Lname" id="Lname" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Email*</label>
+                            <input name="email" id="Email" class="form-control" type="email">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Số Điện Thoại *</label>
+                            <input name="_phone" id="Phonenumber" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>Thông Điệp *</label>
+                            <textarea cols="40" rows="10" id="Message" name="message" class="textarea form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-0">
+                    <input class="btn-send" type="submit" id="btnSave" value="Xác Nhận">
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnSave").click(function () {
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/api/ContactAPI/PostNewContact",
+                    data: {
+                        fname: $("#Fname").val(),
+                        lname: $("#Lname").val(),
+                        phonenumber: $("#Phonenumber").val(),
+                        email: $("#Email").val(),
+                        message: $("#Message").val()
+                    },
+                    success: function () {
+                        alert('Đã Gửi Phản hồi');
+
+                    },
+                    error: function (error) {
+                        alert(error);
+                    }
+                });
+
+        });
+
+    });
+</script>
+
