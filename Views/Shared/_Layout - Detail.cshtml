@@ -46,6 +46,7 @@
             height: auto !important;
         }
     </style>
+
 </head>
 
 <body class="inner-page">
@@ -59,8 +60,7 @@
     </div>
     <!--Preloader area end here-->
     <!--Full width header Start-->
-    <div class="full-width-header">
-
+    <div class="full-width-header"> 
         <!--Header Start-->
         <div class="menu-area menu-sticky">
             <div class="container">
@@ -84,8 +84,8 @@
                                     <li><a href="~/News/Index">News</a></li>
                                     <!--Events Menu End-->
                                     @*<!--Projects Menu Start-->
-                                <li><a href="projects.html">Projects</a></li>
-                                <!--Projects Menu End-->*@
+                                        <li><a href="projects.html">Projects</a></li>
+                                        <!--Projects Menu End-->*@
                                     <!--Contact Menu Start-->
                                     <li><a href="~/Contact/Create">Contact</a></li>
                                 </ul>
@@ -119,15 +119,17 @@
             </div>
         </div>
     </div>
+
     <!-- Breadcrumbs End -->
     <!-- Blog Single Start Here -->
-    <div class="single-blog-details sec-spacer">
+    <div class="single-blog-details sec-spacer" id="chanhne">
         @RenderBody()
-
     </div>
+
     <!-- Blog Single End  -->
-    
-  
+    <div class="ui button aligned center teal" id="create_pdf">Create PDF</div>
+
+
     <!-- modernizr js -->
     <script src="~/js/modernizr-2.8.3.min.js"></script>
     <!-- jquery latest version -->

@@ -48,5 +48,10 @@ namespace E_Hutech.Models
         public double? SL_Thamgia { get; set; }
         public DateTime? Date { get; set; }
         public string UserAvatarBase64String { get; internal set; }
+        public int PageIndex { get; set; }
+        public int PageSize { get; set; }
+        public int RecordCount { get; set; }
+        public List<Event> Events { get; set; }
+
     }
 }

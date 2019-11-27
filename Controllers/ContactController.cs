@@ -16,21 +16,20 @@ namespace E_Hutech.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult SendEmail(string fname, string _phone, string _email, string message)
+        public JsonResult SendEmail(string Fname, string Phonenumber, string Email, string Message)
         {
             string senderID = "luong82345@gmail.com";
             string senderPassword = "0986186349";
-            string result = "Email được gửi thành công !";
 
-            string body = "Bạn " + fname + " đã gửi một email từ " + _email;
-            body += " | Số điện thoại : " + _phone;
-            body += " | Chi tiết : " + message;
-            body += " | Chúng tôi đã nhận được phản hồi từ " + fname;
-            body += " | Chúc " + fname + " ngày mới vui vẻ !";
+            string body = "Bạn " + Fname + " đã gửi một email từ " + Email;
+            body += " | Số điện thoại : " + Phonenumber;
+            body += " | Chi tiết : " + Message;
+            body += " | Chúng tôi đã nhận được phản hồi từ " + Fname;
+            body += " | Chúc " + Fname + " ngày mới vui vẻ !";
             try
             {
                 MailMessage mail = new MailMessage();
-                mail.To.Add(_email);
+                mail.To.Add(Email);
                 mail.From = new MailAddress(senderID);
                 mail.Subject = "Phản Hồi từ cổng thông tin sự kiện Hutech";
                 mail.Body = body;
@@ -44,10 +43,9 @@ namespace E_Hutech.Controllers
             }
             catch (Exception ex)
             {
-                result = "problem occurred";
                 Response.Write("Exception in sendEmail:" + ex.Message);
             }
-            return Json(result);
+            return Json("User Details are updated");
         }
     }
 }

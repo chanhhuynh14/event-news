@@ -2,14 +2,27 @@
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout - Detail.cshtml";
 }
-
+<head>
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/semantic.min.css">
+    <script type="text/javascript" src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+    <script src="~/js/qrcode.min.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/MrRio/jsPDF/master/dist/jspdf.min.js"></script>
+    <script src="~/js/jspdf.min.js"></script>
+    <script src="~/js/inpdf.js"></script>
+    <meta property=“fb:app_id” content=“2616496368393300” />
+    <meta property=“fb:admins” content=“100002426619600” />
+</head>
+<!-- Scripts -->
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=231250857777132&autoLogAppEvents=1"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=2616496368393300&autoLogAppEvents=1"></script>
 <!-- Blog Single Start Here -->
-
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 col-md-12">
+        <div class="col-lg-8 col-md-12" id="chanhnene">
             <h1 class="top-title"></h1>
             <blockquote id="DesciptionID">
                 <i class="fas fa-quote-right" aria-hidden="true"></i>
@@ -62,11 +75,17 @@
             </div>
             <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div><!-- .share-section2 End -->
             <div class="share-section2">
-                <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="680" data-numposts="5"></div>
-            </div>
-        </div>   
+                <div class="fb-comments" data-href="http://localhost:60976/Events/Detail/107" data-width="" data-numposts="5"></div>            </div>
+        </div>
+        <div id="elementH"></div>
         <div class="col-lg-4 col-md-12">
             <div class="sidebar-area">
+                <div class="search-box">
+                    <h3 class="title">Mã QR</h3>
+
+                    <div id="id_qrcode"></div>
+
+                </div>
                 <div class="search-box">
                     <h3 class="title">Search Courses</h3>
                     <div class="box-search">
@@ -74,25 +93,40 @@
                         <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </div>
                 </div><!-- .search-box end -->
+                <style>
+                    .abc_ {
+                        width: 350px;
+                        margin-bottom: 13px;
+                    }
+                </style>
                 <div class="cate-box">
-                    <h3 class="title">Categories</h3>
-                    <ul>
-                        <li>
-                            <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Analysis & Features <span>(05)</span></a>
-                        </li>
-                        <li>
-                            <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Video Reviews <span>(07)</span></a>
-                        </li>
-                        <li>
-                            <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Engineering Tech <span>(09)</span></a>
-                        </li>
-                        <li>
-                            <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#"> Righteous Indignation <span>(08)</span></a>
-                        </li>
-                        <li>
-                            <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">General Education <span>(04)</span></a>
-                        </li>
-                    </ul>
+                    <h3 class="title" style="color: red">Đăng ký tham gia nào!!</h3>
+                    <form id="test-form" method="GET" action="https://script.google.com/macros/s/AKfycbw9VH8G4g-Myu-itFEMzrmxXsCK6wMKGs-UEFtaFkv8gcJ3ZMA/exec">
+                        <input type="text" class="abc_" id="Link" name="Link" placeholder="Đường dẫn sự kiện" />
+                        <input type="text" class="abc_" id="Name" name="Name" placeholder="Tên sinh viên" />
+                        <input type="text" class="abc_" name="Class" id="Class" placeholder="Lớp" />
+                        <input type="text" class="abc_" id="ID" name="ID" placeholder="Mã số sinh viên" />
+                        <input type="text" class="abc_" name="Phone" id="Phone" placeholder="Số điện thoại" />
+                        <input type="email" class="abc_" name="Email" id="Email" placeholder="Email" /> <br>
+                        <button type="submit" id="submit-form" style="color: #fde8e8; background: red; width: 121px;border: dashed;">GỬI</button>
+                    </form>
+                    @*<ul>
+                            <li>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Analysis & Features <span>(05)</span></a>
+                            </li>
+                            <li>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Video Reviews <span>(07)</span></a>
+                            </li>
+                            <li>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Engineering Tech <span>(09)</span></a>
+                            </li>
+                            <li>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#"> Righteous Indignation <span>(08)</span></a>
+                            </li>
+                            <li>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">General Education <span>(04)</span></a>
+                            </li>
+                        </ul>*@
                 </div><!-- .cate-box end -->
                 <div class="latest-courses">
                     <h3 class="title">Latest Courses</h3>
@@ -174,10 +208,157 @@
         </div>
     </div>
 </div>
-
 <!-- Blog Single End  -->
-<script src="/Scripts/jquery-3.3.1.min.js"></script>
+@*Convert HTML*@
+<script src=”https://apis.google.com/js/plusone.js”>
+</script>
+<div class="g-comments"
+     data-href=window.location
+     data-width="600"
+     data-first_party_property="BLOGGER"
+     data-view_type="FILTERED_POSTMOD">
+</div>
+<meta property="fb: app_id" content="{Your_APP_ID}" />
+
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=231250857777132&autoLogAppEvents=1"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+<input type="button" id="create_pdff" value="Generate PDF">
+@*<button onclick="myFunction()">Print this page</button>
+    <script>
+        function myFunction() {
+            window.print();
+        }
+    </script>*@
+@*<script>
+        (function () {
+            var
+                form = $('#chanhnene'),
+                cache_width = form.width(),
+                a4 = [595.28, 841.89]; // for a4 size paper width and height
+
+            $('#create_pdff').on('click', function () {
+                $('body').scrollTop(0);
+                createPDF();
+            });
+            //create pdf
+            function createPDF() {
+                getCanvas().then(function (canvas) {
+                    var
+                        img = canvas.toDataURL("image/png"),
+                        doc = new jsPDF({
+                            unit: 'px',
+                            format: 'a4'
+                        });
+                    doc.addImage(img, 'JPEG', 20, 20);
+                    doc.save('Su-kien-Tin-Tuc.pdf');
+                    form.width(cache_width);
+                });
+            }
+
+            // create canvas object
+            function getCanvas() {
+                form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
+                return html2canvas(form, {
+                    imageTimeout: 2000,
+                    removeContainer: true
+                });
+            }
+
+        }());
+    </script>*@
 <script>
+    /*
+ * jQuery helper plugin for examples and tests
+ */
+    (function ($) {
+        $.fn.html2canvas = function (options) {
+            var date = new Date(),
+                $message = null,
+                timeoutTimer = false,
+                timer = date.getTime();
+            html2canvas.logging = options && options.logging;
+            html2canvas.Preload(this[0], $.extend({
+                complete: function (images) {
+                    var queue = html2canvas.Parse(this[0], images, options),
+                        $canvas = $(html2canvas.Renderer(queue, options)),
+                        finishTime = new Date();
+
+                    $canvas.css({ position: 'absolute', left: 0, top: 0 }).appendTo(document.body);
+                    $canvas.siblings().toggle();
+
+                    $(window).click(function () {
+                        if (!$canvas.is(':visible')) {
+                            $canvas.toggle().siblings().toggle();
+                            throwMessage("Canvas Render visible");
+                        } else {
+                            $canvas.siblings().toggle();
+                            $canvas.toggle();
+                            throwMessage("Canvas Render hidden");
+                        }
+                    });
+                    throwMessage('Screenshot created in ' + ((finishTime.getTime() - timer) / 1000) + " seconds<br />", 4000);
+                }
+            }, options));
+
+            function throwMessage(msg, duration) {
+                window.clearTimeout(timeoutTimer);
+                timeoutTimer = window.setTimeout(function () {
+                    $message.fadeOut(function () {
+                        $message.remove();
+                    });
+                }, duration || 2000);
+                if ($message)
+                    $message.remove();
+                $message = $('<div ></div>').html(msg).css({
+                    margin: 0,
+                    padding: 10,
+                    background: "#000",
+                    opacity: 0.7,
+                    position: "fixed",
+                    top: 10,
+                    right: 10,
+                    fontFamily: 'Tahoma',
+                    color: '#fff',
+                    fontSize: 12,
+                    borderRadius: 12,
+                    width: 'auto',
+                    height: 'auto',
+                    textAlign: 'center',
+                    textDecoration: 'none'
+                }).hide().fadeIn().appendTo('body');
+            }
+        };
+    })(jQuery);
+
+</script>
+@*END Convert HTML*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        var submit = $("button[type='submit']");
+        submit.click(function () {
+            var data = $('form#test-form').serialize();
+            $.ajax({
+                type: 'GET',
+                url: 'https://script.google.com/macros/s/AKfycbw9VH8G4g-Myu-itFEMzrmxXsCK6wMKGs-UEFtaFkv8gcJ3ZMA/exec',
+                dataType: 'json',
+                crossDomain: true,
+                data: data,
+                success: function (data) {
+                    if (data == 'false') {
+                        alert('Thêm không thành công, bạn cũng có thể sử dụng để hiển thị Popup hoặc điều hướng');
+                    } else {
+                        alert('Đã thêm dữ liệu vào Form');
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
+<script>
+
     var url = window.location.href;
     var id = url.substring(url.lastIndexOf('/') + 1);
     $.ajax({
@@ -200,8 +381,52 @@
         error: function (error) {
             alert(error);
         }
+
     })
+    var qrcode = new QRCode("id_qrcode", {
+        text: "http://localhost:60976/api/Admin/GetDetail/" + id,
+        width: 100,
+        height: 100,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+    var
+        form = $('#chanhnene'),
+        cache_width = form.width(),
+        a4 = [595.28, 841.89]; // for a4 size paper width and height
+
+    $('#create_pdff').on('click', function () {
+        $('body').scrollTop(0);
+        createPDF();
+    });
+    function createPDF() {
+        getCanvas().then(function (canvas) {
+            var
+                img = canvas.toDataURL("image/png"),
+                doc = new jsPDF({
+                    unit: 'px',
+                    format: 'a4'
+                });
+            doc.addImage(img, 'JPEG', 20, 20);
+            doc.save('Su-kien-Tin-Tuc.pdf');
+            form.width(cache_width);
+        });
+    }
+
+    // create canvas object
+    function getCanvas() {
+        form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
+        return html2canvas(form, {
+            imageTimeout: 2000,
+            removeContainer: true
+        });
+    }
 
 </script>
+
+
+
+
 
 

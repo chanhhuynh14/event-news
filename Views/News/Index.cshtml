@@ -5,54 +5,192 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout - About.cshtml";
 }
+<input type='hidden' id='current_page' />
+<input type='hidden' id='show_per_page' />
+<div id='page_navigation'></div>
 
-    <script>
-        $(document).ready(function () {
-            $.ajax({
-                type: "GET",
-                url: 'http://localhost:60976/api/NewsAPI/GetAllNews',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    $.each(data, function (i, item) {
-                        var rows = "<div class='col-lg-8 col-md-12'>";
-                        rows += "<div class='row course-item'>";
-                        rows += "<div class='col-md-6'>";
-                        rows += "<div class='course-img'>";
-                        rows += " <img src=" + item.Image+ " />";
-                        rows += "</div>";
-                        rows += "</div>";
-                        rows += "<div class='col-md-6'>";
-                        rows += " <div class='course-header'>";
-                        rows += "<span class='course-category'><a href='#'>"+ item.ID_CateNews +"</a></span>";
-                        rows += "<h3 class='course-title'><a href='news-single.html'>" + item.NameTitle + "</a></h3>";
-                        rows += "<div class='course-date'>";
-                        rows += "<i class='fa fa-clock-o'></i> " + item.CreatedDate + "";
-                        rows += "</div>"
-                        rows += "<div class='course-body'>";
-                        rows += "<div class='course-desc'>";
-                        rows += "<p>" + item.Description.length > 200 ? item.Description.substring(0, 200) : item.Description+ " </p >";
-                        rows += "</div>";
-                        rows += "<div class='course-button'>";
-                        rows += "<a href='/News/Detail/" + item.Id +"'>READ MORE</a>";
-                        rows += "</div >";
-                        rows += "</div >";
-                        rows += "</div > ";
-                        rows += " </div >";
-                      
-                        $('#hihi').append(rows);
-                    }); //End of foreach Loop
-                    console.log(data);
-                }, //End of AJAX Success function
 
-                failure: function (data) {
-                    alert(data.responseText);
-                }, //End of AJAX failure function
-                error: function (data) {
-                    alert(data.responseText);
-                } //End of AJAX error function
+<script>
+    jQuery(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:60976/api/NewsAPI/GetAllNews',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    var rows = "<div class='col-lg-8 col-md-12' >";
+                    rows += "<div class='row course-item'  id='abc'>";
+                    rows += "<div class='col-md-6'>";
+                    rows += "<div class='course-img'>";
+                    rows += " <img src=" + item.Image + " />";
+                    rows += "</div>";
+                    rows += "</div>";
+                    rows += "<div class='col-md-6'>";
+                    rows += " <div class='course-header'>";
+                    rows += "<span class='course-category'><a href='#'>" + item.ID_CateNews + "</a></span>";
+                    rows += "<h3 class='course-title'><a href='news-single.html'>" + item.NameTitle + "</a></h3>";
+                    rows += "<div class='course-date'>";
+                    rows += "<i class='fa fa-clock-o'></i> " + item.CreatedDate + "";
+                    rows += "</div>"
+                    rows += "<div class='course-body'>";
+                    rows += "<div class='course-desc'>";
+                    rows += "<p>" + item.Description.length > 200 ? item.Description.substring(0, 200) : item.Description + " </p >";
+                    rows += "</div>";
+                    rows += "<div class='course-button'>";
+                    rows += "<a href='/News/Detail/" + item.Id + "'>READ MORE</a>";
+                    rows += "</div >";
+                    rows += "</div >";
+                    rows += "</div > ";
+                    rows += " </div >";
+                    //
+                    rows += " <input type='hidden' id='current_page' />";
+                    rows += " <input type='hidden' id='show_per_page' />";
+                    rows += " <div id='page_navigation'></div>";
 
-            });
+                    $('#hihi').append(rows);
+                }); //End of foreach Loop
+                console.log(data);
+            }, //End of AJAX Success function
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert(data.responseText);
+            } //End of AJAX error function
+
         });
-    </script>
+        var show_per_page = 1;
+        var number_of_items = $('#abc').children().size();
+        var number_of_pages = Math.ceil(number_of_items / show_per_page);
+        $('#current_page').val(0);
+        $('#show_per_page').val(show_per_page);
+        var navigation_html = '<a class="previous_link" href="javascript:previous();">Prev</a>';
+        var current_link = 0;
+        while (number_of_pages > current_link) {
+            navigation_html += '<a class="page_link" href="javascript:go_to_page(' + current_link + ')" longdesc="' + current_link + '">' + (current_link + 1) + '</a>';
+            current_link++;
+        }
+        navigation_html += '<a class="next_link" href="javascript:next();">Next</a>';
+        $('#page_navigation').html(navigation_html);
+        $('#page_navigation .page_link:first').addClass('active_page');
+        $('#abc').children().css('display', 'none');
+        $('#abc').children().slice(0, show_per_page).css('display', 'block');
 
+    });
+    function previous() {
+
+        new_page = parseInt($('#current_page').val()) - 1;
+        //if there is an item before the current active link run the function
+        if ($('.active_page').prev('.page_link').length == true) {
+            go_to_page(new_page);
+        }
+
+    }
+    function next() {
+        new_page = parseInt($('#current_page').val()) + 1;
+        //if there is an item after the current active link run the function
+        if ($('.active_page').next('.page_link').length == true) {
+            go_to_page(new_page);
+        }
+
+    }
+    function go_to_page(page_num) {
+        //get the number of items shown per page
+        var show_per_page = parseInt($('#show_per_page').val());
+
+        //get the element number where to start the slice from
+        start_from = page_num * show_per_page;
+
+        //get the element number where to end the slice
+        end_on = start_from + show_per_page;
+
+        //hide all children elements of pagingBox div, get specific items and show them
+        $('#abc').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
+
+        /*get the page link that has longdesc attribute of the current page and add active_page class to it
+        and remove that class from previously active page link*/
+        $('.page_link[longdesc=' + page_num + ']').addClass('active_page').siblings('.active_page').removeClass('active_page');
+
+        //update the current page input field
+        $('#current_page').val(page_num);
+    }
+</script>
+<style>
+    /*Pagination CSS*/
+    #page_navigation {
+        clear: both;
+        margin: 20px 0;
+    }
+
+        #page_navigation a {
+            padding: 3px 6px;
+            border: 1px solid #2e6da4;
+            margin: 2px;
+            color: black;
+            text-decoration: none
+        }
+
+    .active_page {
+        background: #337ab7;
+        color: white !important;
+    }
+</style>
+@*<script>
+    jQuery(document).ready(function () {
+        var show_per_page = 1;
+        var number_of_items = $('.col-lg-8 col-md-12').children().size();
+        var number_of_pages = Math.ceil(number_of_items / show_per_page);
+        $('#current_page').val(0);
+        $('#show_per_page').val(show_per_page);
+        var navigation_html = '<a class="previous_link" href="javascript:previous();">Prev</a>';
+        var current_link = 0;
+        while (number_of_pages > current_link) {
+            navigation_html += '<a class="page_link" href="javascript:go_to_page(' + current_link + ')" longdesc="' + current_link + '">' + (current_link + 1) + '</a>';
+            current_link++;
+        }
+        navigation_html += '<a class="next_link" href="javascript:next();">Next</a>';
+        $('#page_navigation').html(navigation_html);
+        $('#page_navigation .page_link:first').addClass('active_page');
+        $('.col-lg-8 col-md-12').children().css('display', 'none');
+        $('.col-lg-8 col-md-12').children().slice(0, show_per_page).css('display', 'block');
+
+    });
+    function previous() {
+
+        new_page = parseInt($('#current_page').val()) - 1;
+        //if there is an item before the current active link run the function
+        if ($('.active_page').prev('.page_link').length == true) {
+            go_to_page(new_page);
+        }
+
+    }
+    function next() {
+        new_page = parseInt($('#current_page').val()) + 1;
+        //if there is an item after the current active link run the function
+        if ($('.active_page').next('.page_link').length == true) {
+            go_to_page(new_page);
+        }
+
+    }
+    function go_to_page(page_num) {
+        //get the number of items shown per page
+        var show_per_page = parseInt($('#show_per_page').val());
+
+        //get the element number where to start the slice from
+        start_from = page_num * show_per_page;
+
+        //get the element number where to end the slice
+        end_on = start_from + show_per_page;
+
+        //hide all children elements of pagingBox div, get specific items and show them
+        $('.col-lg-8 col-md-12').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
+
+        /*get the page link that has longdesc attribute of the current page and add active_page class to it
+        and remove that class from previously active page link*/
+        $('.page_link[longdesc=' + page_num + ']').addClass('active_page').siblings('.active_page').removeClass('active_page');
+
+        //update the current page input field
+        $('#current_page').val(page_num);
+    }
+</script>*@

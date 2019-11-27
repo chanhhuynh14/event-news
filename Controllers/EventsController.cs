@@ -13,6 +13,7 @@ namespace E_Hutech.Controllers
     public class EventsController : Controller
     {
         private EVENTEntities1 db = new EVENTEntities1();
+        public new System.Web.HttpContextBase HttpContext { get; }
 
         // GET: Events
         public ActionResult Index()
@@ -41,6 +42,22 @@ namespace E_Hutech.Controllers
                 }
             }
             return View(events);
+        }
+        [HttpPost]
+        public JsonResult AjaxMethod(int pageIndex)
+        {
+            EventViewModel model = new EventViewModel();
+            EVENTEntities1 entities = new EVENTEntities1();
+            model.PageIndex = pageIndex;
+            model.PageSize = 10;
+            model.RecordCount = entities.Events.Count();
+            int startIndex = (pageIndex - 1) * model.PageSize;
+            model.Events = (from events in entities.Events
+                            select events)
+                            .OrderBy(events => events.Id)
+                            .Skip(startIndex)
+                            .Take(model.PageSize).ToList();
+            return Json(model);
         }
         [ValidateInput(false)]
         public ActionResult ShowAllEvent()
@@ -73,8 +90,6 @@ namespace E_Hutech.Controllers
         public ActionResult Detail()
         {
             IEnumerable<EventViewModel> events = null;
-
-
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:60976/api/");
@@ -84,7 +99,8 @@ namespace E_Hutech.Controllers
 
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
-                {
+                { 
+
                     var readTask = result.Content.ReadAsAsync<IList<EventViewModel>>();
                     readTask.Wait();
 
@@ -162,7 +178,45 @@ namespace E_Hutech.Controllers
                 status = true
             }, JsonRequestBehavior.AllowGet);
         }
-       
+        public ActionResult GetDepartment()
+        {
+            EVENTEntities1 db = new EVENTEntities1();
+            return Json(db.Category_Event.Select(x => new
+            {
+                DepartmentID = x.Id_CE,
+                DepartmentName = x.Name_CE,
+            }).ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Cate_E()
+        {
+            IEnumerable<EventViewModel> events = null;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:60976/api/");
+                //HTTP GET
+                var responseTask = client.GetAsync("event");
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+
+                    var readTask = result.Content.ReadAsAsync<IList<EventViewModel>>();
+                    readTask.Wait();
+
+                    events = readTask.Result;
+                }
+                else
+                {
+                    events = Enumerable.Empty<EventViewModel>();
+
+                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
+                }
+            }
+            return View(events);
+        }
+
+
         //public ActionResult DanhMuc()
         //{
         //    var danhmuc = from dm in db.Category_Event select dm;

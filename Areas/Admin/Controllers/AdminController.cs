@@ -10,18 +10,16 @@ using System.Web;
 using System.Web.Http;
 using E_Hutech.Areas.Admin.Models;
 using E_Hutech.Models;
-
+using System.Data.Entity;
 namespace E_Hutech.Areas.Admin.Controllers
 {
     public class AdminController : ApiController
     {
         private EVENTEntities1 db = new EVENTEntities1();
-
         public IHttpActionResult GetAllEvent(string keyword="")
         {
             keyword = keyword == null ? "" : keyword;   
             IList<EventViewModel> events = null;
-            
             events = db.Events.Include("Event").Where(s => (s.Name.Contains(keyword) || s.Desciption.Contains(keyword)))
                            .Select(s => new EventViewModel()
                            {
@@ -39,12 +37,10 @@ namespace E_Hutech.Areas.Admin.Controllers
                                SL_Thamgia = s.SL_Thamgia,
                                Date = s.Date,                               
                            }).ToList<EventViewModel>();
-
             if (events.Count == 0)
             {
                 return NotFound();
             }
-
             return Ok(events);
         }
         public IHttpActionResult GettNewEvent(int id,int page, int pageSize = 1)
@@ -113,7 +109,6 @@ namespace E_Hutech.Areas.Admin.Controllers
 
                 ctx.SaveChanges();
             }
-
             return Ok();
         }
         public IHttpActionResult DeleteEvent(int id)
@@ -282,6 +277,102 @@ namespace E_Hutech.Areas.Admin.Controllers
             }
             return tempBmp;
         }
+        public IHttpActionResult GetCate(int id)
+        {
+            IList<EventViewModel> events = null;
 
+            events = db.Events.Include("Event").Where(s => s.Id_Cate == id)
+                           .Select(s => new EventViewModel()
+                           {
+                               Id = s.Id,
+                               Name = s.Name,
+                               Desciption = s.Desciption,
+                               Content = s.Content,
+                               Image1 = s.Image1,
+                               icon = s.icon,
+                               DKSK = s.DKSK,
+                               DiaDiem = s.DiaDiem,
+                               Keyword = s.Keyword,
+                               SeoTitle = s.SeoTitle,
+                               Id_Cate = s.Id_Cate,
+                               SL_Thamgia = s.SL_Thamgia,
+                               Date = s.Date
+                           }).ToList();
+
+            if (events == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(events);
+        }
+        [HttpGet]
+        //public HttpResponseMessage GetPaged(int pageNo = 1, int pageSize = 50)
+        //{
+        //    // Determine the number of records to skip
+        //    int skip = (pageNo - 1) * pageSize;
+
+        //    // Get total number of records
+        //    int total = db.Events.Count();
+
+        //    // Select the customers based on paging parameters
+        //    var customers = db.Events
+        //        .OrderBy(c => c.Id)
+        //        .Skip(skip)
+        //        .Take(pageSize)
+        //        .ToList();
+
+        //    // Determine page count
+        //    int pageCount = total > 0
+        //        ? (int)Math.Ceiling(total / (double)pageSize)
+        //        : 0;
+
+        //    // Create the response
+        //    var response = Request.CreateResponse(HttpStatusCode.OK, customers);
+
+        //    // Set headers for paging
+        //    response.Headers.Add("X-Paging-PageNo", pageNo.ToString());
+        //    response.Headers.Add("X-Paging-PageSize", pageSize.ToString());
+        //    response.Headers.Add("X-Paging-PageCount", pageCount.ToString());
+        //    response.Headers.Add("X-Paging-TotalRecordCount", total.ToString());
+
+        //    // Return the response
+        //    return response;
+        //}
+        public IHttpActionResult GetPaged(int pageNo = 1)
+        {
+            int pageSize = 3;
+            // Determine the number of records to skip
+            int skip = (pageNo - 1) * pageSize;
+
+            // Get total number of records
+            int total = db.Events.Count();
+            IList<EventViewModel> customers = null;
+
+            // Select the customers based on paging parameters
+             customers = db.Events.Include("Event")
+                .OrderBy(s => s.Id)
+                .Skip(skip)
+                .Take(pageSize)
+                .Select(s => new EventViewModel()
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Desciption = s.Desciption,
+                    Content = s.Content,
+                    Image1 = s.Image1,
+                    icon = s.icon,
+                    DKSK = s.DKSK,
+                    DiaDiem = s.DiaDiem,
+                    Keyword = s.Keyword,
+                    SeoTitle = s.SeoTitle,
+                    Id_Cate = s.Id_Cate,
+                    SL_Thamgia = s.SL_Thamgia,
+                    Date = s.Date,
+                }).ToList<EventViewModel>();
+
+            // Return the list of customers
+            return Ok(customers);
+        }
     }
 }
