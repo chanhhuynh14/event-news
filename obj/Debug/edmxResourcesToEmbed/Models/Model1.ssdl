@@ -74,7 +74,8 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
     <Property Name="SL_Thamgia" Type="float" />
     <Property Name="Date" Type="datetime" />
     <Property Name="DKSK" Type="nvarchar(max)" />
-    <Property Name="DiaDiem" Type="nvarchar(max)" />
+    <Property Name="DiaDiem" Type="int" />
+    <Property Name="Votes" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Khoa">
     <Key>
@@ -82,6 +83,15 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
     </Key>
     <Property Name="Id_Khoa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name_Khoa" Type="nvarchar" MaxLength="70" />
+  </EntityType>
+  <EntityType Name="linkAddress">
+    <Key>
+      <PropertyRef Name="Id_Address" />
+    </Key>
+    <Property Name="Id_Address" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name_Address" Type="nvarchar" MaxLength="150" />
+    <Property Name="Full_Address" Type="nvarchar" MaxLength="250" />
+    <Property Name="Pb_Address" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Lop">
     <Key>
@@ -169,6 +179,17 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Content" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="VoteLog">
+    <Key>
+      <PropertyRef Name="AutoId" />
+    </Key>
+    <Property Name="AutoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SectionId" Type="smallint" />
+    <Property Name="VoteForld" Type="int" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="Vote" Type="smallint" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
   <Association Name="FK_Cate_News_Khoa">
     <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
     <End Role="Cate_News" Type="Self.Cate_News" Multiplicity="*" />
@@ -193,15 +214,15 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Event_Category_Event">
-    <End Role="Category_Event" Type="Self.Category_Event" Multiplicity="0..1" />
+  <Association Name="FK_Event_linkAddress">
+    <End Role="linkAddress" Type="Self.linkAddress" Multiplicity="0..1" />
     <End Role="Event" Type="Self.Event" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Category_Event">
-        <PropertyRef Name="Id_CE" />
+      <Principal Role="linkAddress">
+        <PropertyRef Name="Id_Address" />
       </Principal>
       <Dependent Role="Event">
-        <PropertyRef Name="Id_Cate" />
+        <PropertyRef Name="DiaDiem" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -297,6 +318,7 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
     <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Khoa" EntityType="Self.Khoa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="linkAddress" EntityType="Self.linkAddress" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Lop" EntityType="Self.Lop" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MXH" EntityType="Self.MXH" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
@@ -306,6 +328,7 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
     <EntitySet Name="SV_SK" EntityType="Self.SV_SK" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ThongTinWebsite" EntityType="Self.ThongTinWebsite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VoteLog" EntityType="Self.VoteLog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Banner" EntityType="Self.Banner" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [Banner].[Id_banner] AS [Id_banner], 
@@ -320,8 +343,8 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
       <End Role="Khoa" EntitySet="Khoa" />
       <End Role="Category_Event" EntitySet="Category_Event" />
     </AssociationSet>
-    <AssociationSet Name="FK_Event_Category_Event" Association="Self.FK_Event_Category_Event">
-      <End Role="Category_Event" EntitySet="Category_Event" />
+    <AssociationSet Name="FK_Event_linkAddress" Association="Self.FK_Event_linkAddress">
+      <End Role="linkAddress" EntitySet="linkAddress" />
       <End Role="Event" EntitySet="Event" />
     </AssociationSet>
     <AssociationSet Name="FK_Lop_Khoa" Association="Self.FK_Lop_Khoa">

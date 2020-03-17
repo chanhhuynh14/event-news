@@ -3,7 +3,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout - Admin_Test.cshtml";
 }
-
+@*@RenderSection("Scripts",false)
+<div id="calender"></div>*@
 <div class="section-admin container-fluid">
     <div class="row admin text-center">
         <div class="col-md-12">
@@ -428,3 +429,49 @@
         </div>
     </div>
 </div>
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:60976/api/Admin/GetAllEvent",
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: v.Name,
+                            description: v.Desciption,
+                            star: moment(v.Star),
+                            end: v.ThemeColor,
+                            allDay: v.IsFullDay
+                        })
+                    })
+                    GenerateCalender(events);
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            })
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calender').fullCalendar({
+                    contentHeight: 400,
+                    defaulfDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events
+                })
+            }
+        })
+    </script>
+    }*@

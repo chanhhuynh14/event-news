@@ -506,7 +506,7 @@ ul {
   color: #ffffff;
 }
 .sec-spacer {
-  padding: 100px 0 100px 0;
+  padding: 100px 0 70px 0;
 }
 .sec-color {
   background-color: #f9f9f9;
@@ -546,10 +546,10 @@ ul {
   background-position: center top;
 }
 .bg3 {
-  background-image: url(../img/counter-bg.jpg);
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center top;
+    background: cadetblue;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center top;
 }
 .bg4 {
   background-image: url(../img/cta-bg.jpg);
@@ -884,8 +884,11 @@ ul {
 .mb-45 {
   margin-bottom: 45px !important;
 }
-.mb-50 {
+/*.mb-50 {
   margin-bottom: 50px !important;
+}*/
+.mb-50 {
+    margin-bottom: 26px !important;
 }
 .mb-70 {
   margin-bottom: 70px !important;
@@ -1166,15 +1169,15 @@ ul {
   position: relative;
 }
 .home2 .menu-area .main-menu {
-  background: #111111;
-  position: absolute;
-  top: -30px;
-  border-radius: 0;
-  width: 100%;
-  z-index: 999;
-  left: 0;
-  max-width: 1170px;
-  margin: 0 auto;
+    background: cadetblue;
+    position: absolute;
+    top: -30px;
+    border-radius: 0;
+    width: 100%;
+    z-index: 999;
+    left: 0;
+    max-width: 1170px;
+    margin: 0 auto;
 }
 .home2 .menu-area .rs-menu ul > li > a {
   color: #ffffffbd;
@@ -1573,24 +1576,24 @@ ul {
     04. Sticky Menu
 ---------------------------------------*/
 .menu-sticky.sticky {
-  background: #111111;
-  position: fixed !important;
-  top: 0px;
-  z-index: 999;
-  margin: 0 auto !important;
-  padding: 0;
-  left: 0;
-  right: 0;
-  -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-  -webkit-animation-duration: .5s;
-  animation-duration: .5s;
-  -webkit-animation-name: sticky-animation;
-  animation-name: sticky-animation;
-  -webkit-animation-timing-function: ease-out;
-  animation-timing-function: ease-out;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
+    background: #f5f4f400;
+    position: fixed !important;
+    top: 0px;
+    z-index: 999;
+    margin: 0 auto !important;
+    padding: 0;
+    left: 0;
+    right: 0;
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s;
+    -webkit-animation-name: sticky-animation;
+    animation-name: sticky-animation;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
 .menu-sticky.sticky .main-menu {
   position: static ;
@@ -2874,24 +2877,27 @@ ul {
   margin-bottom: 0 !important;
 }
 .rs-search-courses {
-  padding: 70px 0;
-  position: relative;
-  margin-top: -100px;
-  z-index: 10;
+    width: 1234px;
+    margin-left: 57px;
+    padding: 20px 0;
+    position: relative;
+    margin-top: -100px;
+    z-index: 10;
 }
-.rs-search-courses:after {
-  content: '';
-  position: absolute;
-  height: 100%;
-  width: 90%;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  top: 0;
-  background-color: #111111;
-  z-index: -1;
-  display: block;
-}
+    .rs-search-courses:after {
+        content: '';
+        position: absolute;
+        height: 89%;
+        width: 90%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        top: 0;
+        background-color: #5f9ea0;
+        z-index: -1;
+        display: block;
+        border-radius: 50px;
+    }
 .rs-search-courses select,
 .rs-search-courses button,
 .rs-search-courses input {
@@ -6784,7 +6790,7 @@ ul {
   font-size: 15px;
 }
 .rs-footer .footer-top {
-  padding-top: 140px;
+  padding-top: 40px;
 }
 .rs-footer .footer-top .recent-post-widget .post-item {
   display: -ms-flexbox;

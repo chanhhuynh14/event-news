@@ -79,7 +79,8 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           <Property Name="SL_Thamgia" Type="float" />
           <Property Name="Date" Type="datetime" />
           <Property Name="DKSK" Type="nvarchar(max)" />
-          <Property Name="DiaDiem" Type="nvarchar(max)" />
+          <Property Name="DiaDiem" Type="int" />
+          <Property Name="Votes" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Khoa">
           <Key>
@@ -87,6 +88,15 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           </Key>
           <Property Name="Id_Khoa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name_Khoa" Type="nvarchar" MaxLength="70" />
+        </EntityType>
+        <EntityType Name="linkAddress">
+          <Key>
+            <PropertyRef Name="Id_Address" />
+          </Key>
+          <Property Name="Id_Address" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Address" Type="nvarchar" MaxLength="150" />
+          <Property Name="Full_Address" Type="nvarchar" MaxLength="250" />
+          <Property Name="Pb_Address" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Lop">
           <Key>
@@ -174,6 +184,17 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Content" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="VoteLog">
+          <Key>
+            <PropertyRef Name="AutoId" />
+          </Key>
+          <Property Name="AutoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionId" Type="smallint" />
+          <Property Name="VoteForld" Type="int" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Vote" Type="smallint" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
         <Association Name="FK_Cate_News_Khoa">
           <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
           <End Role="Cate_News" Type="Self.Cate_News" Multiplicity="*" />
@@ -198,15 +219,15 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Event_Category_Event">
-          <End Role="Category_Event" Type="Self.Category_Event" Multiplicity="0..1" />
+        <Association Name="FK_Event_linkAddress">
+          <End Role="linkAddress" Type="Self.linkAddress" Multiplicity="0..1" />
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Category_Event">
-              <PropertyRef Name="Id_CE" />
+            <Principal Role="linkAddress">
+              <PropertyRef Name="Id_Address" />
             </Principal>
             <Dependent Role="Event">
-              <PropertyRef Name="Id_Cate" />
+              <PropertyRef Name="DiaDiem" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -302,6 +323,7 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Khoa" EntityType="Self.Khoa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="linkAddress" EntityType="Self.linkAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lop" EntityType="Self.Lop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MXH" EntityType="Self.MXH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
@@ -311,6 +333,7 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           <EntitySet Name="SV_SK" EntityType="Self.SV_SK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThongTinWebsite" EntityType="Self.ThongTinWebsite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VoteLog" EntityType="Self.VoteLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Banner" EntityType="Self.Banner" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Banner].[Id_banner] AS [Id_banner], 
@@ -325,8 +348,8 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
             <End Role="Khoa" EntitySet="Khoa" />
             <End Role="Category_Event" EntitySet="Category_Event" />
           </AssociationSet>
-          <AssociationSet Name="FK_Event_Category_Event" Association="Self.FK_Event_Category_Event">
-            <End Role="Category_Event" EntitySet="Category_Event" />
+          <AssociationSet Name="FK_Event_linkAddress" Association="Self.FK_Event_linkAddress">
+            <End Role="linkAddress" EntitySet="linkAddress" />
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
           <AssociationSet Name="FK_Lop_Khoa" Association="Self.FK_Lop_Khoa">
@@ -362,6 +385,15 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EVENTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="About">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TongQuan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SuMenh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TamNhin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="Id" />
@@ -384,7 +416,7 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="Id_Khoa" Type="Int32" />
           <NavigationProperty Name="Khoa" Relationship="Self.FK_Cate_News_Khoa" FromRole="Cate_News" ToRole="Khoa" />
-          <NavigationProperty Name="News" Relationship="EVENTModel.FK_News_Cate_News" FromRole="Cate_News" ToRole="News" />
+          <NavigationProperty Name="News" Relationship="Self.FK_News_Cate_News" FromRole="Cate_News" ToRole="News" />
         </EntityType>
         <EntityType Name="Category_Event">
           <Key>
@@ -394,7 +426,38 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           <Property Name="Name_CE" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="Id_Khoa" Type="Int32" />
           <NavigationProperty Name="Khoa" Relationship="Self.FK_Category_Event_Khoa" FromRole="Category_Event" ToRole="Khoa" />
-          <NavigationProperty Name="Events" Relationship="EVENTModel.FK_Event_Category_Event" FromRole="Category_Event" ToRole="Event" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lname" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Phonenumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Desciption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Keyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SeoTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Cate" Type="Int32" />
+          <Property Name="SL_Thamgia" Type="Double" />
+          <Property Name="DKSK" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DiaDiem" Type="Int32" />
+          <NavigationProperty Name="linkAddress" Relationship="Self.FK_Event_linkAddress" FromRole="Event" ToRole="linkAddress" />
+          <NavigationProperty Name="SV_SK" Relationship="Self.FK_SV_SK_Event" FromRole="Event" ToRole="SV_SK" />
+          <Property Name="Votes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Khoa">
           <Key>
@@ -405,6 +468,16 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           <NavigationProperty Name="Cate_News" Relationship="Self.FK_Cate_News_Khoa" FromRole="Khoa" ToRole="Cate_News" />
           <NavigationProperty Name="Category_Event" Relationship="Self.FK_Category_Event_Khoa" FromRole="Khoa" ToRole="Category_Event" />
           <NavigationProperty Name="Lops" Relationship="Self.FK_Lop_Khoa" FromRole="Khoa" ToRole="Lop" />
+        </EntityType>
+        <EntityType Name="linkAddress">
+          <Key>
+            <PropertyRef Name="Id_Address" />
+          </Key>
+          <Property Name="Id_Address" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Full_Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Pb_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Events" Relationship="Self.FK_Event_linkAddress" FromRole="linkAddress" ToRole="Event" />
         </EntityType>
         <EntityType Name="Lop">
           <Key>
@@ -422,8 +495,21 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
-          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ID_CateNews" Type="Int32" />
+          <NavigationProperty Name="Cate_News" Relationship="Self.FK_News_Cate_News" FromRole="News" ToRole="Cate_News" />
         </EntityType>
         <EntityType Name="RoleDetail">
           <Key>
@@ -469,8 +555,8 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           <Property Name="Status" Type="Boolean" />
           <Property Name="Checkin" Type="DateTime" Precision="3" />
           <Property Name="ID_Detail_Event_Student" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Event" Relationship="Self.FK_SV_SK_Event" FromRole="SV_SK" ToRole="Event" />
           <NavigationProperty Name="SinhVien" Relationship="Self.FK_SV_SK_SinhVien" FromRole="SV_SK" ToRole="SinhVien" />
-          <NavigationProperty Name="Event" Relationship="EVENTModel.FK_SV_SK_Event" FromRole="SV_SK" ToRole="Event" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -488,6 +574,13 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Banner">
+          <Key>
+            <PropertyRef Name="Id_banner" />
+          </Key>
+          <Property Name="Id_banner" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_RoleDetail_Admin">
           <End Role="Admin" Type="Self.Admin" Multiplicity="1" />
@@ -513,6 +606,18 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_News_Cate_News">
+          <End Role="Cate_News" Type="Self.Cate_News" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cate_News">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="ID_CateNews" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Category_Event_Khoa">
           <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
           <End Role="Category_Event" Type="Self.Category_Event" Multiplicity="*" />
@@ -522,6 +627,30 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
             </Principal>
             <Dependent Role="Category_Event">
               <PropertyRef Name="Id_Khoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Event_linkAddress">
+          <End Role="linkAddress" Type="Self.linkAddress" Multiplicity="0..1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="linkAddress">
+              <PropertyRef Name="Id_Address" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="DiaDiem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SV_SK_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="0..1" />
+          <End Role="SV_SK" Type="Self.SV_SK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SV_SK">
+              <PropertyRef Name="ID_Events" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -573,19 +702,25 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="EVENTEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="EVENTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Abouts" EntityType="Self.About" />
           <EntitySet Name="Admins" EntityType="Self.Admin" />
           <EntitySet Name="Cate_News" EntityType="Self.Cate_News" />
           <EntitySet Name="Category_Event" EntityType="Self.Category_Event" />
+          <EntitySet Name="Contacts" EntityType="Self.Contact" />
+          <EntitySet Name="Events" EntityType="Self.Event" />
           <EntitySet Name="Khoas" EntityType="Self.Khoa" />
+          <EntitySet Name="linkAddresses" EntityType="Self.linkAddress" />
           <EntitySet Name="Lops" EntityType="Self.Lop" />
           <EntitySet Name="MXHs" EntityType="Self.MXH" />
+          <EntitySet Name="News" EntityType="Self.News" />
           <EntitySet Name="RoleDetails" EntityType="Self.RoleDetail" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="SinhViens" EntityType="Self.SinhVien" />
           <EntitySet Name="SV_SK" EntityType="Self.SV_SK" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="ThongTinWebsites" EntityType="Self.ThongTinWebsite" />
+          <EntitySet Name="Banners" EntityType="Self.Banner" />
           <AssociationSet Name="FK_RoleDetail_Admin" Association="Self.FK_RoleDetail_Admin">
             <End Role="Admin" EntitySet="Admins" />
             <End Role="RoleDetail" EntitySet="RoleDetails" />
@@ -594,9 +729,21 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
             <End Role="Khoa" EntitySet="Khoas" />
             <End Role="Cate_News" EntitySet="Cate_News" />
           </AssociationSet>
+          <AssociationSet Name="FK_News_Cate_News" Association="Self.FK_News_Cate_News">
+            <End Role="Cate_News" EntitySet="Cate_News" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
           <AssociationSet Name="FK_Category_Event_Khoa" Association="Self.FK_Category_Event_Khoa">
             <End Role="Khoa" EntitySet="Khoas" />
             <End Role="Category_Event" EntitySet="Category_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Event_linkAddress" Association="Self.FK_Event_linkAddress">
+            <End Role="linkAddress" EntitySet="linkAddresses" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SV_SK_Event" Association="Self.FK_SV_SK_Event">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="SV_SK" EntitySet="SV_SK" />
           </AssociationSet>
           <AssociationSet Name="FK_Lop_Khoa" Association="Self.FK_Lop_Khoa">
             <End Role="Khoa" EntitySet="Khoas" />
@@ -614,126 +761,35 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
             <End Role="SinhVien" EntitySet="SinhViens" />
             <End Role="SV_SK" EntitySet="SV_SK" />
           </AssociationSet>
-          <EntitySet Name="Abouts" EntityType="EVENTModel.About" />
-          <EntitySet Name="Contacts" EntityType="EVENTModel.Contact" />
-          <EntitySet Name="News" EntityType="EVENTModel.News" />
-          <AssociationSet Name="FK_News_Cate_News" Association="EVENTModel.FK_News_Cate_News">
-            <End Role="Cate_News" EntitySet="Cate_News" />
-            <End Role="News" EntitySet="News" />
-          </AssociationSet>
-          <EntitySet Name="Events" EntityType="EVENTModel.Event" />
-          <AssociationSet Name="FK_Event_Category_Event" Association="EVENTModel.FK_Event_Category_Event">
-            <End Role="Category_Event" EntitySet="Category_Event" />
-            <End Role="Event" EntitySet="Events" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SV_SK_Event" Association="EVENTModel.FK_SV_SK_Event">
-            <End Role="Event" EntitySet="Events" />
-            <End Role="SV_SK" EntitySet="SV_SK" />
-          </AssociationSet>
-          <EntitySet Name="Banners" EntityType="EVENTModel.Banner" />
+          <EntitySet Name="VoteLogs" EntityType="EVENTModel.VoteLog" />
         </EntityContainer>
-        <EntityType Name="About">
+        <EntityType Name="VoteLog">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="AutoId" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TongQuan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SuMenh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TamNhin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Contact">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Lname" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Phonenumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="News">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-          <Property Name="ID_CateNews" Type="Int32" />
-          <NavigationProperty Name="Cate_News" Relationship="EVENTModel.FK_News_Cate_News" FromRole="News" ToRole="Cate_News" />
-        </EntityType>
-        <Association Name="FK_News_Cate_News">
-          <End Type="EVENTModel.Cate_News" Role="Cate_News" Multiplicity="0..1" />
-          <End Type="EVENTModel.News" Role="News" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cate_News">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="News">
-              <PropertyRef Name="ID_CateNews" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Event">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Desciption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Image1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Keyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="SeoTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Id_Cate" Type="Int32" />
-          <Property Name="SL_Thamgia" Type="Double" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
-          <Property Name="DKSK" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DiaDiem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Category_Event" Relationship="EVENTModel.FK_Event_Category_Event" FromRole="Event" ToRole="Category_Event" />
-          <NavigationProperty Name="SV_SK" Relationship="EVENTModel.FK_SV_SK_Event" FromRole="Event" ToRole="SV_SK" />
-        </EntityType>
-        <Association Name="FK_Event_Category_Event">
-          <End Type="EVENTModel.Category_Event" Role="Category_Event" Multiplicity="0..1" />
-          <End Type="EVENTModel.Event" Role="Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category_Event">
-              <PropertyRef Name="Id_CE" />
-            </Principal>
-            <Dependent Role="Event">
-              <PropertyRef Name="Id_Cate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SV_SK_Event">
-          <End Type="EVENTModel.Event" Role="Event" Multiplicity="0..1" />
-          <End Type="EVENTModel.SV_SK" Role="SV_SK" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Event">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SV_SK">
-              <PropertyRef Name="ID_Events" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Banner">
-          <Key>
-            <PropertyRef Name="Id_banner" />
-          </Key>
-          <Property Name="Id_banner" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AutoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionId" Type="Int16" />
+          <Property Name="VoteForld" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Vote" Type="Int16" />
+          <Property Name="Active" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EVENTModelStoreContainer" CdmEntityContainer="EVENTEntities1">
+        <EntityContainerMapping StorageEntityContainer="EVENTModelStoreContainer" CdmEntityContainer="EVENTEntities">
+          <EntitySetMapping Name="Abouts">
+            <EntityTypeMapping TypeName="EVENTModel.About">
+              <MappingFragment StoreEntitySet="About">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TongQuan" ColumnName="TongQuan" />
+                <ScalarProperty Name="SuMenh" ColumnName="SuMenh" />
+                <ScalarProperty Name="TamNhin" ColumnName="TamNhin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Admins">
             <EntityTypeMapping TypeName="EVENTModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
@@ -766,11 +822,53 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="EVENTModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+                <ScalarProperty Name="Phonenumber" ColumnName="Phonenumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="EVENTModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Votes" ColumnName="Votes" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Desciption" ColumnName="Desciption" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Image1" ColumnName="Image1" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+                <ScalarProperty Name="SeoTitle" ColumnName="SeoTitle" />
+                <ScalarProperty Name="Id_Cate" ColumnName="Id_Cate" />
+                <ScalarProperty Name="SL_Thamgia" ColumnName="SL_Thamgia" />
+                <ScalarProperty Name="DKSK" ColumnName="DKSK" />
+                <ScalarProperty Name="DiaDiem" ColumnName="DiaDiem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Khoas">
             <EntityTypeMapping TypeName="EVENTModel.Khoa">
               <MappingFragment StoreEntitySet="Khoa">
                 <ScalarProperty Name="Id_Khoa" ColumnName="Id_Khoa" />
                 <ScalarProperty Name="Name_Khoa" ColumnName="Name_Khoa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="linkAddresses">
+            <EntityTypeMapping TypeName="EVENTModel.linkAddress">
+              <MappingFragment StoreEntitySet="linkAddress">
+                <ScalarProperty Name="Id_Address" ColumnName="Id_Address" />
+                <ScalarProperty Name="Name_Address" ColumnName="Name_Address" />
+                <ScalarProperty Name="Full_Address" ColumnName="Full_Address" />
+                <ScalarProperty Name="Pb_Address" ColumnName="Pb_Address" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -786,10 +884,23 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           <EntitySetMapping Name="MXHs">
             <EntityTypeMapping TypeName="EVENTModel.MXH">
               <MappingFragment StoreEntitySet="MXH">
-                <ScalarProperty Name="Icon" ColumnName="Icon" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
                 <ScalarProperty Name="Link" ColumnName="Link" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="EVENTModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameTitle" ColumnName="NameTitle" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ID_CateNews" ColumnName="ID_CateNews" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -856,65 +967,23 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Abouts">
-            <EntityTypeMapping TypeName="EVENTModel.About">
-              <MappingFragment StoreEntitySet="About">
-                <ScalarProperty Name="TamNhin" ColumnName="TamNhin" />
-                <ScalarProperty Name="SuMenh" ColumnName="SuMenh" />
-                <ScalarProperty Name="TongQuan" ColumnName="TongQuan" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Contacts">
-            <EntityTypeMapping TypeName="EVENTModel.Contact">
-              <MappingFragment StoreEntitySet="Contact">
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phonenumber" ColumnName="Phonenumber" />
-                <ScalarProperty Name="Lname" ColumnName="Lname" />
-                <ScalarProperty Name="Fname" ColumnName="Fname" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="News">
-            <EntityTypeMapping TypeName="EVENTModel.News">
-              <MappingFragment StoreEntitySet="News">
-                <ScalarProperty Name="ID_CateNews" ColumnName="ID_CateNews" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="NameTitle" ColumnName="NameTitle" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Events">
-            <EntityTypeMapping TypeName="EVENTModel.Event">
-              <MappingFragment StoreEntitySet="Event">
-                <ScalarProperty Name="DiaDiem" ColumnName="DiaDiem" />
-                <ScalarProperty Name="DKSK" ColumnName="DKSK" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="SL_Thamgia" ColumnName="SL_Thamgia" />
-                <ScalarProperty Name="Id_Cate" ColumnName="Id_Cate" />
-                <ScalarProperty Name="SeoTitle" ColumnName="SeoTitle" />
-                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
-                <ScalarProperty Name="icon" ColumnName="icon" />
-                <ScalarProperty Name="Image1" ColumnName="Image1" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="Desciption" ColumnName="Desciption" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Banners">
             <EntityTypeMapping TypeName="EVENTModel.Banner">
               <MappingFragment StoreEntitySet="Banner">
-                <ScalarProperty Name="Img" ColumnName="Img" />
                 <ScalarProperty Name="Id_banner" ColumnName="Id_banner" />
+                <ScalarProperty Name="Img" ColumnName="Img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VoteLogs">
+            <EntityTypeMapping TypeName="EVENTModel.VoteLog">
+              <MappingFragment StoreEntitySet="VoteLog">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Vote" ColumnName="Vote" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="VoteForld" ColumnName="VoteForld" />
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+                <ScalarProperty Name="AutoId" ColumnName="AutoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

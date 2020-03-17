@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="EVENTModelStoreContainer" CdmEntityContainer="EVENTEntities1">
+  <EntityContainerMapping StorageEntityContainer="EVENTModelStoreContainer" CdmEntityContainer="EVENTEntities">
+    <EntitySetMapping Name="Abouts">
+      <EntityTypeMapping TypeName="EVENTModel.About">
+        <MappingFragment StoreEntitySet="About">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TongQuan" ColumnName="TongQuan" />
+          <ScalarProperty Name="SuMenh" ColumnName="SuMenh" />
+          <ScalarProperty Name="TamNhin" ColumnName="TamNhin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Admins">
       <EntityTypeMapping TypeName="EVENTModel.Admin">
         <MappingFragment StoreEntitySet="Admin">
@@ -33,11 +43,53 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Contacts">
+      <EntityTypeMapping TypeName="EVENTModel.Contact">
+        <MappingFragment StoreEntitySet="Contact">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Fname" ColumnName="Fname" />
+          <ScalarProperty Name="Lname" ColumnName="Lname" />
+          <ScalarProperty Name="Phonenumber" ColumnName="Phonenumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="EVENTModel.Event">
+        <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Votes" ColumnName="Votes" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Desciption" ColumnName="Desciption" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Image1" ColumnName="Image1" />
+          <ScalarProperty Name="icon" ColumnName="icon" />
+          <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+          <ScalarProperty Name="SeoTitle" ColumnName="SeoTitle" />
+          <ScalarProperty Name="Id_Cate" ColumnName="Id_Cate" />
+          <ScalarProperty Name="SL_Thamgia" ColumnName="SL_Thamgia" />
+          <ScalarProperty Name="DKSK" ColumnName="DKSK" />
+          <ScalarProperty Name="DiaDiem" ColumnName="DiaDiem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Khoas">
       <EntityTypeMapping TypeName="EVENTModel.Khoa">
         <MappingFragment StoreEntitySet="Khoa">
           <ScalarProperty Name="Id_Khoa" ColumnName="Id_Khoa" />
           <ScalarProperty Name="Name_Khoa" ColumnName="Name_Khoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="linkAddresses">
+      <EntityTypeMapping TypeName="EVENTModel.linkAddress">
+        <MappingFragment StoreEntitySet="linkAddress">
+          <ScalarProperty Name="Id_Address" ColumnName="Id_Address" />
+          <ScalarProperty Name="Name_Address" ColumnName="Name_Address" />
+          <ScalarProperty Name="Full_Address" ColumnName="Full_Address" />
+          <ScalarProperty Name="Pb_Address" ColumnName="Pb_Address" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -53,10 +105,23 @@
     <EntitySetMapping Name="MXHs">
       <EntityTypeMapping TypeName="EVENTModel.MXH">
         <MappingFragment StoreEntitySet="MXH">
-          <ScalarProperty Name="Icon" ColumnName="Icon" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
           <ScalarProperty Name="Link" ColumnName="Link" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="News">
+      <EntityTypeMapping TypeName="EVENTModel.News">
+        <MappingFragment StoreEntitySet="News">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameTitle" ColumnName="NameTitle" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ID_CateNews" ColumnName="ID_CateNews" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -123,65 +188,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Abouts">
-      <EntityTypeMapping TypeName="EVENTModel.About">
-        <MappingFragment StoreEntitySet="About">
-          <ScalarProperty Name="TamNhin" ColumnName="TamNhin" />
-          <ScalarProperty Name="SuMenh" ColumnName="SuMenh" />
-          <ScalarProperty Name="TongQuan" ColumnName="TongQuan" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Contacts">
-      <EntityTypeMapping TypeName="EVENTModel.Contact">
-        <MappingFragment StoreEntitySet="Contact">
-          <ScalarProperty Name="Message" ColumnName="Message" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Phonenumber" ColumnName="Phonenumber" />
-          <ScalarProperty Name="Lname" ColumnName="Lname" />
-          <ScalarProperty Name="Fname" ColumnName="Fname" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="News">
-      <EntityTypeMapping TypeName="EVENTModel.News">
-        <MappingFragment StoreEntitySet="News">
-          <ScalarProperty Name="ID_CateNews" ColumnName="ID_CateNews" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="Image" ColumnName="Image" />
-          <ScalarProperty Name="Content" ColumnName="Content" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="NameTitle" ColumnName="NameTitle" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Events">
-      <EntityTypeMapping TypeName="EVENTModel.Event">
-        <MappingFragment StoreEntitySet="Event">
-          <ScalarProperty Name="DiaDiem" ColumnName="DiaDiem" />
-          <ScalarProperty Name="DKSK" ColumnName="DKSK" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="SL_Thamgia" ColumnName="SL_Thamgia" />
-          <ScalarProperty Name="Id_Cate" ColumnName="Id_Cate" />
-          <ScalarProperty Name="SeoTitle" ColumnName="SeoTitle" />
-          <ScalarProperty Name="Keyword" ColumnName="Keyword" />
-          <ScalarProperty Name="icon" ColumnName="icon" />
-          <ScalarProperty Name="Image1" ColumnName="Image1" />
-          <ScalarProperty Name="Content" ColumnName="Content" />
-          <ScalarProperty Name="Desciption" ColumnName="Desciption" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Banners">
       <EntityTypeMapping TypeName="EVENTModel.Banner">
         <MappingFragment StoreEntitySet="Banner">
-          <ScalarProperty Name="Img" ColumnName="Img" />
           <ScalarProperty Name="Id_banner" ColumnName="Id_banner" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VoteLogs">
+      <EntityTypeMapping TypeName="EVENTModel.VoteLog">
+        <MappingFragment StoreEntitySet="VoteLog">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Vote" ColumnName="Vote" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="VoteForld" ColumnName="VoteForld" />
+          <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+          <ScalarProperty Name="AutoId" ColumnName="AutoId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

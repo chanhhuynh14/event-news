@@ -30,11 +30,12 @@ namespace E_Hutech.Models
         public string SeoTitle { get; set; }
         public Nullable<int> Id_Cate { get; set; }
         public Nullable<double> SL_Thamgia { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
         public string DKSK { get; set; }
-        public string DiaDiem { get; set; }
+        public Nullable<int> DiaDiem { get; set; }
+        public string Votes { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
     
-        public virtual Category_Event Category_Event { get; set; }
+        public virtual linkAddress linkAddress { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SV_SK> SV_SK { get; set; }
     }

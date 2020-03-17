@@ -12,7 +12,7 @@ namespace E_Hutech.Areas.Admin.Controllers
 {
     public class TestLayoutController : Controller
     {
-        private EVENTEntities1 db = new EVENTEntities1();
+        private EVENTEntities db = new EVENTEntities();
 
         // GET: Admin/TestLayout
         public ActionResult Index()
@@ -145,12 +145,25 @@ namespace E_Hutech.Areas.Admin.Controllers
         }
         public ActionResult GetDepartment()
         {
-            EVENTEntities1 db = new EVENTEntities1();
+            EVENTEntities db = new EVENTEntities();
             return Json(db.Category_Event.Select(x => new
             {
                 DepartmentID = x.Id_CE,
                 DepartmentName = x.Name_CE
             }).ToList(), JsonRequestBehavior.AllowGet);
         }
+        public ActionResult GetAddress()
+        {
+            EVENTEntities db = new EVENTEntities();
+            return Json(db.linkAddresses.Select(x => new
+            {
+                AddressID = x.Id_Address,
+                AddressName = x.Name_Address,
+                AddressFull = x.Full_Address,
+                AddressPd = x.Pb_Address,
+            }).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

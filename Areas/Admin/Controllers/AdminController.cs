@@ -15,7 +15,7 @@ namespace E_Hutech.Areas.Admin.Controllers
 {
     public class AdminController : ApiController
     {
-        private EVENTEntities1 db = new EVENTEntities1();
+        private EVENTEntities db = new EVENTEntities();
         public IHttpActionResult GetAllEvent(string keyword="")
         {
             keyword = keyword == null ? "" : keyword;   
@@ -88,7 +88,7 @@ namespace E_Hutech.Areas.Admin.Controllers
             if (!ModelState.IsValid)
                 return BadRequest("Not a valid model");
 
-            using (var ctx = new EVENTEntities1())
+            using (var ctx = new EVENTEntities())
             {
                 ctx.Events.Add(new Event()
                 {
@@ -116,7 +116,7 @@ namespace E_Hutech.Areas.Admin.Controllers
             if (id <= 0)
                 return BadRequest("Not a valid student id");
 
-            using (var ctx = new EVENTEntities1())
+            using (var ctx = new EVENTEntities())
             {
                 var events = ctx.Events
                     .Where(s => s.Id == id)
@@ -135,7 +135,7 @@ namespace E_Hutech.Areas.Admin.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest("Not a valid data");
 
-                using (var ctx = new EVENTEntities1())
+                using (var ctx = new EVENTEntities())
                 {
                     var chanh = ctx.Events.Where(a => a.Id == s.Id).FirstOrDefault<Event>();
 
@@ -187,7 +187,10 @@ namespace E_Hutech.Areas.Admin.Controllers
                                SeoTitle = s.SeoTitle,
                                Id_Cate = s.Id_Cate,
                                SL_Thamgia = s.SL_Thamgia,
-                               Date = s.Date
+                               Date = s.Date,
+                               NameAD= s.linkAddress.Name_Address,
+                               FullAD= s.linkAddress.Full_Address,
+                               Pd= s.linkAddress.Pb_Address
                            }).SingleOrDefault();
 
             if (events == null)

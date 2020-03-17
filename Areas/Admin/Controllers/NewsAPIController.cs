@@ -15,7 +15,7 @@ namespace E_Hutech.Areas.Admin.Controllers
 {
     public class NewsAPIController : ApiController
     {
-        private EVENTEntities1 db = new EVENTEntities1();
+        private EVENTEntities db = new EVENTEntities();
 
         public IHttpActionResult GetAllNews ()
         {
@@ -72,7 +72,7 @@ namespace E_Hutech.Areas.Admin.Controllers
             if (!ModelState.IsValid)
                 return BadRequest("Not a valid model");
 
-            using (var ctx = new EVENTEntities1())
+            using (var ctx = new EVENTEntities())
             {
                 ctx.News.Add(new News()
                 {
@@ -96,7 +96,7 @@ namespace E_Hutech.Areas.Admin.Controllers
             if (id <= 0)
                 return BadRequest("Not a valid student id");
 
-            using (var ctx = new EVENTEntities1())
+            using (var ctx = new EVENTEntities())
             {
                 var news = ctx.News
                     .Where(s => s.Id == id)

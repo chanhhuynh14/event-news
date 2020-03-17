@@ -13,24 +13,29 @@
     <script type="text/javascript" src="https://cdn.rawgit.com/MrRio/jsPDF/master/dist/jspdf.min.js"></script>
     <script src="~/js/jspdf.min.js"></script>
     <script src="~/js/inpdf.js"></script>
-    <meta property=“fb:app_id” content=“2616496368393300” />
-    <meta property=“fb:admins” content=“100002426619600” />
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+    <link href="~/css/FormGr.css" rel="stylesheet" />
 </head>
 <!-- Scripts -->
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=2616496368393300&autoLogAppEvents=1"></script>
+
 <!-- Blog Single Start Here -->
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-12" id="chanhnene">
-            <h1 class="top-title"></h1>
-            <blockquote id="DesciptionID">
-                <i class="fas fa-quote-right" aria-hidden="true"></i>
-            </blockquote>
-            <div class="single-image" id="hinhanh">
-
-            </div><!-- .single-image End -->
-            <p id="contentID"></p>
+            <div id="chanhcutee" class="chanhcutee">
+                <h1 class="top-title"></h1>
+                <blockquote id="DesciptionID"><i class="fas fa-quote-right" aria-hidden="true"></i></blockquote>
+                <div class="single-image" id="hinhanh"></div><!-- .single-image End -->
+                <div id="contentID"></div>
+                <div style="text-align:center;font-family: monospace;background-color: #e1e4e6; font-size: 16px;">
+                    <p style="padding-top: 30px; font-weight: bold;font-size: 20px;">ĐỊA CHỈ SỰ KIỆN</p>
+                    <p>Tại <a id="nameAD"></a>, <a id="fullAD"></a></p>
+                    <p style="color:cornflowerblue">Bản đồ chi tiết</p>
+                    <p id="DiaDiem"></p>
+                </div>
+            </div>
+           
             <div class="share-section">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 life-style">
@@ -46,7 +51,7 @@
                             <i class="fas fa-calendar" aria-hidden="true"></i>
                         </span>
                         <span class="cat">
-                            <a href="#"><i class="fas fa-folder" aria-hidden="true"></i> Life Style </a>
+                            <a href="#"><i class="fas fa-folder" aria-hidden="true"></i> Công nghệ </a>
                         </span>
                     </div>
                     <div class="col-lg-6 col-md--12">
@@ -62,74 +67,87 @@
             <div class="share-section2">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12">
-                        <span> You Can Share It : </span>
+                        <span> Chia sẻ: </span>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <ul class="share-link">
-                            <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a></li>
-                            <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a></li>
-                            <li><a href="#"><i class="fab fa-google-plus-g" aria-hidden="true"></i> Google</a></li>
-                        </ul>
+                    <div class="col-lg-6 col-md-6 col-sm-12" style="padding-left: 75px;">
+                        @*<ul class="share-link">
+            <li data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small"><a><i href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"></i> Facebook</a></li>
+            <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a></li>
+            <li><a href="#"><i class="fab fa-google-plus-g" aria-hidden="true"></i> Google</a></li>
+        </ul>*@
+                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div><!-- .share-section2 End -->
+
                     </div>
                 </div>
             </div>
-            <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div><!-- .share-section2 End -->
             <div class="share-section2">
-                <div class="fb-comments" data-href="http://localhost:60976/Events/Detail/107" data-width="" data-numposts="5"></div>            </div>
+                <div class="fb-comments" data-href="http://sukienhutech.com/Events/Detail/" data-width="700px" data-numposts="5"></div>
+            </div>
         </div>
         <div id="elementH"></div>
         <div class="col-lg-4 col-md-12">
             <div class="sidebar-area">
-                <div class="search-box">
+                <div class="col-lg-6" style="float:right">
                     <h3 class="title">Mã QR</h3>
-
                     <div id="id_qrcode"></div>
 
                 </div>
-                <div class="search-box">
-                    <h3 class="title">Search Courses</h3>
+                <div class="col-lg-6" >
+                    <h3 class="title">Thích bài viết</h3>
+                    <div class="fb-like" data-href="http://sukienhutech.com/Events/Detail/" data-width="100px" data-layout="box_count" data-action="like" data-size="large" data-show-faces="true" data-share="false"></div>                </div>
+
+                <div class="search-box" style="margin-top: 50px;">
+                    <h3 class="title">Tìm kiếm..</h3>
                     <div class="box-search">
                         <input class="form-control" placeholder="Search Here ..." name="srch-term" id="srch-term" type="text">
                         <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </div>
                 </div><!-- .search-box end -->
-                <style>
-                    .abc_ {
-                        width: 350px;
-                        margin-bottom: 13px;
-                    }
-                </style>
                 <div class="cate-box">
-                    <h3 class="title" style="color: red">Đăng ký tham gia nào!!</h3>
+                    <h3 class="title" style="color: #1044ff;">Đăng ký tham gia nào!!</h3>
                     <form id="test-form" method="GET" action="https://script.google.com/macros/s/AKfycbw9VH8G4g-Myu-itFEMzrmxXsCK6wMKGs-UEFtaFkv8gcJ3ZMA/exec">
-                        <input type="text" class="abc_" id="Link" name="Link" placeholder="Đường dẫn sự kiện" />
-                        <input type="text" class="abc_" id="Name" name="Name" placeholder="Tên sinh viên" />
-                        <input type="text" class="abc_" name="Class" id="Class" placeholder="Lớp" />
-                        <input type="text" class="abc_" id="ID" name="ID" placeholder="Mã số sinh viên" />
-                        <input type="text" class="abc_" name="Phone" id="Phone" placeholder="Số điện thoại" />
-                        <input type="email" class="abc_" name="Email" id="Email" placeholder="Email" /> <br>
-                        <button type="submit" id="submit-form" style="color: #fde8e8; background: red; width: 121px;border: dashed;">GỬI</button>
+                        @*<div class="group">
+                            <input type="text" id="Link" name="Link" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Đường dẫn sự kiện</label>
+                        </div>*@
+                        <div class="group">
+                            <input type="text" id="Name" name="Name" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Tên sinh viên</label>
+                        </div>
+                        <div class="group">
+                            <input type="text" id="Class" name="Class" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Lớp</label>
+                        </div>
+                        <div class="group">
+                            <input type="text" id="ID" name="ID" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Mã số sinh viên</label>
+                        </div>
+                        <div class="group">
+                            <input type="text" name="Email" id="Email" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Email</label>
+                        </div>
+                        <div class="group">
+                            <input type="text" name="Phone" id="Phone" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Số điện thoại</label>
+                        </div>
+
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" id="submit-form">GỬI</button>
                     </form>
-                    @*<ul>
-                            <li>
-                                <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Analysis & Features <span>(05)</span></a>
-                            </li>
-                            <li>
-                                <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Video Reviews <span>(07)</span></a>
-                            </li>
-                            <li>
-                                <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Engineering Tech <span>(09)</span></a>
-                            </li>
-                            <li>
-                                <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#"> Righteous Indignation <span>(08)</span></a>
-                            </li>
-                            <li>
-                                <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">General Education <span>(04)</span></a>
-                            </li>
-                        </ul>*@
                 </div><!-- .cate-box end -->
                 <div class="latest-courses">
-                    <h3 class="title">Latest Courses</h3>
+                    <h3 class="title">Các sự kiện khác</h3>
                     <div class="post-item">
                         <div class="post-img">
                             <a href="terms-details.html"><img src="img/sm1.jpg" alt="" title="News image"></a>
@@ -197,77 +215,23 @@
                     </ul>
                 </div><!-- .tags-cloud end -->
                 <div class="newsletter">
-                    <h4>Newsletter</h4>
+                    <h4></h4>
                     <p>Sign up for our Newsletter !</p>
                     <div class="box-newsletter">
                         <input class="form-control" placeholder="support@rstheme.com" name="newsletter-term" id="newsletter-term" type="text">
                         <button class="btn btn-default" type="submit"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                     </div>
                 </div><!-- .newsletter end -->
+                <div style="padding-top: 20px">
+                    @*Convert HTML*@
+                    <input class="btn btn-info btn-lg btn-block" type="button" id="create_pdff" value="Xuất file PDF">
+                </div>
             </div><!-- .sidebar-area end -->
         </div>
-    </div>
+
 </div>
 <!-- Blog Single End  -->
-@*Convert HTML*@
-<script src=”https://apis.google.com/js/plusone.js”>
-</script>
-<div class="g-comments"
-     data-href=window.location
-     data-width="600"
-     data-first_party_property="BLOGGER"
-     data-view_type="FILTERED_POSTMOD">
-</div>
-<meta property="fb: app_id" content="{Your_APP_ID}" />
 
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=231250857777132&autoLogAppEvents=1"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
-<input type="button" id="create_pdff" value="Generate PDF">
-@*<button onclick="myFunction()">Print this page</button>
-    <script>
-        function myFunction() {
-            window.print();
-        }
-    </script>*@
-@*<script>
-        (function () {
-            var
-                form = $('#chanhnene'),
-                cache_width = form.width(),
-                a4 = [595.28, 841.89]; // for a4 size paper width and height
-
-            $('#create_pdff').on('click', function () {
-                $('body').scrollTop(0);
-                createPDF();
-            });
-            //create pdf
-            function createPDF() {
-                getCanvas().then(function (canvas) {
-                    var
-                        img = canvas.toDataURL("image/png"),
-                        doc = new jsPDF({
-                            unit: 'px',
-                            format: 'a4'
-                        });
-                    doc.addImage(img, 'JPEG', 20, 20);
-                    doc.save('Su-kien-Tin-Tuc.pdf');
-                    form.width(cache_width);
-                });
-            }
-
-            // create canvas object
-            function getCanvas() {
-                form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
-                return html2canvas(form, {
-                    imageTimeout: 2000,
-                    removeContainer: true
-                });
-            }
-
-        }());
-    </script>*@
 <script>
     /*
  * jQuery helper plugin for examples and tests
@@ -363,7 +327,7 @@
     var id = url.substring(url.lastIndexOf('/') + 1);
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:60976/api/Admin/GetDetail/' + id,
+        url: 'http://sukienhutech.com/api/Admin/GetDetail/' + id,
         success: function (data) {
             $('.top-title').append(data.Name);
             $('#contentID').append(data.Content);
@@ -375,6 +339,9 @@
             $('#SL_ThamgiaEventID').val(data.SL_Thamgia);
             $('.date').append(data.Date);
             $('#EventID').val(data.Id);
+            $('#DiaDiem').append(data.Pd);
+            $('#nameAD').append(data.NameAD);
+            $('#fullAD').append(data.FullAD);
             $("#single-blog-details.sec-spacer").modal("show");
             console.log(data);
         },
@@ -383,8 +350,9 @@
         }
 
     })
+    //Mã QR//
     var qrcode = new QRCode("id_qrcode", {
-        text: "http://localhost:60976/api/Admin/GetDetail/" + id,
+        text: "http://sukienhutech.com/api/Admin/GetDetail/" + id,
         width: 100,
         height: 100,
         colorDark: "#000000",
@@ -392,12 +360,13 @@
         correctLevel: QRCode.CorrectLevel.H
     });
     var
-        form = $('#chanhnene'),
+        form = $('#chanhcutee'),
         cache_width = form.width(),
         a4 = [595.28, 841.89]; // for a4 size paper width and height
+    //Kết Thúc Mã QR//
 
     $('#create_pdff').on('click', function () {
-        $('body').scrollTop(0);
+        $('body').scrollTop(10);
         createPDF();
     });
     function createPDF() {
@@ -424,9 +393,47 @@
     }
 
 </script>
+</div>
+@*<button onclick="myFunction()">Print this page</button>
+    <script>
+        function myFunction() {
+            window.print();
+        }
+    </script>*@
+@*<script>
+        (function () {
+            var
+                form = $('#chanhnene'),
+                cache_width = form.width(),
+                a4 = [595.28, 841.89]; // for a4 size paper width and height
 
+            $('#create_pdff').on('click', function () {
+                $('body').scrollTop(0);
+                createPDF();
+            });
+            //create pdf
+            function createPDF() {
+                getCanvas().then(function (canvas) {
+                    var
+                        img = canvas.toDataURL("image/png"),
+                        doc = new jsPDF({
+                            unit: 'px',
+                            format: 'a4'
+                        });
+                    doc.addImage(img, 'JPEG', 20, 20);
+                    doc.save('Su-kien-Tin-Tuc.pdf');
+                    form.width(cache_width);
+                });
+            }
 
+            // create canvas object
+            function getCanvas() {
+                form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
+                return html2canvas(form, {
+                    imageTimeout: 2000,
+                    removeContainer: true
+                });
+            }
 
-
-
-
+        }());
+    </script>*@

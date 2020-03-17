@@ -4,34 +4,36 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="63c433f44c4b42c2947eba5f3aa9aa36" Name="Diagram1" ZoomLevel="73">
+      <Diagram DiagramId="0591332191a44dfdbd03f0c84083107d" Name="Diagram1">
+        <EntityTypeShape EntityType="EVENTModel.About" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EVENTModel.Admin" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="EVENTModel.Cate_News" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EVENTModel.Category_Event" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EVENTModel.Khoa" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="EVENTModel.Lop" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="EVENTModel.MXH" Width="1.5" PointX="11.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.Category_Event" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.Contact" Width="1.5" PointX="9.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.Event" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.Khoa" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.linkAddress" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.Lop" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.MXH" Width="1.5" PointX="7.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.News" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="EVENTModel.RoleDetail" Width="1.5" PointX="10" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="EVENTModel.Role" Width="1.5" PointX="7.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EVENTModel.SinhVien" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="EVENTModel.SV_SK" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EVENTModel.sysdiagram" Width="1.5" PointX="11" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EVENTModel.ThongTinWebsite" Width="1.5" PointX="7.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.SinhVien" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.SV_SK" Width="1.5" PointX="7.5" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.sysdiagram" Width="1.5" PointX="9.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.ThongTinWebsite" Width="1.5" PointX="11.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.Banner" Width="1.5" PointX="11.75" PointY="7.75" IsExpanded="true" />
         <AssociationConnector Association="EVENTModel.FK_RoleDetail_Admin" ManuallyRouted="false" />
         <AssociationConnector Association="EVENTModel.FK_Cate_News_Khoa" ManuallyRouted="false" />
+        <AssociationConnector Association="EVENTModel.FK_News_Cate_News" ManuallyRouted="false" />
         <AssociationConnector Association="EVENTModel.FK_Category_Event_Khoa" ManuallyRouted="false" />
+        <AssociationConnector Association="EVENTModel.FK_Event_linkAddress" ManuallyRouted="false" />
+        <AssociationConnector Association="EVENTModel.FK_SV_SK_Event" ManuallyRouted="false" />
         <AssociationConnector Association="EVENTModel.FK_Lop_Khoa" ManuallyRouted="false" />
         <AssociationConnector Association="EVENTModel.FK_SinhVien_Lop" ManuallyRouted="false" />
         <AssociationConnector Association="EVENTModel.FK_RoleDetail_Roles" ManuallyRouted="false" />
         <AssociationConnector Association="EVENTModel.FK_SV_SK_SinhVien" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="EVENTModel.About" Width="1.5" PointX="13.625" PointY="11.625" />
-        <EntityTypeShape EntityType="EVENTModel.Contact" Width="1.5" PointX="12.375" PointY="0.75" />
-        <EntityTypeShape EntityType="EVENTModel.News" Width="1.5" PointX="5.25" PointY="1.375" />
-        <AssociationConnector Association="EVENTModel.FK_News_Cate_News" />
-        <EntityTypeShape EntityType="EVENTModel.Event" Width="1.5" PointX="5.25" PointY="13.625" />
-        <AssociationConnector Association="EVENTModel.FK_Event_Category_Event" />
-        <AssociationConnector Association="EVENTModel.FK_SV_SK_Event" />
-        <EntityTypeShape EntityType="EVENTModel.Banner" Width="1.5" PointX="10.375" PointY="10.75" />
+        <EntityTypeShape EntityType="EVENTModel.VoteLog" Width="1.5" PointX="12.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

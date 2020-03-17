@@ -20,7 +20,7 @@ namespace E_Hutech.Models
         public Nullable<System.DateTime> Checkin { get; set; }
         public int ID_Detail_Event_Student { get; set; }
     
-        public virtual SinhVien SinhVien { get; set; }
         public virtual Event Event { get; set; }
+        public virtual SinhVien SinhVien { get; set; }
     }
 }

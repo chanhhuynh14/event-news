@@ -7,21 +7,23 @@ using System.Web.Mvc;
 using E_Hutech.Models;
 using System.Web.Script.Serialization;
 using System.Net.Mail;
+using System.Threading;
+using System.Globalization;
 
 namespace E_Hutech.Controllers
 {
     public class EventsController : Controller
     {
-        private EVENTEntities1 db = new EVENTEntities1();
+        private EVENTEntities db = new EVENTEntities();
         public new System.Web.HttpContextBase HttpContext { get; }
-
+       
         // GET: Events
         public ActionResult Index()
         {
             IEnumerable<EventViewModel> events = null;
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:60976/api/");
+                client.BaseAddress = new Uri("http://sukienhutech.com/api");
                 //HTTP GET
                 var responseTask = client.GetAsync("event");
                 responseTask.Wait();
@@ -43,11 +45,23 @@ namespace E_Hutech.Controllers
             }
             return View(events);
         }
+        public ActionResult Change(string LanguageAbbrevation)
+        {
+            if (LanguageAbbrevation != null)
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(LanguageAbbrevation);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(LanguageAbbrevation);
+            }
+            HttpCookie cookie = new HttpCookie("Events");
+            cookie.Value = LanguageAbbrevation;
+            Response.Cookies.Add(cookie);
+            return View("Index");
+        }
         [HttpPost]
         public JsonResult AjaxMethod(int pageIndex)
         {
             EventViewModel model = new EventViewModel();
-            EVENTEntities1 entities = new EVENTEntities1();
+            EVENTEntities entities = new EVENTEntities();
             model.PageIndex = pageIndex;
             model.PageSize = 10;
             model.RecordCount = entities.Events.Count();
@@ -87,6 +101,7 @@ namespace E_Hutech.Controllers
             }
             return View(events);
         }
+        [ValidateInput(false)]
         public ActionResult Detail()
         {
             IEnumerable<EventViewModel> events = null;
@@ -153,7 +168,7 @@ namespace E_Hutech.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (EVENTEntities1 db = new EVENTEntities1())
+                using (EVENTEntities db = new EVENTEntities())
                 {
                     var obj = db.SinhViens.Where(a => a.UserName.Equals(login.UserName) && a.Password.Equals(login.Password)).FirstOrDefault();
                     if (obj != null)
@@ -180,11 +195,22 @@ namespace E_Hutech.Controllers
         }
         public ActionResult GetDepartment()
         {
-            EVENTEntities1 db = new EVENTEntities1();
+            EVENTEntities db = new EVENTEntities();
             return Json(db.Category_Event.Select(x => new
             {
                 DepartmentID = x.Id_CE,
                 DepartmentName = x.Name_CE,
+            }).ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetAddress()
+        {
+            EVENTEntities db = new EVENTEntities();
+            return Json(db.linkAddresses.Select(x => new
+            {
+                AddressID = x.Id_Address,
+                AddressName = x.Name_Address,
+                AddressFull = x.Full_Address,
+                AddressPd = x.Pb_Address,
             }).ToList(), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Cate_E()
@@ -215,44 +241,7 @@ namespace E_Hutech.Controllers
             }
             return View(events);
         }
-
-
-        //public ActionResult DanhMuc()
-        //{
-        //    var danhmuc = from dm in db.Category_Event select dm;
-        //    return PartialView(danhmuc);
-        //}
-        //public ActionResult SPtheoDanhMuc(int id)
-        //{
-        //    var sp = from s in db.Events where s.Category_Event.Id_CE == id select s;
-        //    return PartialView(sp);
-        //}
-
-        //public ActionResult UserDashBoard()
-        //{
-        //    if (Session["ID"] != null)
-        //    {
-        //        return View();
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Login");
-        //    }
-        //}
-        //    public ActionResult Login(Models.Login login)
-        //    {
-        //        var item = db.Admins.Where(s => s.UserName == login.UserName && s.Password == login.Password).FirstOrDefault();
-        //        if (item != null)
-        //        {
-        //            Session["Events"] = item;
-        //            return RedirectToAction("Index");
-        //        }
-        //        else
-        //        {
-        //            return RedirectToAction("Login");
-
-        //        }
-        //    }
+   
         //    public ActionResult Logout()
         //    {
         //        Session["Events"] = null;

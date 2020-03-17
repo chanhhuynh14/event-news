@@ -10,7 +10,7 @@ namespace E_Hutech.Areas.Admin.Controllers
 {
     public class BannerAController : Controller
     {
-        private EVENTEntities1 db = new EVENTEntities1();
+        private EVENTEntities db = new EVENTEntities();
 
         public ActionResult Index()
         {

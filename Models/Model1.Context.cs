@@ -13,10 +13,10 @@ namespace E_Hutech.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EVENTEntities1 : DbContext
+    public partial class EVENTEntities : DbContext
     {
-        public EVENTEntities1()
-            : base("name=EVENTEntities1")
+        public EVENTEntities()
+            : base("name=EVENTEntities")
         {
         }
     
@@ -25,22 +25,24 @@ namespace E_Hutech.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<About> Abouts { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<Cate_News> Cate_News { get; set; }
         public virtual DbSet<Category_Event> Category_Event { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Khoa> Khoas { get; set; }
+        public virtual DbSet<linkAddress> linkAddresses { get; set; }
         public virtual DbSet<Lop> Lops { get; set; }
         public virtual DbSet<MXH> MXHs { get; set; }
+        public virtual DbSet<News> News { get; set; }
         public virtual DbSet<RoleDetail> RoleDetails { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<SinhVien> SinhViens { get; set; }
         public virtual DbSet<SV_SK> SV_SK { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ThongTinWebsite> ThongTinWebsites { get; set; }
-        public virtual DbSet<About> Abouts { get; set; }
-        public virtual DbSet<Contact> Contacts { get; set; }
-        public virtual DbSet<News> News { get; set; }
-        public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Banner> Banners { get; set; }
+        public virtual DbSet<VoteLog> VoteLogs { get; set; }
     }
 }

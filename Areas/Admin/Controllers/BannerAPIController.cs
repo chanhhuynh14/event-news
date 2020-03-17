@@ -14,7 +14,7 @@ namespace E_Hutech.Areas.Admin.Controllers
 {
     public class BannerAPIController : ApiController
     {
-        private EVENTEntities1 db = new EVENTEntities1();
+        private EVENTEntities db = new EVENTEntities();
 
         public IHttpActionResult GetAllBanner()
         {
@@ -60,7 +60,7 @@ namespace E_Hutech.Areas.Admin.Controllers
             if (!ModelState.IsValid)
                 return BadRequest("Not a valid model");
 
-            using (var ctx = new EVENTEntities1())
+            using (var ctx = new EVENTEntities())
             {
                 ctx.Banners.Add(new Banner()
                 {
@@ -79,7 +79,7 @@ namespace E_Hutech.Areas.Admin.Controllers
             if (id <= 0)
                 return BadRequest("Not a valid student id");
 
-            using (var ctx = new EVENTEntities1())
+            using (var ctx = new EVENTEntities())
             {
                 var banners = ctx.Banners
                     .Where(s => s.Id_banner == id)

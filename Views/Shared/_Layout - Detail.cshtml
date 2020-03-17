@@ -50,7 +50,8 @@
 </head>
 
 <body class="inner-page">
-    <!--Preloader area start here-->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=2616496368393300&autoLogAppEvents=1"></script>    <!--Preloader area start here-->
     <div class="book_preload">
         <div class="book">
             <div class="book__page"></div>
@@ -60,74 +61,179 @@
     </div>
     <!--Preloader area end here-->
     <!--Full width header Start-->
-    <div class="full-width-header"> 
+    <div class="full-width-header">
         <!--Header Start-->
-        <div class="menu-area menu-sticky">
+        <div class="menu-area menu-sticky sticky">
             <div class="container">
-                <div class="row rs-vertical-middle">
-                    <div class="col-lg-3 col-md-12">
-                        <div class="logo-area">
-                            <a href="~/Events/Index"><img src="~/img/logo CMYK-01.png" alt="logo" style="width: 50%"></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-md-12">
-                        <div class="main-menu">
+                <div class="main-menu">
+                    <div class="row">
+                        <div class="col-sm-12">
                             <a class="rs-menu-toggle"><i class="fa fa-bars"></i>Menu</a>
-                            <nav class="rs-menu">
-                                <ul class="nav-menu">
-                                    <li class="current-menu-item current_page_item"><a href="~/Events/Index" class="home">Home</a></li>
+                            <nav class="rs-menu rs-menu-close">
+                                <ul class="nav-menu" style="text-align: center;">
+                                    <!-- Home -->
+                                    <li class="current-menu-item current_page_item"><a href="/Events/Index" class="home">Trang Chủ</a></li>
                                     <!-- End Home -->
+                                    <li id="hahahi"><a value="-1" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DANH MỤC</a><div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a value="1" class="dropdown-item" href="/Events/Cate_E/1">Sự kiện khoa</a><a value="2" class="dropdown-item" href="/Events/Cate_E/2">Sự kiện CLB</a></div></li>
+                                    <li><a href="/Events/Showallevent">Sự Kiện</a></li>
+
                                     <!--About Menu Start-->
-                                    <li><a href="~/About/Index">About Us</a></li>
+                                    <li><a href="/thong-tin">Về Hutech</a></li>
                                     <!--About Menu End-->
                                     <!--Events Menu Start-->
-                                    <li><a href="~/News/Index">News</a></li>
+                                    <li><a href="/News/Index">Tin Tức</a></li>
                                     <!--Events Menu End-->
-                                    @*<!--Projects Menu Start-->
-                                        <li><a href="projects.html">Projects</a></li>
-                                        <!--Projects Menu End-->*@
                                     <!--Contact Menu Start-->
-                                    <li><a href="~/Contact/Create">Contact</a></li>
+                                    <li><a href="/Contact/SendEmail">Liên Hệ</a></li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="nav-item dropdown-item">
+                                            Xin chào
+
+                                        </a>
+                                    </li>
+                                    <!--Contact Menu End-->
                                 </ul>
                             </nav>
+                            <div class="dropdown show">
+
+                            </div>
+
+                            <a class="hidden-xs rs-search" data-toggle="modal" data-target="#elegantModalForm"><i class="fa fa-users"></i></a>
                         </div>
-                        <div class="searce-box">
-                            <a class="rs-search" data-target=".search-modal" data-toggle="modal" href="#"><i class="fa fa-search"></i></a>
-                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
+
         <!--Header End-->
     </div>
     <!--Full width header End-->
-    <!-- Breadcrumbs Start -->
-    <div class="rs-breadcrumbs bg7 breadcrumbs-overlay" style="height: 49px;">
-        <div class="breadcrumbs-inner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <h1 class="page-title">EVENTS DETAILS</h1>
-                        <ul>
-                            <li>
-                                <a class="active" href="/Events/Index">Home</a>
-                            </li>
-                            <li>Events Details</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Breadcrumbs End -->
     <!-- Blog Single Start Here -->
     <div class="single-blog-details sec-spacer" id="chanhne">
         @RenderBody()
     </div>
 
     <!-- Blog Single End  -->
-    <div class="ui button aligned center teal" id="create_pdf">Create PDF</div>
+    <footer id="rs-footer" class="bg3 rs-footer">
+        <div class="container">
+            <!-- Footer Address -->
+            <div>
+                <div class="row footer-contact-desc">
+                    <div class="col-md-4">
+                        <div class="contact-inner">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <h4 class="contact-title">Address</h4>
+                            <p class="contact-desc">
+                                475A Điện Biên Phủ,<br>
+                                P.25, Q.Bình Thạnh, TP.HCM,
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contact-inner">
+                            <i class="fas fa-phone"></i>
+                            <h4 class="contact-title">Phone Number</h4>
+                            <p class="contact-desc">
+                                (028) 5445 7777<br>
+                                (08) 5422 1111
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contact-inner">
+                            <i class="fas fa-at"></i>
+                            <h4 class="contact-title">Email Address</h4>
+                            <p class="contact-desc">
+                                info@hutech.edu.vn<br>
+                                hutech@hutech.edu.vn
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Top -->
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12">
+                        <div class="about-widget">
+
+                            <img src="/img/logo CMYK-01.png" alt="Footer Logo" width="50%">
+                            <p>
+                                Trụ sở: 475A Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM <br>
+                                Cơ sở 475B: 475B Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM<br>
+                                Cơ sở Ung Văn Khiêm: 31/36 Ung Văn Khiêm, P.25, Q.Bình Thạnh, TP.HCM
+                            </p>
+                            <p class="margin-remove">ĐT: (028) 5445 7777 - Fax: (028) 5445 4444 - Email: hutech@hutech.edu.vn</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <h5 class="footer-title">RECENT POSTS</h5>
+                        <div class="recent-post-widget">
+                            <div class="post-item">
+                                <div class="post-date">
+                                    <span>28</span>
+                                    <span>June</span>
+                                </div>
+                                <div class="post-desc">
+                                    <h5 class="post-title"><a href="#">While the lovely valley team work</a></h5>
+                                    <span class="post-category">Keyword Analysis</span>
+                                </div>
+                            </div>
+                            <div class="post-item">
+                                <div class="post-date">
+                                    <span>28</span>
+                                    <span>June</span>
+                                </div>
+                                <div class="post-desc">
+                                    <h5 class="post-title"><a href="#">I must explain to you how all this idea</a></h5>
+                                    <span class="post-category">Spoken English</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <h5 class="footer-title">OUR SITEMAP</h5>
+                        <ul class="sitemap-widget">
+                            <li class="active"><a href="index.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Home</a></li>
+                            <li><a href="about.html"><i class="fa fa-angle-right" aria-hidden="true"></i>About</a></li>
+                            <li><a href="projects.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Project</a></li>
+                            <li><a href="projects-details.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Project Details</a></li>
+                            <li><a href="news.html"><i class="fa fa-angle-right" aria-hidden="true"></i>News</a></li>
+                            <li><a href="funding.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Funding</a></li>
+                            <li><a href="events.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Events</a></li>
+                            <li><a href="events-details.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Events Details</a></li>
+                            <li><a href="lectures.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Lectures</a></li>
+                            <li><a href="lectures-single.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Lectures Details</a></li>
+                            <li><a href="terms.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Term &amp; Policy</a></li>
+                            <li><a href="contact.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <h5 class="footer-title">NEWSLETTER</h5>
+                        <p>Sign Up to Our Newsletter to Get Latest Updates &amp; Services</p>
+                        <form class="news-form">
+                            <input type="text" class="form-input" placeholder="Enter Your Email">
+                            <button type="submit" class="form-button"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="footer-share">
+                    <ul>
+                        <li><a href="https://www.facebook.com/hutechuniversity" target="_blank"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="https://plus.google.com/+hutech" target="_blank"><i class="fab fa-google-plus-g"></i></a></li>
+                        <li><a href="https://www.hutech.edu.vn/#" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.hutech.edu.vn/#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.hutech.edu.vn/#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </footer>
 
 
     <!-- modernizr js -->

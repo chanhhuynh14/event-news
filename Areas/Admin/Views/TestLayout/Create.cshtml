@@ -13,8 +13,12 @@
                         <h4>Thêm Mới Sự Kiện</h4>
                         <div id="myTabContent" class="tab-content custom-product-edit">
                             <div class="product-tab-list tab-pane fade active in" id="description">
-
+                                
                                 <div class="review-content-section">
+                                    <div class="input-group mg-b-pro-edt">
+                                        <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
+                                        <input id="SeoTitle" type="text" class="form-control" placeholder="Tiêu Đề">
+                                    </div>
                                     <div class="input-group mg-b-pro-edt">
                                         <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
                                         <input id="Name" type="text" class="form-control" placeholder="Tên Sự Kiện">
@@ -26,11 +30,6 @@
                                     <div class="input-group mg-b-pro-edt">
                                         <span class="input-group-addon"><i class="fa fa-quote-right" aria-hidden="true"></i></span>
                                         <textarea class="ckeditor" rows="10" name="Content" id="Content"></textarea>
-                                    </div>
-
-                                    <div class="input-group mg-b-pro-edt">
-                                        <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
-                                        <input id="SeoTitle" type="text" class="form-control" placeholder="Tiêu Đề">
                                     </div>
                                     <div class="input-group mg-b-pro-edt">
                                         <span class="input-group-addon"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
@@ -49,29 +48,24 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="input-group mg-b-pro-edt">
+                                        <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                        <input id="Date" type="date" class="form-control" placeholder="Thời Gian">
+                                    </div>
+                                    <div class="input-group mg-b-pro-edt">
+                                        <span class="input-group-addon"><i class="fa fa-tag" aria-hidden="true"></i></span>
+                                        <input id="DKSK" type="text" class="form-control" placeholder="Link đăng ký">
+                                    </div>
+                                    <div class="input-group mg-b-pro-edt">
+                                        <span class="input-group-addon"><i class="fa fa-heart" aria-hidden="true"></i></span>
+                                        <select class="form-control" id="Id_Cate" name="Id_Cate"></select>
+                                    </div>
+                                    <div class="input-group mg-b-pro-edt">
+                                        <span class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                        <select class="form-control" id="DiaChi" name="DiaChi"></select>
+                                    </div>
                                 </div>
-                                
-                                <div class="input-group mg-b-pro-edt">
-                                    <span class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                                    <input id="DiaChi" type="text" class="form-control" placeholder="Địa Chỉ">
-                                </div>
-                                <div class="input-group mg-b-pro-edt">
-                                    <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                    <input id="Date" type="date" class="form-control" placeholder="Thời Gian">
-                                </div>
-                                <div class="input-group mg-b-pro-edt">
-                                    <span class="input-group-addon"><i class="fa fa-tag" aria-hidden="true"></i></span>
-                                    <input id="DKSK" type="text" class="form-control" placeholder="Link đăng ký">
-                                </div>
-                                <select name="select" id="cate_option" class="form-control pro-edt-select form-control-primary">
-                                    <option value="0">chọn loai sk</option>
-                                    
-                                </select>
-
-                                <form id="myForm">
-                                    <label for="Id_Cate"><b>Id_Cate</b></label>
-                                    <select class="form-control" id="Id_Cate" name="Id_Cate"></select>
-                                </form>
+                              
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="text-center mg-b-pro-edt custom-pro-edt-ds">
@@ -150,14 +144,28 @@
                                 url: 'http://localhost:60976//TestLayout/GetDepartment',
                                 data: "{}",
                                 success: function (data) {
-                                    var s = '<option value="-1">Please Select a Department</option>';
+                                    var s = '<option value="-1">Chọn Danh mục</option>';
                                     for (var i = 0; i < data.length; i++) {
                                         s += '<option value="' + data[i].DepartmentID + '">' + data[i].DepartmentName + '</option>';
                                     }
                                     $("#Id_Cate").html(s);
                                 }
                             })
+                        $.ajax(
+                            {
+                                type: "GET",
+                                url: 'http://localhost:60976//TestLayout/GetAddress',
+                                data: "{}",
+                                success: function (data) {
+                                    var s = '<option value="-1">Chọn địa điểm tổ chức </option>';
+                                    for (var i = 0; i < data.length; i++) {
+                                        s += '<option value="' + data[i].AddressID + '">' + data[i].AddressName + '</option>';
+                                    }
+                                    $("#DiaChi").html(s);
+                                }
+                            })
                     });
+                   
                     function getAllEvents() {
                         $.ajax({
                             type: "GET",

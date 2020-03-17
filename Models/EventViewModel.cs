@@ -12,10 +12,11 @@ namespace E_Hutech.Models
 {
     public class EventViewModel
     {
+       
         public EventViewModel()
         {
         }
-        public EventViewModel(int id, string name, string desciption, string content, string image1, string Icon, string keyword, string seoTitle, int id_Cate, Category_Event category, double sL_Thamgia, DateTime date,string dksk,string diadiem)
+        public EventViewModel(int id, string name, string desciption, string content, string image1, string Icon, string keyword, string seoTitle, int id_Cate, Category_Event category, double sL_Thamgia, DateTime date,string dksk,int diadiem)
         {
             Id = id;
             Name = name;
@@ -31,6 +32,7 @@ namespace E_Hutech.Models
             Date = date;
             DKSK = dksk;
             DiaDiem = diadiem;
+          
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -38,7 +40,7 @@ namespace E_Hutech.Models
         public string Content { get; set; }
         public string Image1 { get; set; }
         public string icon { get; set; }
-        public string DiaDiem { get; set; }
+        public int? DiaDiem { get; set; }
         public string DKSK { get; set; }
         public string Keyword { get; set; }
         public string SeoTitle { get; set; }
@@ -52,6 +54,8 @@ namespace E_Hutech.Models
         public int PageSize { get; set; }
         public int RecordCount { get; set; }
         public List<Event> Events { get; set; }
-
+        public string Pd { get; internal set; }
+        public string FullAD { get; internal set; }
+        public string NameAD { get; internal set; }
     }
 }

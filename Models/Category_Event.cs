@@ -14,18 +14,10 @@ namespace E_Hutech.Models
     
     public partial class Category_Event
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category_Event()
-        {
-            this.Events = new HashSet<Event>();
-        }
-    
         public int Id_CE { get; set; }
         public string Name_CE { get; set; }
         public Nullable<int> Id_Khoa { get; set; }
     
         public virtual Khoa Khoa { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Event> Events { get; set; }
     }
 }

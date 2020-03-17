@@ -17,7 +17,7 @@ namespace E_Hutech.Areas.Admin.Controllers
     public class ContactAPIController : ApiController
     {
 
-        private EVENTEntities1 db = new EVENTEntities1();
+        private EVENTEntities db = new EVENTEntities();
 
         public IHttpActionResult GetAllContact()
         {
@@ -46,7 +46,7 @@ namespace E_Hutech.Areas.Admin.Controllers
             if (!ModelState.IsValid)
                 return BadRequest("Not a valid model");
 
-            using (var ctx = new EVENTEntities1())
+            using (var ctx = new EVENTEntities())
             {
                 ctx.Contacts.Add(new Contact()
                 {
@@ -67,7 +67,7 @@ namespace E_Hutech.Areas.Admin.Controllers
             if (id <= 0)
                 return BadRequest("Not a valid student id");
 
-            using (var ctx = new EVENTEntities1())
+            using (var ctx = new EVENTEntities())
             {
                 var contacts = ctx.Contacts
                     .Where(s => s.Id == id)
