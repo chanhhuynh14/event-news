@@ -76,6 +76,9 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
     <Property Name="DKSK" Type="nvarchar(max)" />
     <Property Name="DiaDiem" Type="int" />
     <Property Name="Votes" Type="varchar" MaxLength="50" />
+    <Property Name="Date_End" Type="datetime" />
+    <Property Name="ThemeColor" Type="nvarchar" MaxLength="10" />
+    <Property Name="IsFullDay" Type="bit" />
   </EntityType>
   <EntityType Name="Khoa">
     <Key>

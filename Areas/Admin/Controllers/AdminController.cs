@@ -35,7 +35,8 @@ namespace E_Hutech.Areas.Admin.Controllers
                                SeoTitle = s.SeoTitle,
                                Id_Cate = s.Id_Cate,
                                SL_Thamgia = s.SL_Thamgia,
-                               Date = s.Date,                               
+                               Date = s.Date,
+                               Date_End = s.Date_End,
                            }).ToList<EventViewModel>();
             if (events.Count == 0)
             {
@@ -372,6 +373,9 @@ namespace E_Hutech.Areas.Admin.Controllers
                     Id_Cate = s.Id_Cate,
                     SL_Thamgia = s.SL_Thamgia,
                     Date = s.Date,
+                    Date_End = s.Date_End,
+                    ThemeColor = s.ThemeColor,
+                    IsFullDay = s.IsFullDay,
                 }).ToList<EventViewModel>();
 
             // Return the list of customers

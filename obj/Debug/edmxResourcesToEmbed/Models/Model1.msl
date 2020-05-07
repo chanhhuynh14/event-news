@@ -58,6 +58,9 @@
     <EntitySetMapping Name="Events">
       <EntityTypeMapping TypeName="EVENTModel.Event">
         <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="IsFullDay" ColumnName="IsFullDay" />
+          <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
+          <ScalarProperty Name="Date_End" ColumnName="Date_End" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Votes" ColumnName="Votes" />
           <ScalarProperty Name="Id" ColumnName="Id" />

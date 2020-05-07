@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using E_Hutech.Areas.Admin.Models;
+using E_Hutech.Models;
 
 namespace E_Hutech.Controllers
 {
@@ -30,5 +32,6 @@ namespace E_Hutech.Controllers
         {
             return View();
         }
+        
     }
 }

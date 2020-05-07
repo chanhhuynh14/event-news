@@ -19,6 +19,14 @@ namespace E_Hutech.Areas.Admin.Controllers
         {
             return View();
         }
+        public JsonResult GetEvents()
+        {
+            using (EVENTEntities dc = new EVENTEntities())
+            {
+                var events = dc.Events.ToList();
+                return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
         public ActionResult ShowEvent()
         {
             IEnumerable<EventViewModel> events = null;
@@ -163,7 +171,31 @@ namespace E_Hutech.Areas.Admin.Controllers
                 AddressPd = x.Pb_Address,
             }).ToList(), JsonRequestBehavior.AllowGet);
         }
+        ///Thống kê Events
+        [HttpGet]
+        public JsonResult JsonThongKeSanPham()
+        {
+            var products = db.Events.ToList();
+            var result = new List<ThongKeEvents>();
 
-
+            foreach (var item in products)
+            {
+                result.Add(new ThongKeEvents { id = item.Id, name = item.Name, id_Cate = item.Id_Cate });
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult JsonThongKeDanhMuc()
+        {
+            var categories = db.Category_Event.ToList();
+            var result = new List<ThongKeTheoDanhMuc>();
+            foreach (var item in categories)
+            {
+                int SoLuong = db.Events.Where(s => s.Id_Cate == item.Id_CE).Count();
+                result.Add(new ThongKeTheoDanhMuc { id = item.Id_CE, name = item.Name_CE, amount = SoLuong });
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+    
     }
 }

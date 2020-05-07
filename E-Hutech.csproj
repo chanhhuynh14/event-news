@@ -264,6 +264,9 @@
     <Compile Include="Areas\Admin\Models\PagedResult.cs" />
     <Compile Include="Areas\Admin\Models\PageLinkBuilder.cs" />
     <Compile Include="Areas\Admin\Models\PagingParameterModel.cs" />
+    <Compile Include="Areas\Admin\Models\ThongKeChung.cs" />
+    <Compile Include="Areas\Admin\Models\ThongKeEvents.cs" />
+    <Compile Include="Areas\Admin\Models\ThongKeTheoDanhMuc.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
@@ -1988,7 +1991,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Controllers\api\" />
     <Folder Include="Areas\Admin\Views\About\" />
     <Folder Include="Views\Banner\" />
     <Folder Include="Views\Language\" />

@@ -16,7 +16,10 @@ namespace E_Hutech.Models
         public EventViewModel()
         {
         }
-        public EventViewModel(int id, string name, string desciption, string content, string image1, string Icon, string keyword, string seoTitle, int id_Cate, Category_Event category, double sL_Thamgia, DateTime date,string dksk,int diadiem)
+        public EventViewModel(int id, string name, string desciption, string content, string image1, 
+            string Icon, string keyword, string seoTitle, int id_Cate, Category_Event category,
+            double sL_Thamgia, DateTime date,string dksk,int diadiem,DateTime date_end,bool isfullday,
+            string themecolor)
         {
             Id = id;
             Name = name;
@@ -32,7 +35,11 @@ namespace E_Hutech.Models
             Date = date;
             DKSK = dksk;
             DiaDiem = diadiem;
-          
+            Date_End = date_end;
+            ThemeColor = themecolor;
+            IsFullDay = isfullday;
+
+
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -49,6 +56,9 @@ namespace E_Hutech.Models
         public Category_Event category { get; set; }
         public double? SL_Thamgia { get; set; }
         public DateTime? Date { get; set; }
+        public DateTime? Date_End { get; set; }
+        public bool? IsFullDay { get; set; }
+        public string ThemeColor { get; set; }
         public string UserAvatarBase64String { get; internal set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }

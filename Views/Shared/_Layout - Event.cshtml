@@ -297,7 +297,7 @@
                         </div>
                         <div class="col-lg-8 col-md-12">
                             <div class="row" style="padding-top: 25px">
-                                <div class="col-sm-4">
+                                <div class="col-sm-4" style=" margin-right: 10px;">
                                     <div class="header-contact">
                                         <div id="phone-details" class="widget-text">
                                             <i class="glyph-icon flaticon-phone-call"></i>
@@ -310,7 +310,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-4" >
                                     <div class="header-contact">
                                         <div id="info-details" class="widget-text">
                                             <i class="glyph-icon flaticon-email"></i>
@@ -323,17 +323,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="header-contact">
-                                        <div id="address-details" class="widget-text">
-                                            <i class="glyph-icon flaticon-placeholder"></i>
-                                            <div class="info-text">
-                                                <span>Location</span>
-                                                575 DBP, W.25, Binh Thanh District, HCM City
-                                            </div>
-                                        </div>
+                                <div class="col-sm-4"style="
+                                        margin-top: -8px;
+                                        margin-left: -13px;
+                                    ">
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
+                                            Language
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                            <li>@Html.ActionLink("Vietnamese", "Change", "Events", new { LanguageAbbrevation = "vi" }, null)</li>
+                                            <li>@Html.ActionLink("English", "Change", "Events", new { LanguageAbbrevation = "en" }, null)</li>
+
+                                        </ul>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -355,8 +361,7 @@
                                         <li id="hahahi"></li>
                                         <li>@Html.ActionLink(E_Hutech.Resource.Resources.mnNews, "Index", "News")</li>
                                         <li>@Html.ActionLink(E_Hutech.Resource.Resources.mnContact, "SendEmail", "Contact")</li>
-                                        <li>@Html.ActionLink("Vietnamese", "Change", "Events", new { LanguageAbbrevation = "vi" }, null)</li>
-                                        <li>@Html.ActionLink("English", "Change", "Events", new { LanguageAbbrevation = "en" }, null)</li>
+                                        
                                      
                                                     @*<li><a href="~/Events/Showallevent">Sự Kiện</a></li><li><a href="/thong-tin">Giới thiệu</a></li>
                     <li><a href="~/News/Index">Tin Tức</a></li>

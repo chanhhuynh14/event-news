@@ -7,14 +7,12 @@
         /* Set "my-sec-counter" to 0 */
         counter-reset: my-sec-counter -1;
     }
-
     tr::before {
         /* Increment "my-sec-counter" by 1 */
         counter-increment: my-sec-counter;
         content: counter(my-sec-counter);
         font-size: 20px;
     }
-
     #search {
         width: 200px;
         margin: 20px 0 0 10px;
@@ -22,18 +20,14 @@
         border: 1px solid #ccc;
         padding: 0 0 0 5px;
     }
-   
 </style> 
-
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <input type="text" class="form-control" id="keyword" onkeyup="searchEvent();" placeholder="Search Elements" />
-
 <div class="panel panel-primary">
         <h2 style="color:chocolate; text-align:center" >DANH SÁCH SỰ KIỆN</h2>
-
-    <a class="btn btn-primary" href='http://localhost:60976/Admin/ShowAdmin/Create'>Create</a>
-    <div class="panel-body">
-        <table class="table table-bordered" id="Table"  ></table>  
+        <a class="btn btn-primary" href='http://localhost:60976/Admin/ShowAdmin/Create'>Create</a>
+        <div class="panel-body">
+        <table class="table table-bordered" id="Table"></table>  
     </div>
 </div>
 <div class="modal fade" id="myModal" role="dialog">

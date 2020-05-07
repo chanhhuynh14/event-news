@@ -34,6 +34,9 @@ namespace E_Hutech.Models
         public Nullable<int> DiaDiem { get; set; }
         public string Votes { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
+        public Nullable<System.DateTime> Date_End { get; set; }
+        public string ThemeColor { get; set; }
+        public Nullable<bool> IsFullDay { get; set; }
     
         public virtual linkAddress linkAddress { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

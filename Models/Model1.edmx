@@ -81,6 +81,9 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           <Property Name="DKSK" Type="nvarchar(max)" />
           <Property Name="DiaDiem" Type="int" />
           <Property Name="Votes" Type="varchar" MaxLength="50" />
+          <Property Name="Date_End" Type="datetime" />
+          <Property Name="ThemeColor" Type="nvarchar" MaxLength="10" />
+          <Property Name="IsFullDay" Type="bit" />
         </EntityType>
         <EntityType Name="Khoa">
           <Key>
@@ -458,6 +461,9 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           <NavigationProperty Name="SV_SK" Relationship="Self.FK_SV_SK_Event" FromRole="Event" ToRole="SV_SK" />
           <Property Name="Votes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Date_End" Type="DateTime" Precision="3" />
+          <Property Name="ThemeColor" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IsFullDay" Type="Boolean" />
         </EntityType>
         <EntityType Name="Khoa">
           <Key>
@@ -837,6 +843,9 @@ warning 6002: The table/view 'EVENT.dbo.Banner' does not have a primary key defi
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="EVENTModel.Event">
               <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="IsFullDay" ColumnName="IsFullDay" />
+                <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
+                <ScalarProperty Name="Date_End" ColumnName="Date_End" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Votes" ColumnName="Votes" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
