@@ -1,0 +1,753 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- meta tag -->
+    <meta charset="utf-8">
+    <title>Trường Đại Học Công Nghệ TP.HCM</title>
+    <meta name="description" content="">
+    <!-- responsive tag -->
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon -->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="shortcut icon" href="https://www.hutech.edu.vn/favicon.ico" type="img/x-icon" />
+    <!-- bootstrap v4 css -->
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" type="text/css" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- animate css -->
+    <link rel="stylesheet" type="text/css" href="~/css/animate.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" type="text/css" href="~/css/owl.carousel.css">
+    <!-- slick css -->
+    <link rel="stylesheet" type="text/css" href="~/css/slick.css">
+    <!-- rsmenu CSS -->
+    <link rel="stylesheet" type="text/css" href="~/css/rsmenu-main.css">
+    <!-- rsmenu transitions CSS -->
+    <link rel="stylesheet" type="text/css" href="~/css/rsmenu-transitions.css">
+    <!-- magnific popup css -->
+    <link rel="stylesheet" type="text/css" href="~/css/magnific-popup.css">
+    <!-- flaticon css  -->
+    <link rel="stylesheet" type="text/css" href="~/css/flaticon.css">
+    <!-- flaticon2 css  -->
+    <link rel="stylesheet" type="text/css" href="~/css/flaticon_1.css">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="~/css/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" type="text/css" href="~/css/responsive.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <style>
+        #rowgridBody {
+            height: auto !important;
+        }
+
+        .form-elegant .font-small {
+            font-size: 0.8rem;
+        }
+
+        .form-elegant .z-depth-1a {
+            -webkit-box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+            box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+        }
+
+        .form-elegant .z-depth-1-half,
+        .form-elegant .btn:hover {
+            -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+            box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+        }
+
+        .form-elegant .modal-header {
+            border-bottom: none;
+        }
+
+        .modal-dialog .form-elegant .btn .fab {
+            color: #2196f3 !important;
+        }
+
+        .form-elegant .modal-body, .form-elegant .modal-footer {
+            font-weight: 400;
+        }
+
+        .btn.blue-gradient {
+            transition: .5s ease;
+            color: #fff;
+        }
+
+        .blue-gradient {
+            background: linear-gradient(40deg,#45cafc,#303f9f) !important;
+        }
+
+        .btn {
+            margin: .375rem;
+            color: inherit;
+            text-transform: uppercase;
+            word-wrap: break-word;
+            white-space: normal;
+            cursor: pointer;
+            border: 0;
+            background: bottom;
+            border-radius: 26px;
+            box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            padding: .84rem 2.14rem;
+            font-size: .81rem;
+        }
+
+        .waves-effect {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .md-form input:not([type]), .md-form input[type=date]:not(.browser-default), .md-form input[type=datetime-local]:not(.browser-default), .md-form input[type=datetime]:not(.browser-default), .md-form input[type=email]:not(.browser-default), .md-form input[type=number]:not(.browser-default), .md-form input[type=password]:not(.browser-default), .md-form input[type=search-md], .md-form input[type=search]:not(.browser-default), .md-form input[type=tel]:not(.browser-default), .md-form input[type=text]:not(.browser-default), .md-form input[type=time]:not(.browser-default), .md-form input[type=url]:not(.browser-default), .md-form textarea.md-textarea {
+            box-sizing: content-box;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #ced4da;
+            border-radius: 0;
+            outline: 0;
+            box-shadow: none;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        .md-form .validate {
+            margin-bottom: 2.5rem;
+        }
+
+        .md-form .form-control {
+            margin: 0 0 .5rem 0;
+            border-radius: 0;
+            padding: .6rem 0 .4rem 0;
+            background-color: transparent;
+            height: auto;
+        }
+
+        .md-form input:not([type]):focus:not([readonly]), .md-form input[type=date]:not(.browser-default):focus:not([readonly]), .md-form input[type=datetime-local]:not(.browser-default):focus:not([readonly]), .md-form input[type=datetime]:not(.browser-default):focus:not([readonly]), .md-form input[type=email]:not(.browser-default):focus:not([readonly]), .md-form input[type=number]:not(.browser-default):focus:not([readonly]), .md-form input[type=password]:not(.browser-default):focus:not([readonly]), .md-form input[type=search-md]:focus:not([readonly]), .md-form input[type=search]:not(.browser-default):focus:not([readonly]), .md-form input[type=tel]:not(.browser-default):focus:not([readonly]), .md-form input[type=text]:not(.browser-default):focus:not([readonly]), .md-form input[type=time]:not(.browser-default):focus:not([readonly]), .md-form input[type=url]:not(.browser-default):focus:not([readonly]), .md-form textarea.md-textarea:focus:not([readonly]) {
+            border-bottom: 1px solid #4285f4;
+            box-shadow: 0 1px 0 0 #4285f4;
+        }
+
+        input {
+            -webkit-writing-mode: horizontal-tb !important;
+            text-rendering: auto;
+            color: initial;
+            letter-spacing: normal;
+            word-spacing: normal;
+            text-transform: none;
+            text-indent: 0px;
+            text-shadow: none;
+            display: inline-block;
+            text-align: start;
+            -webkit-appearance: textfield;
+            background-color: white;
+            -webkit-rtl-ordering: logical;
+            cursor: text;
+            margin: 0em;
+            font: 400 13.3333px Arial;
+            padding: 1px 0px;
+            border-width: 2px;
+            border-style: inset;
+            border-color: initial;
+            border-image: initial;
+        }
+
+        .form-elegant .modal-body, .form-elegant .modal-footer {
+            font-weight: 400;
+        }
+
+        .modal-content {
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            width: 100%;
+            pointer-events: auto;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgba(0,0,0,.2);
+            border-radius: .3rem;
+            outline: 0;
+        }
+
+        button {
+            border-radius: 5px;
+        }
+
+        .dark-grey-text {
+            color: #4f4f4f !important;
+        }
+
+        .font-weight-bold {
+            font-weight: 700 !important;
+        }
+
+        .mb-3, .my-3 {
+            margin-bottom: 1rem !important;
+        }
+
+        .mt-3, .my-3 {
+            margin-top: 1rem !important;
+        }
+
+        .w-100 {
+            width: 100% !important;
+        }
+
+        .modal-title {
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 300;
+        }
+
+        .h3, h3 {
+            font-size: 1.75rem;
+        }
+
+        .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+            margin-bottom: .5rem;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 0;
+            margin-bottom: .5rem;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+
+        .Pager span {
+            text-align: center;
+            color: #333;
+            display: inline-block;
+            width: 20px;
+            background-color: #B8DBFD;
+            margin-right: 3px;
+            line-height: 150%;
+            border: 1px solid #B8DBFD;
+        }
+
+        .Pager a {
+            text-align: center;
+            display: inline-block;
+            width: 20px;
+            background-color: #ccc;
+            color: #333;
+            border: 1px solid #ccc;
+            margin-right: 3px;
+            line-height: 150%;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body class="home2">
+    <!--Preloader area start here-->
+    <div class="book_preload">
+        <div class="book">
+            <div class="book__page"></div>
+            <div class="book__page"></div>
+            <div class="book__page"></div>
+        </div>
+    </div>
+    <!--Preloader area end here-->
+    <!--Full width header Start-->
+    <div class="full-width-header">
+        <!--Header Start-->
+        <header id="rs-header" class="rs-header">
+            <!-- Header Top Start -->
+            <div class="rs-header-top" style="padding: 26px;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 rs-vertical-middle">
+                            <div class="logo-area">
+                                <a href="" ~/Events/Index""><img class="img-responsive" src="https://www.hutech.edu.vn/images/logo/HUTECH.png" style="width: 50%"></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <div class="row" style="padding-top: 25px">
+                                <div class="col-sm-4" style=" margin-right: 10px;">
+                                    <div class="header-contact">
+                                        <div id="phone-details" class="widget-text">
+                                            <i class="glyph-icon flaticon-phone-call"></i>
+                                            <div class="info-text">
+                                                <a href="tel:0949981717">
+                                                    <span>Call Us</span>
+                                                    (028) 5445 7777
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="header-contact">
+                                        <div id="info-details" class="widget-text">
+                                            <i class="glyph-icon flaticon-email"></i>
+                                            <div class="info-text">
+                                                <a href="mailto:tuvantuyensinh@hutech.edu.vn">
+                                                    <span>Mail Us</span>
+                                                    tuvantuyensinh@hutech.edu.vn
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" style="
+                                        margin-top: -8px;
+                                        margin-left: -13px;
+                                    ">
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
+                                            Language
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                            <li>@Html.ActionLink("Vietnamese", "Change", "Events", new { LanguageAbbrevation = "vi" }, null)</li>
+                                            <li>@Html.ActionLink("English", "Change", "Events", new { LanguageAbbrevation = "en" }, null)</li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Header Top End -->
+            <!-- Menu Start -->
+            <div class="menu-area menu-sticky">
+                <div class="container">
+                    <div class="main-menu">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <a class="rs-menu-toggle"><i class="fa fa-bars"></i>Menu</a>
+                                <nav class="rs-menu">
+                                    <ul class="nav-menu" style="text-align: center;">
+                                        <!-- Home -->
+                                        <li>@Html.ActionLink(E_Hutech.Resource.Resources.mnHome, "Index", "Events")</li>
+                                        @*<li class="current-menu-item current_page_item"><a href="~/Events/Index" class="home">Trang Chủ</a></li>*@
+                                        <li id="hahahi"></li>
+                                        <li>@Html.ActionLink(E_Hutech.Resource.Resources.mnNews, "Index", "News")</li>
+                                        <li>@Html.ActionLink(E_Hutech.Resource.Resources.mnContact, "SendEmail", "Contact")</li>
+
+
+                                        @*<li><a href="~/Events/Showallevent">Sự Kiện</a></li><li><a href="/thong-tin">Giới thiệu</a></li>
+                                            <li><a href="~/News/Index">Tin Tức</a></li>
+                                            <li><a href="~/Contact/SendEmail">Liên Hệ</a></li>*@
+                                        @*<li>
+                                                <a href="javascript:void(0)" class="nav-item dropdown-item">
+                                                    Xin chào
+                                                    @if (Session["UserName"] != null)
+                                                    {
+                                                        @Session["UserName"].ToString();
+                                                    }
+
+                                                </a>
+                                            </li>*@
+                                        <!--Contact Menu End-->
+                                    </ul>
+                                </nav>
+                                <div class="dropdown show">
+                                    @*<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Dropdown link
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                        </div>*@
+                                </div>
+                                @*<a class="hidden-xs rs-search" data-target=".search-modal" data-toggle="modal" href="#" ><i class="fa fa-search"></i></a>*@
+                                <a class="hidden-xs rs-search" data-toggle="modal" data-target="#elegantModalForm" style="background-color: #8dda99;"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                                <a class="hidden-xs rs-search" href="http://sukienhutech.com/Events/LoginUser" style="background-color: #8dda99;"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("~/Views/Events/Login.cshtml");
+            <!-- Modal -->
+        </header>
+        <!--Header End-->
+
+    </div>
+
+    <!--Full width header End-->
+    <!-- Slider Area Start -->
+    <div class="card-body">
+        @if (Session["UserName"] != null)
+        {    
+            <p>Hi</p>
+            <p>Name: @Session["UserName"].ToString()</p>
+            <p>Email: @Session["Email"].ToString()</p>
+            <a href="@Url.Action("Logout","Events")" class="btn btn-warning">Logout</a>
+        }
+    </div>
+
+    <!-- Slider Area End -->
+    <!-- RenderBody Projects Start -->
+    <div id="rs-courses-3" class="rs-courses-3 sec-spacer">
+        <div class="container" style="margin-top: -69px;">
+            <div class="sec-title mb-50">
+                <h2>TIN TỨC</h2>
+                @*<div class="view-more">
+                <a href="projects.html">View All Projects <i class="fa fa-angle-double-right"></i></a>
+            </div>*@
+            </div>
+            <div class="rs-titmeline sec-spacer">
+                <div class="container" id="hihi">
+                    @RenderBody()
+                </div>
+               
+            </div>
+
+            <nav aria-label="Page navigation example" class="mt-50">
+                <ul class="pagination justify-content-center" id="Id_pagination"></ul>
+            </nav>
+            @*<input type='hidden' id='current_page' />
+        <input type='hidden' id='show_per_page' />
+        <div id='page_navigation'></div>
+        <style>
+            /*Pagination CSS*/
+            #page_navigation {
+                clear: both;
+                margin: 20px 0;
+            }
+
+                #page_navigation a {
+                    padding: 3px 6px;
+                    border: 1px solid #2e6da4;
+                    margin: 2px;
+                    color: black;
+                    text-decoration: none
+                }
+
+            .active_page {
+                background: #337ab7;
+                color: white !important;
+            }
+        </style>
+        <script src="~/js/phantrang21.js"></script>*@
+
+            @*<script>
+            jQuery(document).ready(function () {
+                //Pagination JS
+                //how much items per page to show
+                var show_per_page = 4;
+                //getting the amount of elements inside pagingBox div
+                var number_of_items = $('#rowgridBody').children().size();
+                //calculate the number of pages we are going to have
+                var number_of_pages = Math.ceil(number_of_items / show_per_page);
+
+                //set the value of our hidden input fields
+                $('#current_page').val(0);
+                $('#show_per_page').val(show_per_page);
+
+                //now when we got all we need for the navigation let's make it '
+
+                /*
+                what are we going to have in the navigation?
+                    - link to previous page
+                    - links to specific pages
+                    - link to next page
+                */
+                var navigation_html = '<a class="previous_link" href="javascript:previous();">Prev</a>';
+                var current_link = 0;
+                while (number_of_pages > current_link) {
+                    navigation_html += '<a class="page_link" href="javascript:go_to_page(' + current_link + ')" longdesc="' + current_link + '">' + (current_link + 1) + '</a>';
+                    current_link++;
+                }
+                navigation_html += '<a class="next_link" href="javascript:next();">Next</a>';
+
+                $('#page_navigation').html(navigation_html);
+
+                //add active_page class to the first page link
+                $('#page_navigation .page_link:first').addClass('active_page');
+
+                //hide all the elements inside pagingBox div
+                $('#rowgridBody').children().css('display', 'none');
+
+                //and show the first n (show_per_page) elements
+                $('#rowgridBody').children().slice(0, show_per_page).css('display', 'block');
+
+            });
+            //Pagination JS
+            function previous() {
+
+                new_page = parseInt($('#current_page').val()) - 1;
+                //if there is an item before the current active link run the function
+                if ($('.active_page').prev('.page_link').length == true) {
+                    go_to_page(new_page);
+                }
+
+            }
+            function next() {
+                new_page = parseInt($('#current_page').val()) + 1;
+                //if there is an item after the current active link run the function
+                if ($('.active_page').next('.page_link').length == true) {
+                    go_to_page(new_page);
+                }
+
+            }
+            function go_to_page(page_num) {
+                //get the number of items shown per page
+                var show_per_page = parseInt($('#show_per_page').val());
+
+                //get the element number where to start the slice from
+                start_from = page_num * show_per_page;
+
+                //get the element number where to end the slice
+                end_on = start_from + show_per_page;
+
+                //hide all children elements of pagingBox div, get specific items and show them
+                $('#rowgridBody').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
+
+                /*get the page link that has longdesc attribute of the current page and add active_page class to it
+                and remove that class from previously active page link*/
+                $('.page_link[longdesc=' + page_num + ']').addClass('active_page').siblings('.active_page').removeClass('active_page');
+
+                //update the current page input field
+                $('#current_page').val(page_num);
+            }
+        </script>*@
+        </div>
+    </div>
+    <!-- Footer Start -->
+    <footer id="rs-footer" class="bg3 rs-footer">
+        @*<div class="container">
+                <div>
+                    <div class="row footer-contact-desc">
+                        <div class="col-md-4">
+                            <div class="contact-inner">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <h4 class="contact-title">Address</h4>
+                                <p class="contact-desc">
+                                    475A Điện Biên Phủ,<br>
+                                    P.25, Q.Bình Thạnh, TP.HCM,
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="contact-inner">
+                                <i class="fas fa-phone"></i>
+                                <h4 class="contact-title">Phone Number</h4>
+                                <p class="contact-desc">
+                                    (028) 5445 7777<br>
+                                    (08) 5422 1111
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="contact-inner">
+                                <i class="fas fa-at"></i>
+                                <h4 class="contact-title">Email Address</h4>
+                                <p class="contact-desc">
+                                    info@hutech.edu.vn<br>
+                                    hutech@hutech.edu.vn
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+        <!-- Footer Top -->
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12">
+                        <div class="about-widget">
+
+                            <img src="~/img/logo CMYK-01.png" alt="Footer Logo" width="50%">
+                            <p>
+                                Trụ sở: 475A Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM <br />
+                                Cơ sở 475B: 475B Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM<br />
+                                Cơ sở Ung Văn Khiêm: 31/36 Ung Văn Khiêm, P.25, Q.Bình Thạnh, TP.HCM
+                            </p>
+                            <p class="margin-remove">ĐT: (028) 5445 7777 - Fax: (028) 5445 4444 - Email: hutech@hutech.edu.vn</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <h5 class="footer-title">RECENT POSTS</h5>
+                        <div class="recent-post-widget">
+                            <div class="post-item">
+                                <div class="post-date">
+                                    <span>28</span>
+                                    <span>June</span>
+                                </div>
+                                <div class="post-desc">
+                                    <h5 class="post-title"><a href="#">While the lovely valley team work</a></h5>
+                                    <span class="post-category">Keyword Analysis</span>
+                                </div>
+                            </div>
+                            <div class="post-item">
+                                <div class="post-date">
+                                    <span>28</span>
+                                    <span>June</span>
+                                </div>
+                                <div class="post-desc">
+                                    <h5 class="post-title"><a href="#">I must explain to you how all this idea</a></h5>
+                                    <span class="post-category">Spoken English</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <h5 class="footer-title">OUR SITEMAP</h5>
+                        <ul class="sitemap-widget">
+                            <li class="active"><a href="index.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Home</a></li>
+                            <li><a href="about.html"><i class="fa fa-angle-right" aria-hidden="true"></i>About</a></li>
+                            <li><a href="projects.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Project</a></li>
+                            <li><a href="projects-details.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Project Details</a></li>
+                            <li><a href="news.html"><i class="fa fa-angle-right" aria-hidden="true"></i>News</a></li>
+                            <li><a href="funding.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Funding</a></li>
+                            <li><a href="events.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Events</a></li>
+                            <li><a href="events-details.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Events Details</a></li>
+                            <li><a href="lectures.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Lectures</a></li>
+                            <li><a href="lectures-single.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Lectures Details</a></li>
+                            <li><a href="terms.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Term &amp; Policy</a></li>
+                            <li><a href="contact.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <h5 class="footer-title">NEWSLETTER</h5>
+                        <p>Sign Up to Our Newsletter to Get Latest Updates &amp; Services</p>
+                        <form class="news-form">
+                            <input type="text" class="form-input" placeholder="Enter Your Email">
+                            <button type="submit" class="form-button"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="footer-share">
+                    <ul>
+                        <li><a href="https://www.facebook.com/hutechuniversity" target="_blank"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="https://plus.google.com/+hutech" target="_blank"><i class="fab fa-google-plus-g"></i></a></li>
+                        <li><a href="https://www.hutech.edu.vn/#" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.hutech.edu.vn/#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.hutech.edu.vn/#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <!-- Footer End -->
+    <!-- start scrollUp  -->
+    <div id="scrollUp">
+        <i class="fa fa-angle-up"></i>
+    </div>
+    <!-- Search Modal Start -->
+    <div aria-hidden="true" class="modal fade search-modal" role="dialog" tabindex="-1">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="fa fa-close"></span>
+        </button>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="search-block clearfix">
+                    <form class="row search-form">
+                        <div class="col-md-9">
+                            <div class="keyword">
+                                <input type="text" id="keywords_search" placeholder="Nhập từ khóa...">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="search-btn">
+                                <a class="btn btn-danger" onclick="TimKiem()" style="
+                            text-align: center;
+                            width: 200px;
+                            height: 59px;
+                            padding: 19px;
+                            color: aliceblue;">TÌM KIẾM</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script language="javascript">
+        function display() {
+
+            if ($("#UserName").attr("value") == "") {
+
+                alert("Please Enter your UserName.");
+
+                return false;
+
+            } else if ($("#Password").attr("value") == "") {
+
+                alert("Please enter UserPassword.");
+
+                return false;
+
+            }
+
+            alert("Login Successfully");
+
+            return true;
+
+        }
+    </script>
+    <!-- modernizr js -->
+    <script src="~/js/modernizr-2.8.3.min.js"></script>
+    <!-- jquery latest version -->
+    <script src="~/js/jquery.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="~/js/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="~/js/owl.carousel.min.js"></script>
+    <!-- slick.min js -->
+    <script src="~/js/slick.min.js"></script>
+    <!-- isotope.pkgd.min js -->
+    <script src="~/js/isotope.pkgd.min.js"></script>
+    <!-- imagesloaded.pkgd.min js -->
+    <script src="~/js/imagesloaded.pkgd.min.js"></script>
+    <!-- wow js -->
+    <script src="~/js/wow.min.js"></script>
+    <!-- counter top js -->
+    <script src="~/js/waypoints.min.js"></script>
+    <script src="~/js/jquery.counterup.min.js"></script>
+    <!-- magnific popup -->
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <!-- rsmenu js -->
+    <script src="~/js/rsmenu-main.js"></script>
+    <!-- plugins js -->
+    <script src="~/js/plugins.js"></script>
+    <script src="https://uhchat.net/code.php?f=94db91"></script>
+
+    <!-- main js -->
+    <script src="~/js/main.js"></script>
+</body>
+
+</html>

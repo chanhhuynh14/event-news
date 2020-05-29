@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0591332191a44dfdbd03f0c84083107d" Name="Diagram1">
+      <Diagram DiagramId="0591332191a44dfdbd03f0c84083107d" Name="Diagram1" ZoomLevel="83">
         <EntityTypeShape EntityType="EVENTModel.About" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EVENTModel.Admin" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="EVENTModel.Cate_News" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
@@ -22,7 +22,7 @@
         <EntityTypeShape EntityType="EVENTModel.SV_SK" Width="1.5" PointX="7.5" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="EVENTModel.sysdiagram" Width="1.5" PointX="9.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EVENTModel.ThongTinWebsite" Width="1.5" PointX="11.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EVENTModel.Banner" Width="1.5" PointX="11.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EVENTModel.Banner" PointX="12.375" PointY="7.75" Width="1.5" IsExpanded="true" />
         <AssociationConnector Association="EVENTModel.FK_RoleDetail_Admin" ManuallyRouted="false" />
         <AssociationConnector Association="EVENTModel.FK_Cate_News_Khoa" ManuallyRouted="false" />
         <AssociationConnector Association="EVENTModel.FK_News_Cate_News" ManuallyRouted="false" />
@@ -34,7 +34,13 @@
         <AssociationConnector Association="EVENTModel.FK_RoleDetail_Roles" ManuallyRouted="false" />
         <AssociationConnector Association="EVENTModel.FK_SV_SK_SinhVien" ManuallyRouted="false" />
         <EntityTypeShape EntityType="EVENTModel.VoteLog" Width="1.5" PointX="12.375" PointY="0.75" />
-      </Diagram>
+        <EntityTypeShape EntityType="EVENTModel.SubComment" Width="1.5" PointX="12.75" PointY="10.5" />
+        <AssociationConnector Association="EVENTModel.FK_SubComments_SinhVien" />
+        <EntityTypeShape EntityType="EVENTModel.Comment" Width="1.5" PointX="7.5" PointY="13.625" />
+        <AssociationConnector Association="EVENTModel.FK_Comments_Event" />
+        <AssociationConnector Association="EVENTModel.FK_Comments_SinhVien" />
+        <AssociationConnector Association="EVENTModel.FK_SubComments_Comments" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

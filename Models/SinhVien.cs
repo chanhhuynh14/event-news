@@ -18,6 +18,8 @@ namespace E_Hutech.Models
         public SinhVien()
         {
             this.SV_SK = new HashSet<SV_SK>();
+            this.SubComments = new HashSet<SubComment>();
+            this.Comments = new HashSet<Comment>();
         }
     
         public int ID { get; set; }
@@ -34,5 +36,9 @@ namespace E_Hutech.Models
         public virtual Lop Lop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SV_SK> SV_SK { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubComment> SubComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

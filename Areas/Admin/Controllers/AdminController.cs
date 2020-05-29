@@ -381,5 +381,43 @@ namespace E_Hutech.Areas.Admin.Controllers
             // Return the list of customers
             return Ok(customers);
         }
+        public IHttpActionResult GetLastEvent(int pageNo = 1)
+        {
+            int pageSize = 3;
+            // Determine the number of records to skip
+            int skip = (pageNo - 1) * pageSize;
+
+            // Get total number of records
+            int total = db.Events.Count();
+            IList<EventViewModel> customers = null;
+
+            // Select the customers based on paging parameters
+            customers = db.Events.Include("Event")
+               .OrderByDescending(s => s.Id)
+               .Skip(skip)
+               .Take(pageSize)
+               .Select(s => new EventViewModel()
+               {
+                   Id = s.Id,
+                   Name = s.Name,
+                   Desciption = s.Desciption,
+                   Content = s.Content,
+                   Image1 = s.Image1,
+                   icon = s.icon,
+                   DKSK = s.DKSK,
+                   DiaDiem = s.DiaDiem,
+                   Keyword = s.Keyword,
+                   SeoTitle = s.SeoTitle,
+                   Id_Cate = s.Id_Cate,
+                   SL_Thamgia = s.SL_Thamgia,
+                   Date = s.Date,
+                   Date_End = s.Date_End,
+                   ThemeColor = s.ThemeColor,
+                   IsFullDay = s.IsFullDay,
+               }).ToList<EventViewModel>();
+
+            // Return the list of customers
+            return Ok(customers);
+        }
     }
 }

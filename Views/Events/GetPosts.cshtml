@@ -1,0 +1,150 @@
+﻿
+@model IQueryable<E_Hutech.Models.ViewModels.PostsVM>
+@{
+    ViewBag.Title = "GetPosts";
+}
+@if (Model != null)
+{  foreach (var post in Model)
+    {
+        if (post.PostID == ViewBag.PostID)
+        {
+            <div class="panel panel-default" >
+                <div class="panel-body">
+                    <div class="avatar">
+                        <img src="~/Images/avatar.png" class="img-circle" style="width: 60px;" />
+                        <span> <a href="" style="font-weight:bold">Admin</a> </span><br />
+                        @*<p style="margin-left: 60px; margin-top: -19px;">
+                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+
+                        </p>*@
+
+                    </div>
+                    <div class="postMessage" style="margin-top: 11px; margin-left: 9px;">
+                        <span class="label label-warning"> @string.Format("Post #{0}", post.PostID) </span><br />
+                        <p class="message" id="load-comment">
+                            @post.Message
+                        </p>
+                    </div>
+
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-default Comment" data-id="@post.PostID" value="Comment">
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Comment
+                    </button>
+
+                </div>
+                <div id="@string.Format("{0}_{1}","commentsBlock", post.PostID)" style="border: 1px solid #f1eaea; background-color: #eaf2ff;">
+                    <div class="AddComment" style="margin-left: 30%;  margin-bottom: 5px; margin-top: 8px;">
+                        <input type="text" id="@string.Format("{0}_{1}", "comment", post.PostID)" class="form-control" placeholder="Add a Comment ..." style="display: inline;" />
+                        <button type="button" class="btn btn-default addComment" data-id="@post.PostID"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+
+
+            </div>
+        }
+    }
+
+}
+
+<script type="text/javascript">
+
+
+        $(document).ready(function () {
+
+
+            //Click Comment
+            $('.Comment').on('click', function () {
+
+                var id = $(this).attr("data-id");
+                var allCommentsArea = $('<div>').addClass('allComments_' + id);
+
+                //function that allow us to get all comments related to post id
+                $.ajax({
+
+                    type: 'GET',
+                    url: '@Url.Action("GetComments", "Events")',
+                    data: { postId: id },
+                    success: function (response) {
+
+                        if ($('div').hasClass('allComments_' + id + ''))
+                        {
+                            $('div[class=allComments_' + id + ']').remove();
+                        }
+                        //console.log(response);
+
+
+                        allCommentsArea.html(response);
+                        allCommentsArea.prependTo('#commentsBlock_' + id);
+
+
+                    },
+                    error: function (response) {
+                        alert('Sorry: Comments cannot be loaded !');
+                    }
+
+
+                })
+
+            });
+
+            //Add New Comment
+            $('.addComment').on('click', function () {
+                debugger
+                var postId = $(this).attr('data-id');
+                var comment = $('#comment_' + postId).val();
+                //var dateTimeNow = new Date();
+
+
+                //alert('Hello');
+                //var comment = {
+                //    CommentMsg: commentMsg,
+                //    //CommentedDate: dateTimeNow.toLocaleString()
+                //};
+
+                $.ajax({
+                    type: 'GET',
+                    //processData: false,
+                    //contentType: 'application/json'
+                    url: '@Url.Action("AddComment", "Events")',
+                    data: { comment, postId },
+                    dataType:'json',
+                    success: function (response) {
+                        debugger
+                        $.ajax({
+                                type: 'GET',
+                                url: '@Url.Action("GetComments", "Events")',
+                            data: { postId:response },
+                                dataType:'html',
+                            success: function (data1) {
+
+                                $('div[class=allComments_' + postId + ']').html(data1);
+
+                                }
+                            })
+                        $('div[class=allComments_' + postId + ']').remove();
+
+                        var allCommentsArea = $('<div>').addClass('allComments_' + postId);
+                        allCommentsArea.html(response);
+
+                        allCommentsArea.prependTo('#commentsBlock_' + postId);
+
+                    },
+                    error: (error) => {
+                        console.log(JSON.stringify(error));
+                    }
+
+                });
+
+            });
+
+
+
+        });
+
+</script>
+
+
+
+
+

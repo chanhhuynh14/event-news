@@ -211,5 +211,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SubComments">
+      <EntityTypeMapping TypeName="EVENTModel.SubComment">
+        <MappingFragment StoreEntitySet="SubComments">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ComID" ColumnName="ComID" />
+          <ScalarProperty Name="CommentedDate" ColumnName="CommentedDate" />
+          <ScalarProperty Name="CommentMsg" ColumnName="CommentMsg" />
+          <ScalarProperty Name="SubComID" ColumnName="SubComID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="EVENTModel.Comment">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="PostID" ColumnName="PostID" />
+          <ScalarProperty Name="CommentedDate" ColumnName="CommentedDate" />
+          <ScalarProperty Name="CommentMsg" ColumnName="CommentMsg" />
+          <ScalarProperty Name="ComID" ColumnName="ComID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

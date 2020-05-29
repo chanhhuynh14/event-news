@@ -2412,9 +2412,9 @@ ul {
 .rs-courses-3 .course-item .course-body {
   transition: all 0.5s ease;
 }
-.rs-courses-3 .course-item:hover .course-body {
-  background-color: #111111;
-}
+    .rs-courses-3 .course-item:hover .course-body {
+        background-color: #5f9ea0;
+    }
 .rs-courses-3 .course-item .course-body .course-value {
   position: absolute;
   top: 225px;
@@ -2878,7 +2878,7 @@ ul {
 }
 .rs-search-courses {
     width: 1234px;
-    margin-left: 57px;
+    margin-left: 227px;
     padding: 20px 0;
     position: relative;
     margin-top: -100px;

@@ -1,0 +1,27 @@
+﻿@model  IQueryable<E_Hutech.Models.ViewModels.SubCommentsVM>
+<head>
+    <script src="~/js/jquery.min.js"></script>
+</head>
+@using E_Hutech.Models.ViewModels;
+@if (Model != null)
+{
+
+    foreach (SubCommentsVM subComment in Model)
+    {
+        <div class="row" style="width: 100.3%; border-bottom: 1px solid #d2cece; margin-right: -14px; margin-left: -1px;">
+            <div class="col-md-4" style="width: 36%;">
+                <div class="userProfil" style="margin-left: 9px; margin-top: 12px;">
+                    <a href="#" style="margin-left: 5px; font-weight: bold; font-size: 13px;"> @subComment.User.UserID </a>
+                </div>
+            </div>
+            <div class="col-md-7" style="width: 32%;">
+                <div class="commentDetails">
+                    <p style="margin-top: 27px; font-size: 13px; color: #9c9898;"> @subComment.CommentMsg </p>
+                </div>
+            </div>
+
+        </div>
+    }
+}
+
+

@@ -18,6 +18,7 @@ namespace E_Hutech.Models
         public Event()
         {
             this.SV_SK = new HashSet<SV_SK>();
+            this.Comments = new HashSet<Comment>();
         }
     
         public int Id { get; set; }
@@ -37,9 +38,10 @@ namespace E_Hutech.Models
         public Nullable<System.DateTime> Date_End { get; set; }
         public string ThemeColor { get; set; }
         public Nullable<bool> IsFullDay { get; set; }
-    
         public virtual linkAddress linkAddress { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SV_SK> SV_SK { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

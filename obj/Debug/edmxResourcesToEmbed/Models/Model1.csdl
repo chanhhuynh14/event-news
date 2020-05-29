@@ -76,6 +76,7 @@
     <Property Name="Date_End" Type="DateTime" Precision="3" />
     <Property Name="ThemeColor" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Name="IsFullDay" Type="Boolean" />
+    <NavigationProperty Name="Comments" Relationship="EVENTModel.FK_Comments_Event" FromRole="Event" ToRole="Comment" />
   </EntityType>
   <EntityType Name="Khoa">
     <Key>
@@ -163,6 +164,8 @@
     <Property Name="Id_Lop" Type="Int32" />
     <NavigationProperty Name="Lop" Relationship="Self.FK_SinhVien_Lop" FromRole="SinhVien" ToRole="Lop" />
     <NavigationProperty Name="SV_SK" Relationship="Self.FK_SV_SK_SinhVien" FromRole="SinhVien" ToRole="SV_SK" />
+    <NavigationProperty Name="SubComments" Relationship="EVENTModel.FK_SubComments_SinhVien" FromRole="SinhVien" ToRole="SubComment" />
+    <NavigationProperty Name="Comments" Relationship="EVENTModel.FK_Comments_SinhVien" FromRole="SinhVien" ToRole="Comment" />
   </EntityType>
   <EntityType Name="SV_SK">
     <Key>
@@ -197,8 +200,8 @@
     <Key>
       <PropertyRef Name="Id_banner" />
     </Key>
-    <Property Name="Id_banner" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Id_banner" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+    <Property Name="Img" MaxLength="Max" FixedLength="false" Unicode="false" Type="String" />
   </EntityType>
   <Association Name="FK_RoleDetail_Admin">
     <End Role="Admin" Type="Self.Admin" Multiplicity="1" />
@@ -380,6 +383,24 @@
       <End Role="SV_SK" EntitySet="SV_SK" />
     </AssociationSet>
     <EntitySet Name="VoteLogs" EntityType="EVENTModel.VoteLog" />
+    <EntitySet Name="SubComments" EntityType="EVENTModel.SubComment" />
+    <AssociationSet Name="FK_SubComments_SinhVien" Association="EVENTModel.FK_SubComments_SinhVien">
+      <End Role="SinhVien" EntitySet="SinhViens" />
+      <End Role="SubComment" EntitySet="SubComments" />
+    </AssociationSet>
+    <EntitySet Name="Comments" EntityType="EVENTModel.Comment" />
+    <AssociationSet Name="FK_Comments_Event" Association="EVENTModel.FK_Comments_Event">
+      <End Role="Event" EntitySet="Events" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_SinhVien" Association="EVENTModel.FK_Comments_SinhVien">
+      <End Role="SinhVien" EntitySet="SinhViens" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubComments_Comments" Association="EVENTModel.FK_SubComments_Comments">
+      <End Role="Comment" EntitySet="Comments" />
+      <End Role="SubComment" EntitySet="SubComments" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="VoteLog">
     <Key>
@@ -392,4 +413,77 @@
     <Property Name="Vote" Type="Int16" />
     <Property Name="Active" Type="Boolean" />
   </EntityType>
+  <EntityType Name="SubComment">
+    <Key>
+      <PropertyRef Name="SubComID" />
+    </Key>
+    <Property Name="SubComID" Type="Int32" Nullable="false" />
+    <Property Name="CommentMsg" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CommentedDate" Type="DateTime" Precision="3" />
+    <Property Name="ComID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" />
+    <NavigationProperty Name="SinhVien" Relationship="EVENTModel.FK_SubComments_SinhVien" FromRole="SubComment" ToRole="SinhVien" />
+    <NavigationProperty Name="Comment" Relationship="EVENTModel.FK_SubComments_Comments" FromRole="SubComment" ToRole="Comment" />
+  </EntityType>
+  <Association Name="FK_SubComments_SinhVien">
+    <End Type="EVENTModel.SinhVien" Role="SinhVien" Multiplicity="0..1" />
+    <End Type="EVENTModel.SubComment" Role="SubComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SinhVien">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SubComment">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="ComID" />
+    </Key>
+    <Property Name="ComID" Type="Int32" Nullable="false" />
+    <Property Name="CommentMsg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CommentedDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="PostID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Event" Relationship="EVENTModel.FK_Comments_Event" FromRole="Comment" ToRole="Event" />
+    <NavigationProperty Name="SinhVien" Relationship="EVENTModel.FK_Comments_SinhVien" FromRole="Comment" ToRole="SinhVien" />
+    <NavigationProperty Name="SubComments" Relationship="EVENTModel.FK_SubComments_Comments" FromRole="Comment" ToRole="SubComment" />
+  </EntityType>
+  <Association Name="FK_Comments_Event">
+    <End Type="EVENTModel.Event" Role="Event" Multiplicity="1" />
+    <End Type="EVENTModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_SinhVien">
+    <End Type="EVENTModel.SinhVien" Role="SinhVien" Multiplicity="1" />
+    <End Type="EVENTModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SinhVien">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubComments_Comments">
+    <End Type="EVENTModel.Comment" Role="Comment" Multiplicity="0..1" />
+    <End Type="EVENTModel.SubComment" Role="SubComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Comment">
+        <PropertyRef Name="ComID" />
+      </Principal>
+      <Dependent Role="SubComment">
+        <PropertyRef Name="ComID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

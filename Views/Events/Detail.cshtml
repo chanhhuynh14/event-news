@@ -2,6 +2,8 @@
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout - Detail.cshtml";
 }
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.3/jquery.timeago.min.js"></script>
+
 <head>
     <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -16,9 +18,11 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
     <link href="~/css/FormGr.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.timeago.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 <!-- Scripts -->
-
 <!-- Blog Single Start Here -->
 <div class="container">
     <div class="row">
@@ -35,7 +39,7 @@
                     <p id="DiaDiem"></p>
                 </div>
             </div>
-           
+
             <div class="share-section">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 life-style">
@@ -71,15 +75,16 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12" style="padding-left: 75px;">
                         @*<ul class="share-link">
-            <li data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small"><a><i href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"></i> Facebook</a></li>
-            <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a></li>
-            <li><a href="#"><i class="fab fa-google-plus-g" aria-hidden="true"></i> Google</a></li>
-        </ul>*@
+                                <li data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small"><a><i href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"></i> Facebook</a></li>
+                                <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a></li>
+                                <li><a href="#"><i class="fab fa-google-plus-g" aria-hidden="true"></i> Google</a></li>
+                            </ul>*@
                         <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div><!-- .share-section2 End -->
 
                     </div>
                 </div>
             </div>
+            @Html.Action("GetPosts");
             <div class="share-section2">
                 <div class="fb-comments" data-href="http://sukienhutech.com/Events/Detail/" data-width="700px" data-numposts="5"></div>
             </div>
@@ -92,9 +97,10 @@
                     <div id="id_qrcode"></div>
 
                 </div>
-                <div class="col-lg-6" >
+                <div class="col-lg-6">
                     <h3 class="title">Thích bài viết</h3>
-                    <div class="fb-like" data-href="http://sukienhutech.com/Events/Detail/" data-width="100px" data-layout="box_count" data-action="like" data-size="large" data-show-faces="true" data-share="false"></div>                </div>
+                    <div class="fb-like" data-href="http://sukienhutech.com/Events/Detail/" data-width="100px" data-layout="box_count" data-action="like" data-size="large" data-show-faces="true" data-share="false"></div>
+                </div>
 
                 <div class="search-box" style="margin-top: 50px;">
                     <h3 class="title">Tìm kiếm..</h3>
@@ -104,14 +110,14 @@
                     </div>
                 </div><!-- .search-box end -->
                 <div class="cate-box">
-                    <h3 class="title" style="color: #1044ff;">Đăng ký tham gia nào!!</h3>
+                    <h3 class="title" style="color: red;">Đăng ký tham gia nào!!</h3>
                     <form id="test-form" method="GET" action="https://script.google.com/macros/s/AKfycbw9VH8G4g-Myu-itFEMzrmxXsCK6wMKGs-UEFtaFkv8gcJ3ZMA/exec">
                         @*<div class="group">
-                            <input type="text" id="Link" name="Link" required>
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Đường dẫn sự kiện</label>
-                        </div>*@
+                                <input type="text" id="Link" name="Link" required>
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Đường dẫn sự kiện</label>
+                            </div>*@
                         <div class="group">
                             <input type="text" id="Name" name="Name" required>
                             <span class="highlight"></span>
@@ -148,42 +154,20 @@
                 </div><!-- .cate-box end -->
                 <div class="latest-courses">
                     <h3 class="title">Các sự kiện khác</h3>
-                    <div class="post-item">
-                        <div class="post-img">
-                            <a href="terms-details.html"><img src="img/sm1.jpg" alt="" title="News image"></a>
-                        </div>
-                        <div class="post-desc">
-                            <h4><a href="terms-details.html">Raken develops reporting The software</a></h4>
-                            <span class="duration">
-                                <i class="fa fa-clock-o" aria-hidden="true"></i> 4 Years
-                            </span>
-                            <span class="price">Price: <span>$350</span></span>
-                        </div>
-                    </div><!-- .post-item end -->
-                    <div class="post-item">
-                        <div class="post-img">
-                            <a href="terms-details.html"><img src="img/sm2.jpg" alt="" title="News image"></a>
-                        </div>
-                        <div class="post-desc">
-                            <h4><a href="terms-details.html">Raken develops reporting The software</a></h4>
-                            <span class="duration">
-                                <i class="fa fa-clock-o" aria-hidden="true"></i> 4 Years
-                            </span>
-                            <span class="price">Price: <span>$350</span></span>
-                        </div>
-                    </div><!-- .post-item end -->
-                    <div class="post-item">
-                        <div class="post-img">
-                            <a href="terms-details.html"><img src="img/sm3.jpg" alt="" title="News image"></a>
-                        </div>
-                        <div class="post-desc">
-                            <h4><a href="terms-details.html">Raken develops reporting The software</a></h4>
-                            <span class="duration">
-                                <i class="fa fa-clock-o" aria-hidden="true"></i> 4 Years
-                            </span>
-                            <span class="price">Price: <span>$350</span></span>
-                        </div>
-                    </div><!-- .post-item end -->
+                    <div class="abc">
+                        <div class="post-item">
+            <div class="post-img">
+                <a href="terms-details.html"><img src="img/sm1.jpg" alt="" title="News image"></a>
+            </div>
+            <div class="post-desc">
+                <h4><a href="terms-details.html">Raken develops reporting The software</a></h4>
+                <span class="duration">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 4 Years
+                </span>
+                <span class="price">Price: <span>$350</span></span>
+            </div>
+        </div> <!-- .post-item end -->
+                    </div>
                 </div>
                 <div class="tags-cloud clearfix">
                     <h3 class="title">Product Tags</h3>
@@ -229,171 +213,286 @@
             </div><!-- .sidebar-area end -->
         </div>
 
-</div>
-<!-- Blog Single End  -->
+    </div>
+    <!-- Blog Single End  -->
 
-<script>
-    /*
- * jQuery helper plugin for examples and tests
- */
-    (function ($) {
-        $.fn.html2canvas = function (options) {
-            var date = new Date(),
-                $message = null,
-                timeoutTimer = false,
-                timer = date.getTime();
-            html2canvas.logging = options && options.logging;
-            html2canvas.Preload(this[0], $.extend({
-                complete: function (images) {
-                    var queue = html2canvas.Parse(this[0], images, options),
-                        $canvas = $(html2canvas.Renderer(queue, options)),
-                        finishTime = new Date();
+    <script>
+        /*
+     * jQuery helper plugin for examples and tests
+     */
+        (function ($) {
+            $.fn.html2canvas = function (options) {
+                var date = new Date(),
+                    $message = null,
+                    timeoutTimer = false,
+                    timer = date.getTime();
+                html2canvas.logging = options && options.logging;
+                html2canvas.Preload(this[0], $.extend({
+                    complete: function (images) {
+                        var queue = html2canvas.Parse(this[0], images, options),
+                            $canvas = $(html2canvas.Renderer(queue, options)),
+                            finishTime = new Date();
 
-                    $canvas.css({ position: 'absolute', left: 0, top: 0 }).appendTo(document.body);
-                    $canvas.siblings().toggle();
+                        $canvas.css({ position: 'absolute', left: 0, top: 0 }).appendTo(document.body);
+                        $canvas.siblings().toggle();
 
-                    $(window).click(function () {
-                        if (!$canvas.is(':visible')) {
-                            $canvas.toggle().siblings().toggle();
-                            throwMessage("Canvas Render visible");
-                        } else {
-                            $canvas.siblings().toggle();
-                            $canvas.toggle();
-                            throwMessage("Canvas Render hidden");
-                        }
-                    });
-                    throwMessage('Screenshot created in ' + ((finishTime.getTime() - timer) / 1000) + " seconds<br />", 4000);
-                }
-            }, options));
-
-            function throwMessage(msg, duration) {
-                window.clearTimeout(timeoutTimer);
-                timeoutTimer = window.setTimeout(function () {
-                    $message.fadeOut(function () {
-                        $message.remove();
-                    });
-                }, duration || 2000);
-                if ($message)
-                    $message.remove();
-                $message = $('<div ></div>').html(msg).css({
-                    margin: 0,
-                    padding: 10,
-                    background: "#000",
-                    opacity: 0.7,
-                    position: "fixed",
-                    top: 10,
-                    right: 10,
-                    fontFamily: 'Tahoma',
-                    color: '#fff',
-                    fontSize: 12,
-                    borderRadius: 12,
-                    width: 'auto',
-                    height: 'auto',
-                    textAlign: 'center',
-                    textDecoration: 'none'
-                }).hide().fadeIn().appendTo('body');
-            }
-        };
-    })(jQuery);
-
-</script>
-@*END Convert HTML*@
-<script type="text/javascript">
-    $(document).ready(function () {
-        var submit = $("button[type='submit']");
-        submit.click(function () {
-            var data = $('form#test-form').serialize();
-            $.ajax({
-                type: 'GET',
-                url: 'https://script.google.com/macros/s/AKfycbw9VH8G4g-Myu-itFEMzrmxXsCK6wMKGs-UEFtaFkv8gcJ3ZMA/exec',
-                dataType: 'json',
-                crossDomain: true,
-                data: data,
-                success: function (data) {
-                    if (data == 'false') {
-                        alert('Thêm không thành công, bạn cũng có thể sử dụng để hiển thị Popup hoặc điều hướng');
-                    } else {
-                        alert('Đã thêm dữ liệu vào Form');
+                        $(window).click(function () {
+                            if (!$canvas.is(':visible')) {
+                                $canvas.toggle().siblings().toggle();
+                                throwMessage("Canvas Render visible");
+                            } else {
+                                $canvas.siblings().toggle();
+                                $canvas.toggle();
+                                throwMessage("Canvas Render hidden");
+                            }
+                        });
+                        throwMessage('Screenshot created in ' + ((finishTime.getTime() - timer) / 1000) + " seconds<br />", 4000);
                     }
+                }, options));
+
+                function throwMessage(msg, duration) {
+                    window.clearTimeout(timeoutTimer);
+                    timeoutTimer = window.setTimeout(function () {
+                        $message.fadeOut(function () {
+                            $message.remove();
+                        });
+                    }, duration || 2000);
+                    if ($message)
+                        $message.remove();
+                    $message = $('<div ></div>').html(msg).css({
+                        margin: 0,
+                        padding: 10,
+                        background: "#000",
+                        opacity: 0.7,
+                        position: "fixed",
+                        top: 10,
+                        right: 10,
+                        fontFamily: 'Tahoma',
+                        color: '#fff',
+                        fontSize: 12,
+                        borderRadius: 12,
+                        width: 'auto',
+                        height: 'auto',
+                        textAlign: 'center',
+                        textDecoration: 'none'
+                    }).hide().fadeIn().appendTo('body');
                 }
+            };
+        })(jQuery);
+
+    </script>
+    @*END Convert HTML*@
+    <script>
+        $(document).ready(function (){
+            $.ajax({
+                type: "GET",
+                url: 'http://sukienhutech.com/api/NewsAPI/GetAllNews',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    tt = data.length;
+                    $.each(data, function (i, item) {
+                        var name = item.Name.length > 65 ? item.Name.substring(0, 65) : item.Name;
+                        var rows = "<div class='col-lg-4 col-md-6 grid-item filter1'>";
+                        rows += "<div class='course-item'>";
+                        rows += "<div class='course-img'>";
+                        rows += " <img src=" + item.Image1 + " />";
+                        rows += "<div class='course-toolbar'>";
+                        rows += "<div class='course-date'>";
+                        rows += "<i class='fa fa-calendar'></i> " + item.Date + "";
+                        rows += "</div>";
+                        rows += "<div class='course-duration' id='eventday" + item.Id + "'>";
+                        rows += "</div >";
+                        rows += "</div >";
+                        rows += "</div >";
+                        rows += "<div class='course-body'>";
+                        rows += "<div class='course-desc'>";
+                        rows += "<h4 class='course-title'><a href='projects-details.html'>" + name + "..." + "</a></h4>";
+                        rows += "<p>";
+                        rows += " " + item.Desciption.length > 200 ? item.Desciption.substring(0, 200) : item.Desciption + "...";
+                        rows += "</p>";
+                        rows += "</div>";
+                        rows += "</div>";
+                        rows += "<div class='course-footer'>";
+                        rows += "<div class='course-seats'>";
+                        rows += "<i class='fa fa-users'></i> " + item.SL_Thamgia + "";
+                        rows += "</div>";
+                        rows += "<div class='course-button'>";
+                        rows += "<a href='/Events/Detail/" + item.Id + "'>Chi Tiết</a>";
+                        rows += "</div>";
+                        rows += "</div>";
+                        rows += "</div >";
+                        rows += "</div >";
+                        $('.').append(rows);
+                        SetTimer(item.Date, "eventday" + item.Id, item.Id);
+                    }); //End of foreach Loop
+                    var rows = '';
+                    var ps = 1;
+                    var ran = tt / ps;
+                    var mo = tt % ps;
+                    if (mo != 0) {
+                        ran = ran + 1;
+                    }
+                    for (var i = 1; i < ran + 1; i++) {
+
+                        rows += "<li class='page-item'><a class='page-link active' onclick='Phantrang(" + i + ")'>" + i + "</a></li>";
+                    }
+                    $('#Id_pagination').append(rows);
+
+                }, //End of AJAX Success function
+
+                failure: function (data) {
+                    alert(data.responseText);
+                }, //End of AJAX failure function
+                error: function (data) {
+                    alert(data.responseText);
+                } //End of AJAX error function
+
             });
-            return false;
         });
-    });
-</script>
-<script>
-
-    var url = window.location.href;
-    var id = url.substring(url.lastIndexOf('/') + 1);
-    $.ajax({
-        type: 'GET',
-        url: 'http://sukienhutech.com/api/Admin/GetDetail/' + id,
-        success: function (data) {
-            $('.top-title').append(data.Name);
-            $('#contentID').append(data.Content);
-            $('#DesciptionID').append(data.Desciption);
-            $('#hinhanh').append('<img src=' + data.Image1 + '>');
-            $('#KeywordEventID').append(data.Keyword);
-            $('#SeoTitleEventID').val(data.SeoTitle);
-            $('#Id_CateEventID').val(data.Id_Cate);
-            $('#SL_ThamgiaEventID').val(data.SL_Thamgia);
-            $('.date').append(data.Date);
-            $('#EventID').val(data.Id);
-            $('#DiaDiem').append(data.Pd);
-            $('#nameAD').append(data.NameAD);
-            $('#fullAD').append(data.FullAD);
-            $("#single-blog-details.sec-spacer").modal("show");
-            console.log(data);
-        },
-        error: function (error) {
-            alert(error);
-        }
-
-    })
-    //Mã QR//
-    var qrcode = new QRCode("id_qrcode", {
-        text: "http://sukienhutech.com/api/Admin/GetDetail/" + id,
-        width: 100,
-        height: 100,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-    });
-    var
-        form = $('#chanhcutee'),
-        cache_width = form.width(),
-        a4 = [595.28, 841.89]; // for a4 size paper width and height
-    //Kết Thúc Mã QR//
-
-    $('#create_pdff').on('click', function () {
-        $('body').scrollTop(10);
-        createPDF();
-    });
-    function createPDF() {
-        getCanvas().then(function (canvas) {
-            var
-                img = canvas.toDataURL("image/png"),
-                doc = new jsPDF({
-                    unit: 'px',
-                    format: 'a4'
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var submit = $("button[type='submit']");
+            submit.click(function () {
+                var data = $('form#test-form').serialize();
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://script.google.com/macros/s/AKfycbw9VH8G4g-Myu-itFEMzrmxXsCK6wMKGs-UEFtaFkv8gcJ3ZMA/exec',
+                    dataType: 'json',
+                    crossDomain: true,
+                    data: data,
+                    success: function (data) {
+                        if (data == 'false') {
+                            alert('Thêm không thành công, bạn cũng có thể sử dụng để hiển thị Popup hoặc điều hướng');
+                        } else {
+                            alert('Đã thêm dữ liệu vào Form');
+                        }
+                    }
                 });
-            doc.addImage(img, 'JPEG', 20, 20);
-            doc.save('Su-kien-Tin-Tuc.pdf');
-            form.width(cache_width);
+                return false;
+            });
         });
-    }
+    </script>
+    <script>
 
-    // create canvas object
-    function getCanvas() {
-        form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
-        return html2canvas(form, {
-            imageTimeout: 2000,
-            removeContainer: true
+        var url = window.location.href;
+        var id = url.substring(url.lastIndexOf('/') + 1);
+        $.ajax({
+            type: 'GET',
+            url: 'http://sukienhutech.com/api/Admin/GetDetail/' + id,
+            success: function (data) {
+                $('.top-title').append(data.Name);
+                $('#contentID').append(data.Content);
+                $('#DesciptionID').append(data.Desciption);
+                $('#hinhanh').append('<img src=' + data.Image1 + '>');
+                $('#KeywordEventID').append(data.Keyword);
+                $('#SeoTitleEventID').val(data.SeoTitle);
+                $('#Id_CateEventID').val(data.Id_Cate);
+                $('#SL_ThamgiaEventID').val(data.SL_Thamgia);
+                $('.date').append(data.Date);
+                $('#EventID').val(data.Id);
+                $('#DiaDiem').append(data.Pd);
+                $('#nameAD').append(data.NameAD);
+                $('#fullAD').append(data.FullAD);
+                $("#single-blog-details.sec-spacer").modal("show");
+                console.log(data);
+            },
+            error: function (error) {
+                alert(error);
+            }
+
+        })
+        //Mã QR//
+        var qrcode = new QRCode("id_qrcode", {
+            text: "http://sukienhutech.com/api/Admin/GetDetail/" + id,
+            width: 100,
+            height: 100,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
         });
-    }
+        var
+            form = $('#chanhcutee'),
+            cache_width = form.width(),
+            a4 = [595.28, 841.89]; // for a4 size paper width and height
+        //Kết Thúc Mã QR//
+        $(document).ready(function () {
+            $('#create_pdff').on('click', function () {
+                $('body').scrollTop(10);
+                createPDF();
+            });
+            function createPDF() {
+                getCanvas().then(function (canvas) {
+                    var
+                        img = canvas.toDataURL("image/png"),
+                        doc = new jsPDF({
+                            unit: 'px',
+                            format: 'a4'
+                        });
+                    doc.addImage(img, 'JPEG', 20, 20);
+                    doc.save('Su-kien-Tin-Tuc.pdf');
+                    form.width(cache_width);
+                });
+            }
 
-</script>
+            // create canvas object
+            function getCanvas() {
+                form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
+                return html2canvas(form, {
+                    imageTimeout: 2000,
+                    removeContainer: true
+                });
+            }
+
+        });
+      
+    </script>
 </div>
+<script type="text/javascript">
+    $.ajax({
+        type: "GET",
+        url: 'http://sukienhutech.com/api/Admin/Getpaged?pageNo=1',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            tt = data.length;
+            var i = 0;
+            //Ở đây sử dụng lệnh For để lặp đến 3
+            $.each(data, function (i, item) {
+            
+                    var name = item.Name.length > 40 ? item.Name.substring(0, 40) : item.Name;
+                    var rows = "<div class='post-item'>";
+                    rows += "<div class='post-img'>";
+                    rows += "<a href=''><img src=" + item.Image1 + " alt=''></div>";
+                    rows += " <div class='post-desc'><h4><a href=''>" + name + "</a></h4>";
+                    rows += "<span class='duration'><i class='fa fa-clock-o' aria-hidden='true'></i>" + item.Date + "</span></div>";
+                    rows += "</div>";
+                    $('.abc').append(rows);
+                    SetTimer(item.Date, "eventday" + item.Id, item.Id);
+                 
+                
+            }); //End of foreach Loop
+            var rows = '';
+            var ps = 1;
+            var ran = tt / ps;
+            var mo = tt % ps;
+            if (mo != 0) {
+                ran = ran + 1;
+            }
+
+        }, //End of AJAX Success function
+
+        failure: function (data) {
+            alert(data.responseText);
+        }, //End of AJAX failure function
+        error: function (data) {
+            alert(data.responseText);
+        } //End of AJAX error function
+
+    });
+</script>
+
 @*<button onclick="myFunction()">Print this page</button>
     <script>
         function myFunction() {

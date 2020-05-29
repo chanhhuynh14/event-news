@@ -1,0 +1,19 @@
+﻿@model IEnumerable<E_Hutech.Models.Comment>
+<div class="share-section2">
+    <h2>Bình luận</h2>
+    @using (Html.BeginForm("Create", "BinhLuan", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("Id_Event",(int)ViewBag.Id_Event)
+        @Html.TextArea("Message")
+        @Html.Hidden("Id_Event")
+        <input type="submit" value="Đăng" />
+    }
+    @foreach (var item in Model)
+    {
+        <div id="comments">
+            <div id="comment_name">@item.Id_User</div>
+            <div id="comment_Content">@item.Message</div>
+        </div>
+    }
+</div>

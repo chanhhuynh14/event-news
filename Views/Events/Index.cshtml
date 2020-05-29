@@ -33,7 +33,6 @@
 <p>
     <div id="id_qrcode"></div>
 </p>
-
 <script>
     $(document).ready(function () {
         var tt = 0;
@@ -44,7 +43,6 @@
             dataType: "json",
             success: function (data) {
                 tt = data.length;
-
                 $.each(data, function (i, item) {
                     var name = item.Name.length > 65 ? item.Name.substring(0, 65) : item.Name;
                     var rows = "<div class='col-lg-4 col-md-6 grid-item filter1'>";
@@ -176,11 +174,11 @@
                 data: "{}",
                 success: function (data) {
                     //var s = '<option value="-1">Please Select a Department</option>';
-                    var s = '<a value="-1"  href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DANH MỤC</a >';
+                    var s = '<a value="-1"  href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SỰ KIỆN</a >';
                     s += '<div  class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
                     for (var i = 0; i < data.length; i++) {
                         //s += '<option value="' + data[i].DepartmentID + '">' + data[i].DepartmentName + '</option>';
-                        s += '<a value="' + data[i].DepartmentID + '" class="dropdown-item" href = "/Events/Cate_E/' + data[i].DepartmentID + '" >' + data[i].DepartmentName + '</a>';
+                        s += '<a value="' + data[i].DepartmentID + '" class="dropdown-item" style="color:black"  href = "/Events/Cate_E/' + data[i].DepartmentID + '" >' + data[i].DepartmentName + '</a>';
                     }
                     s += '</div>';
                     $("#hahahi").html(s);

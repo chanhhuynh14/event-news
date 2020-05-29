@@ -25,7 +25,9 @@ namespace E_Hutech
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
+                LoginPath = new PathString("/Events/GetUsers"),
+                //ReturnUrlParameter = "returnUrl",
+                //LoginPath = new PathString("/Events/GetUsers"),
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.

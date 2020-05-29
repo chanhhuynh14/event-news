@@ -271,7 +271,6 @@
         }
     </style>
 </head>
-
 <body class="home2">
     <!--Preloader area start here-->
     <div class="book_preload">
@@ -310,7 +309,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4" >
+                                <div class="col-sm-4">
                                     <div class="header-contact">
                                         <div id="info-details" class="widget-text">
                                             <i class="glyph-icon flaticon-email"></i>
@@ -323,7 +322,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4"style="
+                                <div class="col-sm-4" style="
                                         margin-top: -8px;
                                         margin-left: -13px;
                                     ">
@@ -361,34 +360,36 @@
                                         <li id="hahahi"></li>
                                         <li>@Html.ActionLink(E_Hutech.Resource.Resources.mnNews, "Index", "News")</li>
                                         <li>@Html.ActionLink(E_Hutech.Resource.Resources.mnContact, "SendEmail", "Contact")</li>
-                                        
-                                     
-                                                    @*<li><a href="~/Events/Showallevent">Sự Kiện</a></li><li><a href="/thong-tin">Giới thiệu</a></li>
-                    <li><a href="~/News/Index">Tin Tức</a></li>
-                    <li><a href="~/Contact/SendEmail">Liên Hệ</a></li>*@
-                                                    @*<li>
-                        <a href="javascript:void(0)" class="nav-item dropdown-item">
-                            Xin chào
-                            @if (Session["UserName"] != null)
-                            {
-                                @Session["UserName"].ToString();
-                            }
 
-                        </a>
-                    </li>*@
-                                                    <!--Contact Menu End-->
-                                                </ul>
-</nav>
+
+                                        @*<li><a href="~/Events/Showallevent">Sự Kiện</a></li><li><a href="/thong-tin">Giới thiệu</a></li>
+                                            <li><a href="~/News/Index">Tin Tức</a></li>
+                                            <li><a href="~/Contact/SendEmail">Liên Hệ</a></li>*@
+                                        @*<li>
+                                                <a href="javascript:void(0)" class="nav-item dropdown-item">
+                                                    Xin chào
+                                                    @if (Session["UserName"] != null)
+                                                    {
+                                                        @Session["UserName"].ToString();
+                                                    }
+
+                                                </a>
+                                            </li>*@
+                                        <!--Contact Menu End-->
+                                    </ul>
+                                </nav>
                                 <div class="dropdown show">
                                     @*<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Dropdown link
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                </div>*@
+                                            Dropdown link
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                        </div>*@
                                 </div>
                                 @*<a class="hidden-xs rs-search" data-target=".search-modal" data-toggle="modal" href="#" ><i class="fa fa-search"></i></a>*@
                                 <a class="hidden-xs rs-search" data-toggle="modal" data-target="#elegantModalForm" style="background-color: #8dda99;"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                                <a class="hidden-xs rs-search" href="http://sukienhutech.com/Events/LoginUser" style="background-color: #8dda99;"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+
                             </div>
 
                         </div>
@@ -396,15 +397,25 @@
                 </div>
             </div>
             @Html.Partial("~/Views/Events/Login.cshtml");
-            
             <!-- Modal -->
         </header>
         <!--Header End-->
 
     </div>
-   
+
     <!--Full width header End-->
     <!-- Slider Area Start -->
+    
+    <div class="card-body">
+        @if (@ViewBag.UserName != null)
+        {
+            <p>Hi</p>
+            <p>Name: @ViewBag.UserName</p>
+            <p>Email: @ViewBag.Email</p>
+            <a href="@Url.Action("Logout","Events")" class="btn btn-warning">Logout</a>
+        }
+    </div>
+
     <div id="rs-slider" class="slider-overlay-1">
         <div id="home-slider">
             <!-- Item 1 -->
@@ -432,28 +443,6 @@
     <div class="rs-search-courses">
         <div class="container">
             <form class="row search-form" style="margin-left: 57px;">
-                @*<div class="col-md-3">
-                        <div class="categories">
-                            <select name="FactyID" id="FactyID">
-                                <option value="0">Tất cả khoa</option>
-                                <option value="1">Khoa Truyền thông và CNTT</option>
-                                <option value="2">Khoa Ngoại ngữ và VHQT</option>
-                                <option value="3">Khoa Luật và Quan hệ quốc tế</option>
-                                <option value="4">Khoa QTDL - Khách sạn</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="level">
-                            <select name="CateEventID" id="CateEventID">
-                                <option value="0">Tất cả danh mục sự kiện</option>
-                                <option value="1">B.Sc in EEE</option>
-                                <option value="2">B.Sc in CSE</option>
-                                <option value="3">BSS (Hons)</option>
-                                <option value="4">LL.B (Hons)</option>
-                            </select>
-                        </div>
-                    </div>*@
                 <div class="col-md-9">
                     <div class="keyword" style="width: 85%;margin-left: 45px;">
                         <input type="text" id="keywords_search" placeholder="Nhập từ khóa...">
@@ -483,124 +472,30 @@
     <div id="rs-courses-3" class="rs-courses-3 sec-spacer">
         <div class="container" style="margin-top: -69px;">
             <div class="sec-title mb-50">
+                <h2>TỨC MỚI NHẤT NỔI BẬT</h2>
+                @*<div class="view-more">
+                        <a href="projects.html">View All Projects <i class="fa fa-angle-double-right"></i></a>
+                    </div>*@
+            </div>
+            <div class="row grid" id="rowgridBody1">
+            </div>
+        </div>
+    </div>
+    <div id="rs-courses-3" class="rs-courses-3 sec-spacer">
+        <div class="container" style="margin-top: -69px;">
+            <div class="sec-title mb-50">
                 <h2>SỰ KIỆN NỔI BẬT</h2>
                 @*<div class="view-more">
-                <a href="projects.html">View All Projects <i class="fa fa-angle-double-right"></i></a>
-            </div>*@
+                        <a href="projects.html">View All Projects <i class="fa fa-angle-double-right"></i></a>
+                    </div>*@
             </div>
             <div class="row grid" id="rowgridBody">
                 @RenderBody()
             </div>
-           
+
             <nav aria-label="Page navigation example" class="mt-50">
                 <ul class="pagination justify-content-center" id="Id_pagination"></ul>
             </nav>
-            @*<input type='hidden' id='current_page' />
-            <input type='hidden' id='show_per_page' />
-            <div id='page_navigation'></div>
-            <style>
-                /*Pagination CSS*/
-                #page_navigation {
-                    clear: both;
-                    margin: 20px 0;
-                }
-
-                    #page_navigation a {
-                        padding: 3px 6px;
-                        border: 1px solid #2e6da4;
-                        margin: 2px;
-                        color: black;
-                        text-decoration: none
-                    }
-
-                .active_page {
-                    background: #337ab7;
-                    color: white !important;
-                }
-            </style>
-            <script src="~/js/phantrang21.js"></script>*@
-
-            @*<script>
-            jQuery(document).ready(function () {
-                //Pagination JS
-                //how much items per page to show
-                var show_per_page = 4;
-                //getting the amount of elements inside pagingBox div
-                var number_of_items = $('#rowgridBody').children().size();
-                //calculate the number of pages we are going to have
-                var number_of_pages = Math.ceil(number_of_items / show_per_page);
-
-                //set the value of our hidden input fields
-                $('#current_page').val(0);
-                $('#show_per_page').val(show_per_page);
-
-                //now when we got all we need for the navigation let's make it '
-
-                /*
-                what are we going to have in the navigation?
-                    - link to previous page
-                    - links to specific pages
-                    - link to next page
-                */
-                var navigation_html = '<a class="previous_link" href="javascript:previous();">Prev</a>';
-                var current_link = 0;
-                while (number_of_pages > current_link) {
-                    navigation_html += '<a class="page_link" href="javascript:go_to_page(' + current_link + ')" longdesc="' + current_link + '">' + (current_link + 1) + '</a>';
-                    current_link++;
-                }
-                navigation_html += '<a class="next_link" href="javascript:next();">Next</a>';
-
-                $('#page_navigation').html(navigation_html);
-
-                //add active_page class to the first page link
-                $('#page_navigation .page_link:first').addClass('active_page');
-
-                //hide all the elements inside pagingBox div
-                $('#rowgridBody').children().css('display', 'none');
-
-                //and show the first n (show_per_page) elements
-                $('#rowgridBody').children().slice(0, show_per_page).css('display', 'block');
-
-            });
-            //Pagination JS
-            function previous() {
-
-                new_page = parseInt($('#current_page').val()) - 1;
-                //if there is an item before the current active link run the function
-                if ($('.active_page').prev('.page_link').length == true) {
-                    go_to_page(new_page);
-                }
-
-            }
-            function next() {
-                new_page = parseInt($('#current_page').val()) + 1;
-                //if there is an item after the current active link run the function
-                if ($('.active_page').next('.page_link').length == true) {
-                    go_to_page(new_page);
-                }
-
-            }
-            function go_to_page(page_num) {
-                //get the number of items shown per page
-                var show_per_page = parseInt($('#show_per_page').val());
-
-                //get the element number where to start the slice from
-                start_from = page_num * show_per_page;
-
-                //get the element number where to end the slice
-                end_on = start_from + show_per_page;
-
-                //hide all children elements of pagingBox div, get specific items and show them
-                $('#rowgridBody').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
-
-                /*get the page link that has longdesc attribute of the current page and add active_page class to it
-                and remove that class from previously active page link*/
-                $('.page_link[longdesc=' + page_num + ']').addClass('active_page').siblings('.active_page').removeClass('active_page');
-
-                //update the current page input field
-                $('#current_page').val(page_num);
-            }
-        </script>*@
         </div>
     </div>
     <div id="rs-latest-news" class="rs-latest-news sec-spacer">
@@ -625,43 +520,6 @@
     </div>
     <!-- Footer Start -->
     <footer id="rs-footer" class="bg3 rs-footer">
-        @*<div class="container">
-            <div>
-                <div class="row footer-contact-desc">
-                    <div class="col-md-4">
-                        <div class="contact-inner">
-                            <i class="fas fa-map-marked-alt"></i>
-                            <h4 class="contact-title">Address</h4>
-                            <p class="contact-desc">
-                                475A Điện Biên Phủ,<br>
-                                P.25, Q.Bình Thạnh, TP.HCM,
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="contact-inner">
-                            <i class="fas fa-phone"></i>
-                            <h4 class="contact-title">Phone Number</h4>
-                            <p class="contact-desc">
-                                (028) 5445 7777<br>
-                                (08) 5422 1111
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="contact-inner">
-                            <i class="fas fa-at"></i>
-                            <h4 class="contact-title">Email Address</h4>
-                            <p class="contact-desc">
-                                info@hutech.edu.vn<br>
-                                hutech@hutech.edu.vn
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
         <!-- Footer Top -->
         <div class="footer-top">
             <div class="container">
@@ -776,6 +634,65 @@
             </div>
         </div>
     </div>
+    <script>
+        function TimKiem() {
+            var keyword = $("#keywords_search").val();
+            $(".row.grid").html('');
+            $.ajax({
+                type: "GET",
+                url: 'http://sukienhutech.com/api/Admin/GetAllEvent?keyword=' + keyword,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    $.each(data, function (i, item) {
+                        var rows = "<div class='col-lg-4 col-md-6 grid-item filter1'>";
+                        rows += "<div class='course-item'>";
+                        rows += "<div class='course-img'>";
+                        rows += " <img src=" + item.Image1 + " />";
+                        rows += "<div class='course-toolbar'>";
+                        rows += "<h4 class='course-category'><a href='#'>" + item.Name + "</a></h4>";
+                        rows += "<div class='course-date'>";
+                        rows += "<i class='fa fa-calendar'></i> " + item.Date + "";
+                        rows += "</div>";
+                        rows += "<div class='course-duration' id='eventday" + item.Id + "'>";
+                        rows += "</div >";
+                        rows += "</div >";
+                        rows += "</div >";
+                        rows += "<div class='course-body'>";
+                        rows += " <span class='course-value'>" + item.Id_Cate + "</span>";
+                        rows += "<div class='course-desc'>";
+                        rows += "<h4 class='course-title'><a href='projects-details.html'>" + item.Name + "</a></h4>";
+                        rows += "<p>";
+                        rows += " " + item.Desciption.length > 200 ? item.Desciption.substring(0, 200) : item.Desciption + "";
+                        rows += "</p>";
+                        rows += "</div>";
+                        rows += "</div>";
+                        rows += "<div class='course-footer'>";
+                        rows += "<div class='course-seats'>";
+                        rows += "<i class='fa fa-users'></i> " + item.SL_Thamgia + "";
+                        rows += "</div>";
+                        rows += "<div class='course-button'>";
+                        rows += "<a href='/Events/Detail/" + item.Id + "'>APPLY NOW</a>";
+                        rows += "</div>";
+                        rows += "</div>";
+                        rows += "</div >";
+                        rows += "</div >";
+                        $('.row.grid').append(rows);
+                        SetTimer(item.Date, "eventday" + item.Id, item.id);
+
+                    }); //End of foreach Loop
+                }, //End of AJAX Success function
+
+                failure: function (data) {
+                    alert(data.responseText);
+                }, //End of AJAX failure function
+                error: function (data) {
+                    alert(data.responseText);
+                } //End of AJAX error function
+
+            });
+        }
+    </script>
     <script language="javascript">
         function display() {
 
@@ -828,6 +745,77 @@
 
     <!-- main js -->
     <script src="~/js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            var tt = 0;
+            $.ajax({
+                type: "GET",
+                url: 'http://sukienhutech.com/api/Admin/GetLastEvent',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    tt = data.length;
+                    $.each(data, function (i, item) {
+                        var name = item.Name.length > 65 ? item.Name.substring(0, 65) : item.Name;
+                        var rows = "<div class='col-lg-4 col-md-6 grid-item filter1'>";
+                        rows += "<div class='course-item'>";
+                        rows += "<div class='course-img'>";
+                        rows += " <img src=" + item.Image1 + " />";
+                        rows += "<div class='course-toolbar'>";
+                        rows += "<div class='course-date'>";
+                        rows += "<i class='fa fa-calendar'></i> " + item.Date + "";
+                        rows += "</div>";
+                        rows += "<div class='course-duration' id='eventday" + item.Id + "'>";
+                        rows += "</div >";
+                        rows += "</div >";
+                        rows += "</div >";
+                        rows += "<div class='course-body'>";
+                        rows += "<div class='course-desc'>";
+                        rows += "<h4 class='course-title'><a href='projects-details.html'>" + name + "..." + "</a></h4>";
+                        rows += "<p>";
+                        rows += " " + item.Desciption.length > 200 ? item.Desciption.substring(0, 200) : item.Desciption + "...";
+                        rows += "</p>";
+                        rows += "</div>";
+                        rows += "</div>";
+                        rows += "<div class='course-footer'>";
+                        rows += "<div class='course-seats'>";
+                        rows += "<i class='fa fa-users'></i> " + item.SL_Thamgia + "";
+                        rows += "</div>";
+                        rows += "<div class='course-button'>";
+                        rows += "<a href='/Events/Detail/" + item.Id + "'>Chi Tiết</a>";
+                        rows += "</div>";
+                        rows += "</div>";
+                        rows += "</div >";
+                        rows += "</div >";
+                        $('.row.grid').append(rows);
+                        SetTimer(item.Date, "eventday" + item.Id, item.Id);
+                    }); //End of foreach Loop
+                    var rows = '';
+                    var ps = 1;
+                    var ran = tt / ps;
+                    var mo = tt % ps;
+                    if (mo != 0) {
+                        ran = ran + 1;
+                    }
+                    for (var i = 1; i < ran + 1; i++) {
+
+                        rows += "<li class='page-item'><a class='page-link active' onclick='Phantrang(" + i + ")'>" + i + "</a></li>";
+                    }
+                    $('#Id_pagination').append(rows);
+
+                }, //End of AJAX Success function
+
+                failure: function (data) {
+                    alert(data.responseText);
+                }, //End of AJAX failure function
+                error: function (data) {
+                    alert(data.responseText);
+                } //End of AJAX error function
+
+            });
+
+        });
+    </script>
 </body>
 
 </html>

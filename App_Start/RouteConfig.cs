@@ -29,6 +29,21 @@ namespace E_Hutech
               defaults: new { controller = "Events", action = "Login", id = UrlParameter.Optional }
           );
             routes.MapRoute(
+              name: "Detail",
+              url: "{controller}/{action}/{id}",
+              defaults: new { controller = "Events", action = "Detail", id = UrlParameter.Optional }
+          );
+            routes.MapRoute(
+             name: "GetUsers",
+             url: "{controller}/{action}/{id}",
+             defaults: new { controller = "Events", action = "GetUsers", id = UrlParameter.Optional }
+         );
+            routes.MapRoute(
+            name: "Create_BL",
+            url: "{controller}/{action}/{id}",
+            defaults: new { controller = "Events", action = "Create_BL", id = UrlParameter.Optional }
+        );
+            routes.MapRoute(
                name: "Default",
                url: "{controller}/{action}/{id}",
                defaults: new { controller = "Events", action = "Index", id = UrlParameter.Optional }

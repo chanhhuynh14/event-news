@@ -7,7 +7,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Threading;
-using System.Globalization;                                                                                      
+using System.Globalization;
+using System.Web.SessionState;
 
 namespace E_Hutech
 {
@@ -37,23 +38,26 @@ namespace E_Hutech
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("vi");
             }
         }
+        protected void Application_PostAuthorizeRequest()
+        {
+            HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+        }
+        //string culture = "vi";//ngon ngu mac dinh
+        //var httpCookie = Request.Cookies["language"];
+        //if (httpCookie != null)
+        //{
+        //    culture = httpCookie.Value;
+        //}
+        //else
+        //{
+        //    HttpCookie language = new HttpCookie("language");
+        //    language.Value = culture;
+        //    language.Expires = DateTime.Now.AddDays(1);
+        //    Response.Cookies.Add(language);
+        //}
+        //System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo(culture);
+        //System.Threading.Thread.CurrentThread.CurrentUICulture = System.Threading.Thread.CurrentThread.CurrentCulture;
 
-            //string culture = "vi";//ngon ngu mac dinh
-            //var httpCookie = Request.Cookies["language"];
-            //if (httpCookie != null)
-            //{
-            //    culture = httpCookie.Value;
-            //}
-            //else
-            //{
-            //    HttpCookie language = new HttpCookie("language");
-            //    language.Value = culture;
-            //    language.Expires = DateTime.Now.AddDays(1);
-            //    Response.Cookies.Add(language);
-            //}
-            //System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo(culture);
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = System.Threading.Thread.CurrentThread.CurrentCulture;
-        
 
     }
 }

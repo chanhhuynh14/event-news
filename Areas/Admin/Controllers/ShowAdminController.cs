@@ -119,7 +119,7 @@ namespace E_Hutech.Areas.Admin.Controllers
         public ActionResult Login(Models.Login login)
         {
             var item = db.Admins.Where(s => s.UserName == login.UserName && s.Password == login.Password).FirstOrDefault();
-            if (item != null)
+            if (item == null)
             {
                 Session["ShowAdmin"] = item;
                 return RedirectToAction("Index");

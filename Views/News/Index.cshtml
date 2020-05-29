@@ -3,13 +3,8 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout - About.cshtml";
+    Layout = "~/Views/Shared/_Layout - Other.cshtml";
 }
-<input type='hidden' id='current_page' />
-<input type='hidden' id='show_per_page' />
-<div id='page_navigation'></div>
-
-
 <script>
     jQuery(document).ready(function () {
         $.ajax({
@@ -19,7 +14,7 @@
             dataType: "json",
             success: function (data) {
                 $.each(data, function (i, item) {
-                    var rows = "<div class='col-lg-8 col-md-12' >";
+                    var rows = "<div class='' >";
                     rows += "<div class='row course-item'  id='abc'>";
                     rows += "<div class='col-md-6'>";
                     rows += "<div class='course-img'>";

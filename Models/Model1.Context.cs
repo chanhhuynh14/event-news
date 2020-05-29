@@ -44,5 +44,7 @@ namespace E_Hutech.Models
         public virtual DbSet<ThongTinWebsite> ThongTinWebsites { get; set; }
         public virtual DbSet<Banner> Banners { get; set; }
         public virtual DbSet<VoteLog> VoteLogs { get; set; }
+        public virtual DbSet<SubComment> SubComments { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
     }
 }
