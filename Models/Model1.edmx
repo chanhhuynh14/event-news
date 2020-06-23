@@ -857,26 +857,26 @@
           </AssociationSet>
           <EntitySet Name="Comments" EntityType="EVENTModel.Comment" />
           <AssociationSet Name="FK_Comments_Event" Association="EVENTModel.FK_Comments_Event">
-            <End Role="Event" EntitySet="Events" />
-            <End Role="Comment" EntitySet="Comments" />
+            <End EntitySet="Events" Role="Event" />
+            <End EntitySet="Comments" Role="Comment" />
           </AssociationSet>
           <AssociationSet Name="FK_Comments_SinhVien" Association="EVENTModel.FK_Comments_SinhVien">
-            <End Role="SinhVien" EntitySet="SinhViens" />
-            <End Role="Comment" EntitySet="Comments" />
+            <End EntitySet="SinhViens" Role="SinhVien" />
+            <End EntitySet="Comments" Role="Comment" />
           </AssociationSet>
           <AssociationSet Name="FK_SubComments_Comments" Association="EVENTModel.FK_SubComments_Comments">
-            <End Role="Comment" EntitySet="Comments" />
-            <End Role="SubComment" EntitySet="SubComments" />
+            <End EntitySet="Comments" Role="Comment" />
+            <End EntitySet="SubComments" Role="SubComment" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="VoteLog">
           <Key>
             <PropertyRef Name="AutoId" />
           </Key>
-          <Property Name="AutoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AutoId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
           <Property Name="SectionId" Type="Int16" />
           <Property Name="VoteForld" Type="Int32" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="Vote" Type="Int16" />
           <Property Name="Active" Type="Boolean" />
         </EntityType>
@@ -918,8 +918,8 @@
           <NavigationProperty Name="SubComments" Relationship="EVENTModel.FK_SubComments_Comments" FromRole="Comment" ToRole="SubComment" />
         </EntityType>
         <Association Name="FK_Comments_Event">
-          <End Type="EVENTModel.Event" Role="Event" Multiplicity="1" />
-          <End Type="EVENTModel.Comment" Role="Comment" Multiplicity="*" />
+          <End Type="EVENTModel.Event" Multiplicity="1" Role="Event" />
+          <End Type="EVENTModel.Comment" Multiplicity="*" Role="Comment" />
           <ReferentialConstraint>
             <Principal Role="Event">
               <PropertyRef Name="Id" />
@@ -930,8 +930,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comments_SinhVien">
-          <End Type="EVENTModel.SinhVien" Role="SinhVien" Multiplicity="1" />
-          <End Type="EVENTModel.Comment" Role="Comment" Multiplicity="*" />
+          <End Type="EVENTModel.SinhVien" Multiplicity="1" Role="SinhVien" />
+          <End Type="EVENTModel.Comment" Multiplicity="*" Role="Comment" />
           <ReferentialConstraint>
             <Principal Role="SinhVien">
               <PropertyRef Name="ID" />
@@ -942,8 +942,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SubComments_Comments">
-          <End Type="EVENTModel.Comment" Role="Comment" Multiplicity="0..1" />
-          <End Type="EVENTModel.SubComment" Role="SubComment" Multiplicity="*" />
+          <End Type="EVENTModel.Comment" Multiplicity="0..1" Role="Comment" />
+          <End Type="EVENTModel.SubComment" Multiplicity="*" Role="SubComment" />
           <ReferentialConstraint>
             <Principal Role="Comment">
               <PropertyRef Name="ComID" />

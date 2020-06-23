@@ -88,7 +88,7 @@ namespace E_Hutech.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:60976/api/");
+                client.BaseAddress = new Uri("http://sukienhutech.com/api");
                 //HTTP GET
                 var responseTask = client.GetAsync("event");
                 responseTask.Wait();
@@ -111,8 +111,12 @@ namespace E_Hutech.Controllers
             return View(events);
         }
         [ValidateInput(false)]
-        public ActionResult Detail()
+        public ActionResult Detail(string email, string username,int? id_user,int? id)
         {
+            ViewBag.id_post = id;
+            ViewBag.ID = id_user;
+            ViewBag.Email = email;
+            ViewBag.UserName = username;
             IEnumerable<EventViewModel> events = null;
             using (var client = new HttpClient())
             {
@@ -188,7 +192,7 @@ namespace E_Hutech.Controllers
                             
                             Session["ID"] = obj.ID.ToString();
                             Session["UserName"] = obj.UserName.ToString();
-                            return RedirectToAction("Index");
+                            return RedirectToAction("Detail");
                         }
                         else
                         {
@@ -207,20 +211,21 @@ namespace E_Hutech.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult LoginUser(Models.Login login)
+        public ActionResult LoginUser(Models.Login login,int? id)
         {
             if (ModelState.IsValid)
             {
                 using (EVENTEntities db = new EVENTEntities())
                 {
                     var obj = db.SinhViens.Where(a => a.UserName.Equals(login.UserName) && a.Password.Equals(login.Password)).FirstOrDefault();
-                   
+                    //var eventid = db.Events.Where(s => s.Id == id).FirstOrDefault();
+                                                 
                     if (obj != null)
                     {
                         //Session["Email"] = obj.Email.ToString();
                         //Session["UserName"] = obj.UserName.ToString();
                         
-                        return RedirectToAction("Index",new { email = obj.Email, username = obj.UserName });
+                        return RedirectToAction("Detail", new { email = obj.Email, username = obj.UserName, id = 107 , id_user = obj.ID });
 
                     }
                     else
@@ -299,37 +304,6 @@ namespace E_Hutech.Controllers
             }
             return View(events);
         }
-        //14/05/2020 Phần bi HU
-        //[Authorize]
-        //[AllowAnonymous]
-        //public ActionResult Create_BL(int Id_Event, String Message)
-        //{
-        //    using (var client = new HttpClient())
-        //    {
-
-        //            client.BaseAddress = new Uri("http://sukienhutech.com/");
-        //                var User_Idd = User.Identity.GetUserId();
-        //                BinhLuanBUS.Them(Id_Event, User_Idd, Message);
-        //                return RedirectToAction("Detail", "Events", new { Id = Id_Event });
-
-        //    }
-
-
-        //}
-        //public ActionResult Index_BL(int Id_Event)
-        //{
-        //    ViewBag.Id_Event = Id_Event;
-        //    return View(BinhLuanBUS.DanhSach(Id_Event));
-        //}
-        //    public ActionResult Logout()
-        //    {
-        //        Session["Events"] = null;
-        //        Session["Fullname"] = null;
-        //        return RedirectToAction("Login", "Events");
-        //    }
-
-        //Hôm nay 17/05/2020 làm phần bình luận mới
-        //lấy bình luận
         [HttpGet]
         public ActionResult GetUsers()
         {
@@ -470,6 +444,10 @@ namespace E_Hutech.Controllers
 
             return RedirectToAction("GetSubComments", "Events", new { ComID = ComID });
 
+        }
+        public ActionResult CardGird()
+        {
+            return PartialView();
         }
 
     }

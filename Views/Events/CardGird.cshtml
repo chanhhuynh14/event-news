@@ -1,0 +1,146 @@
+﻿<link href="~/css/cardG.css" rel="stylesheet" />
+<div class="main">
+    <h1>Sự kiện nổi bật</h1>
+    <ul class="cards">
+        <li class='cards_item'>
+            <div class='card'>
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <script>
+                $(document).ready(function () {
+                    var tt = 0;
+                    $.ajax({
+                        type: "GET",
+                        url: 'http://sukienhutech.com/api/Admin/Getpaged',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            tt = data.length;
+                            $.each(data, function (i, item) {
+                                var name = item.Name.length > 30 ? item.Name.substring(0, 30) : item.Name;
+                                rows += "<div class='card_image'><img src=" + item.Image1 + "></div>";
+                                rows += "<div class='card_content'> ";
+                                rows += "<h2 class='card_title'>" + name + "</h2>";
+                                rows += " <p class='card_text'>" + item.Desciption.length > 100 ? item.Desciption.substring(0, 100) : item.Desciption + "</p>";
+                                rows += "<button class='btn card_btn' href='/Events/Detail/" + item.Id + "'>Xem thêm</button></div></div></li></ul>";
+                                $('.main').append(rows);
+                                SetTimer(item.Date, "eventday" + item.Id, item.Id);
+                            }); //End of foreach Loop
+                            var rows = '';
+                            var ps = 1;
+                            var ran = tt / ps;
+                            var mo = tt % ps;
+                            if (mo != 0) {
+                                ran = ran + 1;
+                            }
+                            for (var i = 1; i < ran + 1; i++) {
+
+                                rows += "<li class='page-item'><a class='page-link active' onclick='Phantrang(" + i + ")'>" + i + "</a></li>";
+                            }
+                            $('#Id_pagination').append(rows);
+
+                        }, //End of AJAX Success function
+
+                        failure: function (data) {
+                            alert(data.responseText);
+                        }, //End of AJAX failure function
+                        error: function (data) {
+                            alert(data.responseText);
+                        } //End of AJAX error function
+
+                    });
+                    $.ajax({
+                        type: "GET",
+                        url: 'http://sukienhutech.com/api/NewsAPI/GetAllNews',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            var i = 0;
+                            $.each(data, function (i, item) {
+                                if (i == 0) {
+                                    var rows = "<div class='news-normal-block'>";
+                                    rows += "<div class='news-img'>";
+                                    rows += "<a href='#'>";
+                                    rows += "<img src='" + item.Image + "'/>";
+                                    rows += "</a>";
+                                    rows += "</div>";
+                                    rows += "<div class='news-date'>";
+                                    rows += "<i class='fa fa-calendar-check-o'></i>";
+                                    rows += "<span type='datetime'>" + item.CreatedDate + "</span>";
+                                    rows += "</div>";
+                                    rows += "<h4 class='news-title'><a href='terms-details.html'>" + item.NameTitle + "</a></h4>";
+                                    rows += "<div class='news-desc'>";
+                                    rows += "<p>" + item.Description.length > 200 ? item.Description.substring(0, 200) : item.Description + '...' + "</p>";
+                                    rows += "</div>";
+                                    rows += "<div class='news-btn'>";
+                                    rows += "<a href='/News/Detail/" + item.Id + "'>Đọc Thêm </a>";
+                                    rows += "</div>";
+                                    rows += "</div>";
+                                    $('#rowhaha').append(rows);
+                                    i++;
+                                }
+                                else {
+                                    var rows = "";
+                                    rows += "<div class='news-list-item'>";
+                                    rows += "<div class='news-img'>";
+                                    rows += "<a href = '/News/Detail/" + item.Id + "'>";
+                                    rows += "<img src='" + item.Image + "'/>";
+                                    rows += "</a>";
+                                    rows += "</div>";
+                                    rows += "<div class='news-content'>";
+                                    rows += "<h5 class='news-title'><a href='terms-details.html'>" + item.NameTitle + "</a></h5>";
+                                    rows += "<div class='news-date'>";
+                                    rows += "<i class='fa fa-calendar-check-o'></i>";
+                                    rows += "<span>" + item.CreatedDate + "</span>";
+                                    rows += "</div>";
+                                    rows += "<div class='news-desc'>";
+                                    rows += "<p>";
+                                    rows += "<p>" + item.Description.length > 200 ? item.Description.substring(0, 200) : item.Description + '...' + "</p>";
+                                    rows += "</p>";
+                                    rows += "</div>";
+                                    rows += "</div>";
+                                    rows += "</div>";
+                                    $('#listNewItem').append(rows);
+                                }
+
+                            }); //End of foreach Loop
+                            console.log(data);
+                        }, //End of AJAX Success function
+                        failure: function (data) {
+                            alert(data.responseText);
+                        }, //End of AJAX failure function
+                        error: function (data) {
+                            alert(data.responseText);
+                        } //End of AJAX error function
+
+                    });
+                    //Dropdown Menu
+                    $.ajax(
+                        {
+                            type: "GET",
+                            url: 'http://sukienhutech.com//TestLayout/GetDepartment',
+                            data: "{}",
+                            success: function (data) {
+                                //var s = '<option value="-1">Please Select a Department</option>';
+                                var s = '<a value="-1"  href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SỰ KIỆN</a >';
+                                s += '<div  class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
+                                for (var i = 0; i < data.length; i++) {
+                                    //s += '<option value="' + data[i].DepartmentID + '">' + data[i].DepartmentName + '</option>';
+                                    s += '<a value="' + data[i].DepartmentID + '" class="dropdown-item" style="color:black"  href = "/Events/Cate_E/' + data[i].DepartmentID + '" >' + data[i].DepartmentName + '</a>';
+                                }
+                                s += '</div>';
+                                $("#hahahi").html(s);
+                            }
+                        })
+
+                });
+            </script>

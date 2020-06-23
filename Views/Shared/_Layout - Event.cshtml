@@ -291,7 +291,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-12 rs-vertical-middle">
                             <div class="logo-area">
-                                <a href="" ~/Events/Index""><img class="img-responsive" src="https://www.hutech.edu.vn/images/logo/HUTECH.png" style="width: 50%"></a>
+                                <a href="~/Events/Index"><img class="img-responsive" src="https://www.hutech.edu.vn/images/logo/HUTECH.png" style="width: 50%"></a>
                             </div>
                         </div>
                         <div class="col-lg-8 col-md-12">
@@ -405,7 +405,7 @@
 
     <!--Full width header End-->
     <!-- Slider Area Start -->
-    
+
     <div class="card-body">
         @if (@ViewBag.UserName != null)
         {
@@ -469,10 +469,16 @@
     </div>
     <!-- Search Projects End -->
     <!-- RenderBody Projects Start -->
+    @*<div id="rs-courses-3" class="rs-courses-3 sec-spacer">
+        <div class="container" style="margin-top: -69px;">
+               @Html.Action("CardGird");
+           
+        </div>
+    </div>*@
     <div id="rs-courses-3" class="rs-courses-3 sec-spacer">
         <div class="container" style="margin-top: -69px;">
             <div class="sec-title mb-50">
-                <h2>TỨC MỚI NHẤT NỔI BẬT</h2>
+                <h2>SỰ KIỆN MỚI NHẤT</h2>
                 @*<div class="view-more">
                         <a href="projects.html">View All Projects <i class="fa fa-angle-double-right"></i></a>
                     </div>*@
@@ -787,21 +793,13 @@
                         rows += "</div>";
                         rows += "</div >";
                         rows += "</div >";
-                        $('.row.grid').append(rows);
+                        $('#rowgridBody1').append(rows);
                         SetTimer(item.Date, "eventday" + item.Id, item.Id);
                     }); //End of foreach Loop
                     var rows = '';
                     var ps = 1;
                     var ran = tt / ps;
                     var mo = tt % ps;
-                    if (mo != 0) {
-                        ran = ran + 1;
-                    }
-                    for (var i = 1; i < ran + 1; i++) {
-
-                        rows += "<li class='page-item'><a class='page-link active' onclick='Phantrang(" + i + ")'>" + i + "</a></li>";
-                    }
-                    $('#Id_pagination').append(rows);
 
                 }, //End of AJAX Success function
 

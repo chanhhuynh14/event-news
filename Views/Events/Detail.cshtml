@@ -108,8 +108,21 @@
                         <input class="form-control" placeholder="Search Here ..." name="srch-term" id="srch-term" type="text">
                         <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </div>
+                </div>
+                <div class="card-body">
+                    @if (@ViewBag.UserName != null)
+                    {
+                        <p>Hi</p>
+                        <p id="id_post" hidden>@ViewBag.id_post</p>
+                        <p id="id_user" hidden>@ViewBag.ID</p>
+                        <p>Name: @ViewBag.UserName</p>
+                        <p>Email: @ViewBag.Email</p>
+                        <a href="@Url.Action("Logout","Events")" class="btn btn-warning">Logout</a>
+                    }
                 </div><!-- .search-box end -->
+                <button class="btn btn-danger btn-lg btn-block" type="submit" id="btnSave">Đăng ký sự kiện!</button>
                 <div class="cate-box">
+
                     <h3 class="title" style="color: red;">Đăng ký tham gia nào!!</h3>
                     <form id="test-form" method="GET" action="https://script.google.com/macros/s/AKfycbw9VH8G4g-Myu-itFEMzrmxXsCK6wMKGs-UEFtaFkv8gcJ3ZMA/exec">
                         @*<div class="group">
@@ -156,17 +169,17 @@
                     <h3 class="title">Các sự kiện khác</h3>
                     <div class="abc">
                         <div class="post-item">
-            <div class="post-img">
-                <a href="terms-details.html"><img src="img/sm1.jpg" alt="" title="News image"></a>
-            </div>
-            <div class="post-desc">
-                <h4><a href="terms-details.html">Raken develops reporting The software</a></h4>
-                <span class="duration">
-                    <i class="fa fa-clock-o" aria-hidden="true"></i> 4 Years
-                </span>
-                <span class="price">Price: <span>$350</span></span>
-            </div>
-        </div> <!-- .post-item end -->
+                            <div class="post-img">
+                                <a href="terms-details.html"><img src="img/sm1.jpg" alt="" title="News image"></a>
+                            </div>
+                            <div class="post-desc">
+                                <h4><a href="terms-details.html">Raken develops reporting The software</a></h4>
+                                <span class="duration">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i> 4 Years
+                                </span>
+                                <span class="price">Price: <span>$350</span></span>
+                            </div>
+                        </div> <!-- .post-item end -->
                     </div>
                 </div>
                 <div class="tags-cloud clearfix">
@@ -283,7 +296,7 @@
     </script>
     @*END Convert HTML*@
     <script>
-        $(document).ready(function (){
+        $(document).ready(function () {
             $.ajax({
                 type: "GET",
                 url: 'http://sukienhutech.com/api/NewsAPI/GetAllNews',
@@ -351,7 +364,7 @@
             });
         });
     </script>
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         $(document).ready(function () {
             var submit = $("button[type='submit']");
             submit.click(function () {
@@ -373,7 +386,37 @@
                 return false;
             });
         });
+    </script>*@
+    @*/////Test thử Nút đăng ký*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var now = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('.')[0];//hàm lấy thời gian hiện tại
+            var id_user = parseInt($('#id_user').text().trim(), 10);//hàm lấy number, còn để lấy string ta dùng .text() thôi 
+            var id_post = parseInt($('#id_post').text().trim(), 10);
+
+            $("#btnSave").click(function () {
+                $.ajax({ 
+                    type: "POST",
+                    url: "/api/DangKySV_SK_API/PostNewNews",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        ID_SV: id_user,
+                        ID_Events: id_post,
+                        Status: 1, //1 là True 0 là False
+                        Checkin: now,
+                    }),
+                    success: function (data) {
+                        alert('ĐÃ ĐĂNG KÝ SỰ KIỆN THÀNH CÔNG!');
+                    },
+                    error: function (error) {
+                        alert("CÓ GÌ ĐÓ SAI SAI");
+                    }
+                })
+            });
+        });
     </script>
+    @*END- Test thử Nút đăng ký*@
+
     <script>
 
         var url = window.location.href;
@@ -446,7 +489,7 @@
             }
 
         });
-      
+
     </script>
 </div>
 <script type="text/javascript">
